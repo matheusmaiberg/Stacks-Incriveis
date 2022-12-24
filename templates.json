@@ -3,16 +3,30 @@
     "templates": 
         [
             {
-        "type": 2,
-        "title": "Traefik",
-        "name": "traefik",
-        "note": "You can use this field to record extra information about a template.",
-        "website": "https://traefik.com",
-        "description": "Servidor web para gerenciamento de proxy reverso para expor seus serviços em dominios e subdominios.",
-        "categories": ["Webserver"],
-        "platform": "linux",
-        "logo": "https://gitlab.com/uploads/-/system/project/avatar/22066180/traefik.logo.png",
-        "repository": {"url": "https://github.com/matheusmaiberg/one-click-stacks","stackfile": "portainer/portainer-exposed.yml"}   
+                "type": 2,
+                "title": "Traefik",
+                "name": "traefik",
+                "note": "<h1>Traefik</h1><p>",
+                "website": "https://doc.traefik.io/traefik/",
+                "description": "Servidor web para gerenciamento de proxy reverso para expor seus serviços em dominios e subdominios.",
+                "categories": ["Webserver"],
+                "platform": "linux",
+                "logo": "https://gitlab.com/uploads/-/system/project/avatar/22066180/traefik.logo.png",
+                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
+                                 "stackfile": "traefik/traefik.yml"}   
+            },
+            {
+                "type": 2,
+                "title": "n8n",
+                "name": "n8n",
+                "note": "<h1>n8n</h1><p>",
+                "website": "https://n8n.io/",
+                "description": "Ferramenta poderosa de automação para conectar qualquer serviço a outro via Webhooks e Api.",
+                "categories": ["Automação"],
+                "platform": "linux",
+                "logo": "https://i.imgur.com/HbXTiUF.jpg",
+                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
+                                 "stackfile": "n8n/n8n.yml"}   
             }
         ]
 }      
