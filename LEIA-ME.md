@@ -1,20 +1,21 @@
 # One Click Stacks
-Stacks prontas pra você implantar na sua VPS com poucos cliques.
+## Stacks prontas pra você implantar na sua VPS com poucos cliques.
 
-Faça o deploy de mais de 1+ open-source apps com um unico comando no docker.
+Faça o deploy de mais de 5+ open-source apps usando os templates do Portainer ou com um unico comando para os mais avançados.
 
-- **Aberto** - Qualquer pessoa pode mandar os requests e consertar erros e fornecer atualizações para as versões das aplicações.
-- **It's just simple** - No user accounts to manage, no CMS software to upgrade, no plugins to install.
-
-## Features
+Aplicativos configurados e personalizados ao máximo para implantação em pouquissimos passos.
 
 - [x] Compatibilidade com Traefik
 - [x] Compatibilidade com Portainer
-- [x] No need to manage configuration files
-- [x] Distributed storage compatibility (GlusterFS, Ceph, NFS) with the env `VOLUME_PATH=/mnt/storage_mountpoint/`
+- [x] Sem necessidade de gerenciar .envs, mas com opção ainda disponivel para quem precisar
+- [x] Compatibilidade com distribuição de armazenamento (GlusterFS, Ceph, NFS) em a variavel `VOLUME_PATH=/mnt/storage_mountpoint/`
+
+- **Aberto para contribuição** - Qualquer pessoa pode mandar os requests e consertar erros e fornecer atualizações para as versões das aplicações.
+- **Implantação simples** - Stacks prontas, com documentação e detalhes sobre cada váriavel em português.
+- **Compatibilidade com Swarm e Portainer** - Templates prontos para produção com tudo semi configurado para deploy em servidores pronto para uso.
 
 ## Primeiros passos
-### Documentação para noobs e intermediarios em docker compose.
+### Documentação para noobs e intermediários em docker compose.
 São usadas variáveis para que você economize tempo ao setar varios aplicativos e não precise digitar seu email ou senha todas as vezes que for fazer o deploy de uma stack.
 
 <details><summary>Veja aqui as variáveis padrão do one click stacks.</summary>
@@ -28,6 +29,7 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
 - **NUMBER** - Uma aplicação pode ter varias instancias rodando, -1 -2 -3 -4, se não alterada o padrão será -1. Ex: Portainer-1
 - **VERSION** - A versão da aplicação a ser usada no container, se não alterada será usada a ultima versão estável do aplicativo.
 - **TRUSTED_IPS** - IP dos servidores que vão se conectar a suas aplicações, se não alterado o padrão sera somente o localhost.
+- **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt. SUPER IMPORTANTE
 - **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt. SUPER IMPORTANTE
     
 </details>
@@ -54,12 +56,13 @@ sudo apt-get install \
 
 ### 2. Deploy Portainer
 ```bash
+curl 
 ```
 
 ### 3. Deploy Traefik
 ```bash
 docker swarm init
-docker network create --driver=overlay traefik-net
+docker network create --driver=overlay traefik-public
 docker stack deploy -c stacks/traefik.yml traefik
 ```
 ### 4. Check your HTTP and HTTPS ports

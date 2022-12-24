@@ -6,7 +6,7 @@
                 "type": 2,
                 "title": "Traefik",
                 "name": "traefik",
-                "note": "<h1>Traefik</h1><p>",
+                "note": "<h2>Traefik</h2><p>",
                 "website": "https://doc.traefik.io/traefik/",
                 "description": "Servidor web para gerenciamento de proxy reverso para expor seus serviços em dominios e subdominios.",
                 "categories": ["Webserver"],
@@ -19,7 +19,7 @@
                 "type": 2,
                 "title": "n8n",
                 "name": "n8n",
-                "note": "<h1>n8n</h1><p>",
+                "note": "<h2>n8n</h2><p>",
                 "website": "https://n8n.io/",
                 "description": "Ferramenta poderosa de automação para conectar qualquer serviço a outro via Webhooks e Api.",
                 "categories": ["Automação"],
@@ -27,6 +27,32 @@
                 "logo": "https://i.imgur.com/HbXTiUF.jpg",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
                                  "stackfile": "n8n/n8n.yml"}   
+            },
+            {
+                "type": 2,
+                "title": "Portainer",
+                "name": "portainer",
+                "note": "<h2>Portainer</h2><p>",
+                "website": "https://portainer.io/",
+                "description": "Ferramenta de gerenciamento de aplicações em container e clusters como Docker e Kubernetes.",
+                "categories": ["Gerenciamento de Servidor"],
+                "platform": "linux",
+                "logo": "https://i.imgur.com/729Hh3P.png",
+                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
+                                 "stackfile": "portainer/portainer.yml"}   
+            },
+            {
+                "type": 2,
+                "title": "Chatwoot",
+                "name": "chatwoot",
+                "note": "<h2>Chatwoot</h2><p>",
+                "website": "https://chatwoot.com/",
+                "description": "Ferramenta de chat multicanais, com suporte para WhatsApp, Instagram e Telegram.",
+                "categories": ["Chatbot"],
+                "platform": "linux",
+                "logo": "https://play-lh.googleusercontent.com/5t-CLvEg-ylq7j2eGpokJKBdOB-nz1G9qAb74G2ZCSHzwqkyX-iHdPBq_y7KfUiYGw2w",
+                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
+                                 "stackfile": "portainer/portainer.yml"}   
             }
         ]
 }      

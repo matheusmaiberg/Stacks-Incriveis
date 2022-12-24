@@ -1,4 +1,5 @@
 ##########################///Instrução para o deploy manual - ONE CLICK STACKS\\\###############################
+#          Essa versão não tem portas expostas, ou seja, não tem acesso pelo ipdoseuservidorvps:9000           #
 #                        para implantação manual baixe ou copie esse arquivo                                   #
 #                                   comando para o deploy manual                                               #
 #             DOMAIN=portainer.seudominio.com docker stack deploy -c portainer.yml portainer                   #
@@ -11,13 +12,7 @@ version: '3.8'
 services:
   portainer:
     image: ${IMAGE:-portainer/portainer-ce}:${VERSION:-2.16.2-alpine}
-    ## After traefik is installed erase the ports part with $ docker stack down portainer ##
-    ports:
-      - "8000:8000"
-      - "9000:9000"
-      - "9443:9443"
-    ## This is the limit of what shoud be erased. ##
-    command: -H tcp://tasks.agent:9001 --tlsskipverify --templates hhttps://raw.githubusercontent.com/matheusmaiberg/one-click-stacks/main/templates.json
+    command: -H tcp://tasks.agent:9001 --tlsskipverify --templates https://raw.githubusercontent.com/matheusmaiberg/one-click-stacks/main/templates.json
     volumes:
       - ${VOLUME_PATH}portainer:/data
     deploy:

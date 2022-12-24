@@ -1,11 +1,11 @@
 
-###############################///One Click Stacks manual deploy instructions\\\#######################################
-#                                               Command to deploy                                                     #
-#                        # DOMAIN=n8n.seudominio.com docker stack deploy -c n8n.yml n8n                               #
-#                                               Command to deploy                                                     #
-#                              never deploy withouth ACME_EMAIL variable declared                                     #
-#                                                                                                                     #
-#######################################################################################################################
+#########################///Instrução para o deploy manual - ONE CLICK STACKS\\\################################
+#                        para implantação manual baixe ou copie esse arquivo                                   #
+#                                   comando para o deploy manual                                               #
+#                        DOMAIN=n8n.seudominio.com docker stack deploy -c n8n.yml n8n                          #
+#                          Nunca faça deploy sem a variavel ACME_EMAIL declarada                               #
+#     Variavleis podem ser editadas em App templates >> Copy as Custom ou no serviço após ser implantado       #
+################################################################################################################
 
 version: '3.8'
 
