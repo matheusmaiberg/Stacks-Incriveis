@@ -28,7 +28,7 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
 - **NUMBER** - Uma aplicação pode ter varias instancias rodando, -1 -2 -3 -4, se não alterada o padrão será -1. Ex: Portainer-1
 - **VERSION** - A versão da aplicação a ser usada no container, se não alterada será usada a ultima versão estável do aplicativo.
 - **TRUSTED_IPS** - IP dos servidores que vão se conectar a suas aplicações, se não alterado o padrão sera somente o localhost.
-- **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt.
+- **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt. SUPER IMPORTANTE
     
 </details>
 
