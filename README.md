@@ -24,7 +24,7 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
 - **SMTP_SENDER** - Email que irá aparecer quando se envia um email novo pelo servidor. Ex: nao-responda@gmail.com
 - **SMTP_SERVER** - Endereço do servidor SMTP que irá enviar os emails. Ex: gmail.smtp.com ou mail.seudominio.com
 - **SMTP_USER** - Usuário que ira logar no servidor SMTP, normalmente é seu email principal. Ex: seuemail@gmail.com
-- **SMTP_PASSWORD** - Senha do seu email ou senha de aplicativo. [Saiba mais sobre senhas de aplicativo] (https://atendimento.tecnospeed.com.br/hc/pt-br/articles/4418115119127-Como-criar-senha-de-aplicativo-para-email)
+- **SMTP_PASSWORD** - Senha do seu email ou senha de aplicativo. [Saiba mais sobre senhas de aplicativo](https://atendimento.tecnospeed.com.br/hc/pt-br/articles/4418115119127-Como-criar-senha-de-aplicativo-para-email)
 - **NUMBER - Uma aplicação pode ter varias instancias rodando, -1 -2 -3 -4, se não alterada o padrão será -1. Ex: Portainer-1
     
 </details>
