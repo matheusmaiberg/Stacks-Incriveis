@@ -1,0 +1,18 @@
+{
+    "version": "2",
+    "templates": 
+        [
+            {
+        "type": 2,
+        "title": "Traefik",
+        "name": "traefik",
+        "note": "You can use this field to record extra information about a template.",
+        "website": "https://traefik.com",
+        "description": "Servidor web para gerenciamento de proxy reverso para expor seus serviços em dominios e subdominios.",
+        "categories": ["Webserver"],
+        "platform": "linux",
+        "logo": "https://gitlab.com/uploads/-/system/project/avatar/22066180/traefik.logo.png",
+        "repository": {"url": "https://github.com/matheusmaiberg/one-click-stacks","stackfile": "portainer/portainer-exposed.yml"}   
+            }
+        ]
+}      
