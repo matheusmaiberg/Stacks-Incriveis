@@ -19,6 +19,9 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
 
 <details><summary>Veja aqui as variáveis padrão do one click stacks.</summary>
     
+- **DOMAIN** - Seu dominio padrão. Ex: meu dominio.com.br
+- **SUBDOMAIN** - Somente a parte que ira antes do seu dominio, para facitar a instalação de cada aplicação. Ex: portainer.subdominio.com
+
 - **SMTP_SENDER** - Email que irá aparecer quando se envia um email novo pelo servidor. Ex: nao-responda@gmail.com
 - **SMTP_SERVER** - Endereço do servidor SMTP que irá enviar os emails. Ex: gmail.smtp.com ou mail.seudominio.com
 - **SMTP_USER** - Usuário que ira logar no servidor SMTP, normalmente é seu email principal. Ex: seuemail@gmail.com
