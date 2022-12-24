@@ -28,6 +28,8 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
     
 </details>
 
+Variáveis também serão disponivilzadas em arquivos .env para maior controle para quem quiser implantar pelo docker stack compose ou via interface web do portainer.
+
 ## Preparando tudo
 Setando as váriaveis que irão ser usadas para a maioria das aplicações usadas nas stacks.
 
