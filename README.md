@@ -10,24 +10,44 @@ Faça o deploy de mais de 1+ open-source apps com um unico comando no docker.
 - [x] No need to manage configuration files
 - [x] Distributed storage compatibility (GlusterFS, Ceph, NFS) with the env `VOLUME_PATH=/mnt/storage_mountpoint/`
 
-## Get started
+## Preparando tudo
 
+
+### 1. Deploy Docker
 ```bash
-# 1. Deploy traefik
+sudo apt-get update
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+```
+```bash
+ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+[Documentação Docker](https://docs.docker.com/engine/install/ubuntu/)
+
+### 2. Deploy Portainer
+```bash
+```
+
+### 3. Deploy traefik
+```bash
 docker swarm init
 docker network create --driver=overlay traefik-net
 docker stack deploy -c stacks/traefik.yml traefik
-
-# 2. Check your HTTP and HTTPS ports
+```
+### 4. Check your HTTP and HTTPS ports
 curl https://ipv4.am.i.mullvad.net/port/80
 curl https://ipv4.am.i.mullvad.net/port/443
 
-# 3. Deploy a stack
+### 5. Deploy a stack
 DOMAIN=<mydomain.com> docker stack deploy -c <stack.yml> <name>
 
-# Example
+### Example
 DOMAIN=ghost.example.com docker stack deploy -c stacks/ghost.yml ghost
-```
+
 
 ## Support me
 
