@@ -3,6 +3,9 @@ Stacks prontas pra você implantar na sua VPS com poucos cliques.
 
 Faça o deploy de mais de 1+ open-source apps com um unico comando no docker.
 
+- **Aberto** - Qualquer pessoa pode mandar os requests e consertar erros e fornecer atualizações para as versões das aplicações.
+- **It's just simple** - No user accounts to manage, no CMS software to upgrade, no plugins to install.
+
 ## Features
 
 - [x] Compatibilidade com Traefik
@@ -10,8 +13,21 @@ Faça o deploy de mais de 1+ open-source apps com um unico comando no docker.
 - [x] No need to manage configuration files
 - [x] Distributed storage compatibility (GlusterFS, Ceph, NFS) with the env `VOLUME_PATH=/mnt/storage_mountpoint/`
 
-## Preparando tudo
+## Primeiros passos
+### Documentação para noobs e intermediarios em docker compose.
+São usadas variáveis para que você economize tempo ao setar varios aplicativos e não precise digitar seu email ou senha todas as vezes que for fazer o deploy de uma stack.
 
+<details><summary>Veja aqui as variáveis padrão do one click stacks.</summary>
+    
+- **SMTP_SENDER** - Email que irá aparecer quando se envia um email novo pelo servidor. Ex: nao-responda@gmail.com
+- **SMTP_SERVER** - Endereço do servidor SMTP que irá enviar os emails. Ex: gmail.smtp.com ou mail.seudominio.com
+- **SMTP_USER** - Usuário que ira logar no servidor SMTP, normalmente é seu email principal. Ex: seuemail@gmail.com
+- **SMTP_PASSWORD** - No user accounts to manage, no CMS software to upgrade, no plugins to install.
+    
+</details>
+
+## Preparando tudo
+Setando as váriaveis que irão ser usadas para a maioria das aplicações usadas nas stacks.
 
 ### 1. Deploy Docker
 ```bash
@@ -32,7 +48,7 @@ sudo apt-get install \
 ```bash
 ```
 
-### 3. Deploy traefik
+### 3. Deploy Traefik
 ```bash
 docker swarm init
 docker network create --driver=overlay traefik-net
