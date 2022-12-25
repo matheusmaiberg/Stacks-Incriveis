@@ -14,7 +14,7 @@ services:
     command:
       # - --log.level=DEBUG
       - --providers.docker
-      - --providers.docker.network=traefik-net
+      - --providers.docker.network=traefik-public
       - --providers.docker.exposedByDefault=false
       - --providers.docker.swarmMode=true
       - --providers.docker.endpoint=unix:///var/run/docker.sock
