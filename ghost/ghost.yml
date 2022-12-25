@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  ghost:
+    image: ghost:4-alpine
+    restart: always
+    ports:
+      - 2300:2368
+    environment:
+      # see https://ghost.org/docs/config/#configuration-options
+      database__client: mysql
+      database__connection__host: 127.0.0.1
+      database__connection__user: ghost
+      database__connection__password: ghost
+      database__connection__database: ghost
+      url: https://${SUBDOMAIN_GHOST:-ghost}.${DOMAIN:-localhost}
+    networks:
+      - internal
+      - traefik-public
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.ghost-${NUMBER:-1}.rule=Host(`${SUBDOMAIN_GHOST}.${DOMAIN:-localhost}`)
+        - traefik.http.routers.ghost-${NUMBER:-1}.entrypoints=${SCHEME:-https}
+        - traefik.http.routers.ghost-${NUMBER:-1}.service=ghost-${NUMBER:-1}
+        - traefik.http.routers.ghost-${NUMBER:-1}.tls.certresolver=letsencrypt
+        - traefik.http.services.ghost-${NUMBER:-1}.loadbalancer.server.port=2368
+      mode: replicated
+      replicas: 1
+  ghost_database:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=myp@ssw0rd
+    networks:
+      - internal
+
+volumes:
+  ghost_database:
+
+networks:
+  internal:
+    driver: overlay
+    attachable: true
+  ghost:
+    external: true
+    name: traefik-public
