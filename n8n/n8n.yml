@@ -23,9 +23,9 @@ services:
     environment:
       - NODE_ENV=production
       - N8N_PROTOCOL=${SCHEME:-https}
-      - N8N_HOST=${DOMAIN:-n8n.localhost}
-      - WEBHOOK_TUNNEL_URL=${SCHEME:-https}://${DOMAIN:-n8n.localhost}/
-      - VUE_APP_URL_BASE_API=${SCHEME:-https}://${DOMAIN:-n8n.localhost}/
+      - N8N_HOST=${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}
+      - WEBHOOK_TUNNEL_URL=${SCHEME:-https}://${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}/
+      - VUE_APP_URL_BASE_API=${SCHEME:-https}://${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}/
       - DB_TYPE=mariadb
       - DB_MYSQLDB_HOST=mariadb
       - DB_MYSQLDB_PORT=3306
@@ -47,7 +47,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.n8n-${NUMBER:-1}.rule=Host(`${DOMAIN:-n8n.localhost}`)
+        - traefik.http.routers.n8n-${NUMBER:-1}.rule=Host(`${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}`)
         - traefik.http.routers.n8n-${NUMBER:-1}.entrypoints=${SCHEME:-https}
         - traefik.http.routers.n8n-${NUMBER:-1}.service=n8n-${NUMBER:-1}
         - traefik.http.routers.n8n-${NUMBER:-1}.tls.certresolver=letsencrypt

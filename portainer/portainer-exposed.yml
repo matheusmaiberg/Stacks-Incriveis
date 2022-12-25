@@ -1,7 +1,7 @@
 ##########################///Instrução para o deploy manual - ONE CLICK STACKS\\\###############################
 #                        para implantação manual baixe ou copie esse arquivo                                   #
 #                                   comando para o deploy manual                                               #
-#             DOMAIN=portainer.seudominio.com docker stack deploy -c portainer.yml portainer                   #
+#      SUBDOMAIN_PORTAINER=portainer DOMAIN=seudominio.com docker stack deploy -c portainer.yml portaine       #
 #                          Nunca faça deploy sem a variavel ACME_EMAIL declarada                               #
 #      Variaveis podem ser editadas em App templates >> Copy as Custom ou no serviço após ser implantado       #
 ################################################################################################################
@@ -17,13 +17,13 @@ services:
       - "9000:9000"
       - "9443:9443"
     ## This is the limit of what shoud be erased. ##
-    command: -H tcp://tasks.agent:9001 --tlsskipverify --templates hhttps://raw.githubusercontent.com/matheusmaiberg/one-click-stacks/main/templates.json
+    command: -H tcp://tasks.agent:9001 --tlsskipverify --templates https://raw.githubusercontent.com/matheusmaiberg/one-click-stacks/main/templates.json
     volumes:
       - ${VOLUME_PATH}portainer:/data
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.portainer-${NUMBER:-1}.rule=Host(`${DOMAIN:-portainer.localhost}`)
+        - traefik.http.routers.portainer-${NUMBER:-1}.rule=Host(`${SUBDOMAIN_PORTAINER}.${DOMAIN:-localhost}`)
         - traefik.http.routers.portainer-${NUMBER:-1}.entrypoints=${SCHEME:-https}
         - traefik.http.routers.portainer-${NUMBER:-1}.service=portainer-${NUMBER:-1}
         - traefik.http.routers.portainer-${NUMBER:-1}.tls.certresolver=letsencrypt

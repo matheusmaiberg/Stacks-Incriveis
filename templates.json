@@ -6,7 +6,7 @@
                 "type": 2,
                 "title": "Traefik",
                 "name": "traefik",
-                "note": "<h2>Traefik</h2><p>",
+                "note": "<h2>Traefik</h2><p>Defina as variaveis subdominio e dominio</p><br><p>$ export SUBDOMAIN_TRAEFIK=portainer</p><br><p>export DOMAIN=seudominio.com.br</p><br>No seu sistema.<br><br><Clique em Deploy <b>the Stack</b>",
                 "website": "https://doc.traefik.io/traefik/",
                 "description": "Servidor web para gerenciamento de proxy reverso para expor seus serviços em dominios e subdominios.",
                 "categories": ["Webserver"],
@@ -24,7 +24,7 @@
                 "description": "Ferramenta poderosa de automação para conectar qualquer serviço a outro via Webhooks e Api.",
                 "categories": ["Automação"],
                 "platform": "linux",
-                "logo": "https://i.imgur.com/HbXTiUF.jpg",
+                "logo": "https://uploads-ssl.webflow.com/5fcdef3cc7cf1d1e14b4ba0c/5ff1cd94f528ec2a29875d5f_n8n-io.png",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
                                  "stackfile": "n8n/n8n.yml"}   
             },
@@ -39,7 +39,7 @@
                 "platform": "linux",
                 "logo": "https://i.imgur.com/729Hh3P.png",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
-                                 "stackfile": "portainer/portainer.yml"}   
+                                 "stackfile": "portainer/portainer-exposed.yml"}   
             },
             {
                 "type": 2,
@@ -52,7 +52,20 @@
                 "platform": "linux",
                 "logo": "https://play-lh.googleusercontent.com/5t-CLvEg-ylq7j2eGpokJKBdOB-nz1G9qAb74G2ZCSHzwqkyX-iHdPBq_y7KfUiYGw2w",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
-                                 "stackfile": "portainer/portainer.yml"}   
+                                 "stackfile": "chatwoot/chatwoot.yml"}   
+            },
+            {
+                "type": 2,
+                "title": "Passbolt",
+                "name": "passbolt",
+                "note": "<h2>Passbolt</h2><p>",
+                "website": "https://passbolt.com/",
+                "description": "Gerenciamento e compartilhamento de maneira segura, tenha total controle das suas senhas e dados.",
+                "categories": ["Passbolt"],
+                "platform": "linux",
+                "logo": "",
+                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
+                                 "stackfile": "passbolt/passbolt.yml"}   
             }
         ]
 }      
