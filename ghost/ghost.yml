@@ -12,8 +12,8 @@ services:
       database__client: mysql
       database__connection__host: 127.0.0.1
       database__connection__user: ghost
-      database__connection__password: ghost
-      database__connection__database: ghost
+      database__connection__password: myp@ssw0rd
+      database__connection__database: myp@ssw0rd
       url: https://${DOMAIN:-localhost}
     networks:
       - internal
@@ -28,7 +28,8 @@ services:
         - traefik.http.services.ghost-${NUMBER:-1}.loadbalancer.server.port=2368
       mode: replicated
       replicas: 1
-  ghost_database:
+
+  msqldb:
     image: mysql:8.0
     restart: always
     environment:

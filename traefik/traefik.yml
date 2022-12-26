@@ -1,7 +1,7 @@
 ##########################///Instrução para o deploy manual - ONE CLICK STACKS\\\###############################
 #                        para implantação manual baixe ou copie esse arquivo                                   #
 #                                   comando para o deploy manual                                               #
-#                DOMAIN=traefik.seudominio.com docker stack deploy -c traefik.yml traefik                      #
+#                ACME_EMAIL=seuemail@gmail.com docker stack deploy -c traefik.yml traefik                      #
 #                          Nunca faça deploy sem a variavel ACME_EMAIL declarada                               #
 #     Variavleis podem ser editadas em App templates >> Copy as Custom ou no serviço após ser implantado       #
 ################################################################################################################
