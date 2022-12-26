@@ -87,4 +87,4 @@ DOMAIN=n8n.seudominio.com.br docker stack deploy -c stacks/n8n.yml n8n
 Na stack do container já tem uma configuração que as stacks são vinculadas com o arquivo templates.json da one click stacks.
 
 Você pode acessar as stacks de dentro do portainer, facilitando ainda mais o deploy e também garante que todas stacks estejam sempre atualizadas.
-![](https://user-images.githubusercontent.com/119268809/209489900-fbf24114-6587-4771-b9b4-401ac6bf8f5b.png)
+![](https://user-images.githubusercontent.com/119268809/209490086-f20a83fc-a7bb-4684-a6fa-d712bc17b48e.png)
