@@ -1,5 +1,5 @@
 # Stacks Incriveis
-## Stacks prontas pra você implantar na sua VPS com poucos cliques. Chega de ficar procurando no google por arquivos do docker compose para implantar no seu servidor.
+### Stacks prontas pra você implantar na sua VPS com poucos cliques. Chega de ficar procurando no google por arquivos do docker compose para implantar no seu servidor.
 
 Faça o deploy de mais de 5+ open-source apps usando os templates do Portainer ou com um unico comando. E para quem quer segurança com suporte a secrets do docker.
 
