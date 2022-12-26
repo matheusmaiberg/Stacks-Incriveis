@@ -8,8 +8,10 @@ Aplicativos configurados e personalizados ao máximo para implantação em pouqu
 - [x] Compatibilidade com Traefik
 - [x] Compatibilidade com Portainer
 - [x] Sem necessidade de gerenciar .envs, mas com opção ainda disponivel para quem precisar
-- [x] Compatibilidade com distribuição de armazenamento (GlusterFS, Ceph, NFS) em a variavel `VOLUME_PATH=/mnt/storage_mountpoint/`
+- [x] Compatibilidade com distribuição de armazenamento (GlusterFS, Ceph, NFS) usando `VOLUME_PATH=/volume/final/`
+- [x] Já prontas para instalacão via comando DOMAIN=subdominio.seudominio.com e com diponibilidade do arquivo .env para produção.
 
+### Contribua também
 - **Aberto para contribuição** - Qualquer pessoa pode mandar os requests e consertar erros e fornecer atualizações para as versões das aplicações.
 - **Implantação simples** - Stacks prontas, com documentação e detalhes sobre cada váriavel em português.
 - **Compatibilidade com Swarm e Portainer** - Templates prontos para produção com tudo semi configurado para deploy em servidores pronto para uso.
@@ -21,7 +23,7 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
 <details><summary>Veja aqui as variáveis padrão do one click stacks.</summary>
     
 - **DOMAIN** - Seu dominio padrão. Ex: seudominio.com.br
-- **SUBDOMAIN** - Somente a parte que ira antes do seu dominio, para facitar a instalação de cada aplicação. Ex: portainer.seudominio.com.br
+- **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt. SUPER IMPORTANTE
 - **SMTP_SENDER** - Email que irá aparecer quando se envia um email novo pelo servidor. Ex: nao-responda@gmail.com
 - **SMTP_SERVER** - Endereço do servidor SMTP que irá enviar os emails. Ex: gmail.smtp.com ou mail.seudominio.com
 - **SMTP_USER** - Usuário que ira logar no servidor SMTP, normalmente é seu email principal. Ex: seuemail@gmail.com
@@ -29,8 +31,6 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
 - **NUMBER** - Uma aplicação pode ter varias instancias rodando, -1 -2 -3 -4, se não alterada o padrão será -1. Ex: Portainer-1
 - **VERSION** - A versão da aplicação a ser usada no container, se não alterada será usada a ultima versão estável do aplicativo.
 - **TRUSTED_IPS** - IP dos servidores que vão se conectar a suas aplicações, se não alterado o padrão sera somente o localhost.
-- **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt. SUPER IMPORTANTE
-- **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt. SUPER IMPORTANTE
     
 </details>
 
@@ -54,31 +54,36 @@ sudo apt-get install \
 ```bash
 docker swarm init
 docker network create --driver=overlay traefik-public
-docker stack deploy -c stacks/traefik.yml traefik
+docker stack deploy -c traefik/traefik.yml traefik
 ```
 [Documentação Docker](https://docs.docker.com/engine/install/ubuntu/)
 
-### 2. Deploy Portainer
+### 2. Deploy Portainer e traefik
 ```bash
-curl https://raw.githubusercontent.com/matheusmaiberg/one-click-stacks/main/portainer/portainer-exposed.yml
+ACME_EMAIL=seuemail@gmail.com DOMAIN=portainer.subdominio.com.br docker stack deploy -c portainer/portainer.yml portainer
+docker stack deploy -c traefik/traefik.yml traefik
 ```
 
-### 3. Deploy do Traefik
-Clique em 
-
+### 3. Cheque se as portais HTTP and HTTPS estão expostas pelo Traefik
 ```bash
-docker swarm init
-docker network create --driver=overlay traefik-public
-docker stack deploy -c stacks/traefik.yml traefik
-```
-### 4. Check your HTTP and HTTPS ports
 curl https://ipv4.am.i.mullvad.net/port/80
 curl https://ipv4.am.i.mullvad.net/port/443
+```
 
-### 5. Deploy a stack
-DOMAIN=<mydomain.com> docker stack deploy -c <stack.yml> <name>
+### 4. Acesse o portainer
+Acesso o endereço do seu VPS com o dominio dele pela porta 9000 http://00.00.00.00:9000 ou pelo subdominio portainer.seudominio.com.br
 
-### Example
-DOMAIN=ghost.example.com docker stack deploy -c stacks/ghost.yml ghost
+### 5. Faça o deploy das One Click Stacks
+```bash
+DOMAIN=<subdominio.meudominio.com.br> docker stack deploy -c <stack.yml> <nome>
+```
 
+### Exemplo
+```bash
+DOMAIN=n8n.seudominio.com.br docker stack deploy -c stacks/n8n.yml n8n
+```
 
+## Implantando pelo portainer (minha forma favorita)
+Na stack do container já tem uma configuração que as stacks são vinculadas com o arquivo templates.json da one click stacks.
+
+Você pode acessar as stacks de dentro do portainer, facilitando ainda mais o deploy e também garante que todas stacks estejam sempre atualizadas.
