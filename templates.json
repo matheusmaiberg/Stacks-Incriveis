@@ -6,7 +6,7 @@
                 "type": 2,
                 "title": "Traefik",
                 "name": "traefik",
-"note": "<h3>Guidelines para deploy Traefik</h3><p>Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p><p><code>export SUBDOMAIN_TRAEFIK=traefik</code><br><code>export DOMAIN=seudominio.com.br</code><br><code>export ACME_EMAIL=seuemail@gmail.com</code></p><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p>",
+"note": "<h3>Guidelines para deploy Traefik</h3><p>Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p><p><code>SUBDOMAIN_TRAEFIK=traefik</code><br><code>DOMAIN=seudominio.com.br</code><br><code>ACME_EMAIL=seuemail@gmail.com</code></p><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p>",
                 "website": "https://doc.traefik.io/traefik/",
                 "description": "Servidor web para gerenciamento de proxy reverso para expor seus serviços em dominios e subdominios.",
                 "categories": ["Webserver"],
@@ -19,7 +19,7 @@
                 "type": 2,
                 "title": "n8n",
                 "name": "n8n",
-                "note": "<h3>Guidelines para deploy n8n</h3><hr noshade><p> Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p><code> export SUBDOMAIN_N8N=n8n <br>export DOMAIN=seudominio.com.br <br>export ACME_EMAIL=seuemail@gmail.com</code><hr noshade><p> Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção enviroment com o container rodando.</p><code> export SMTP_SERVER=smtp.gmail.com <br>export SMTP_PORT=465 <br>export SMTP_USER=email@dominio.com.br <br>export SMTP_PASSWORD=suasenhasupersegura export SMTP_SENDER=naoresponda@seudominio.com</code><hr noshade><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p></b><p>",
+                "note": "<h3>Guidelines para deploy n8n</h3><hr noshade><p> Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p><code> SUBDOMAIN_N8N=n8n <br>DOMAIN=seudominio.com.br <br>ACME_EMAIL=seuemail@gmail.com</code><hr noshade><p> Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção enviroment com o container rodando.</p><code> SMTP_SERVER=smtp.gmail.com <br>SMTP_PORT=465 <br>SMTP_USER=email@dominio.com.br <br>SMTP_PASSWORD=suasenhasupersegura SMTP_SENDER=naoresponda@seudominio.com</code><hr noshade><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p></b><p>",
                 "website": "https://docs.n8n.io/hosting/",
                 "description": "Ferramenta poderosa de automação para conectar qualquer serviço a outro via Webhooks e Api.",
                 "categories": ["Automação"],
@@ -63,9 +63,22 @@
                 "description": "Gerenciamento e compartilhamento de maneira segura, tenha total controle das suas senhas e dados.",
                 "categories": ["Passbolt"],
                 "platform": "linux",
-                "logo": "https://i.imgur.com/S6GsK8U.png",
+                "logo": "https://cdn-images-1.medium.com/fit/c/336/336/1*O4smO4FDeybq_DRNj0rozQ.png",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
                                  "stackfile": "passbolt/passbolt.yml"}   
+            },
+            {
+                "type": 2,
+                "title": "Baserow",
+                "name": "baserow",
+                "note": "<h2>Baserow</h2>",
+                "website": "https://baserow.com/",
+                "description": "Alternativa ao aitable.",
+                "categories": ["Baserow"],
+                "platform": "linux",
+                "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAjVBMVEX///9FcKlWYnCa3f9qyv8Aos7BzeA3Z6U6aaaputPIy89KWGetsrje8/+U2//I7P+x4v9hx/8Ancyu3u2QzuXr+P/k9v+e3//D6v+k3f8hp9Eiq9O+4u9gu9uBmsBpibbt7vBcaHXR7//0+/8AmMmKzOPR2ufg5u9hgrMqYKFzkLq2xNrU3Ok4SFr29vekDQXKAAABjElEQVR4nO3ZyU4CQRiFURQFHHDAWXHEeXr/xzMtaRbGUlPS9SOes+3bqXy7Lmi1AAAAAAAAAAAA/pdRP2W/niQXufaKFu5vpBzUk3ZykumwcGE7YaueHKQWmRQqVKhQoUKFChUqVKhQocKQwpRJ4R+/4482U67qSXKRq1+0EABgoj/1D5sPRtGFR9sNK/uP26eFS41SqFChQoUKFSpUqFChQoUKZ6Vw3u/4V1sNC/+dBgCYQzvZxu/vJZ8PY8MmlgeZjsdfX8Pr1OA0uKx2vJzpZPz+cJAaKCxFoUKF8RQqVBhPoUKF8RQqnP3C7Dv+yV+54+9mG7/fv0k934kNAwDm020nxG119t1PRr929tCNcF+dvfLN2Y/TKewtRDh/L/z67J5ChQobpbCiUKHCZimsKFSosFkKKwp/WtjtBajv+F+PplPYWQnxVJ39/M2oM5VCAIDW62pJEYUXL2vlLIYUri2Wc6lQoUKFChUqVKhQoUKFChWGFc79Hf91vaSIQgAAAAAAAAAAgNnxBpeH9Z+JhPOYAAAAAElFTkSuQmCC",
+                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
+                                 "stackfile": "baserow/baserow.yml"}   
             }
         ]
 }      
