@@ -23,7 +23,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.portainer-${NUMBER:-1}.rule=Host(`${SUBDOMAIN_PORTAINER}.${DOMAIN:-localhost}`)
+        - traefik.http.routers.portainer-${NUMBER:-1}.rule=Host(`${DOMAIN:-localhost}`)
         - traefik.http.routers.portainer-${NUMBER:-1}.entrypoints=${SCHEME:-https}
         - traefik.http.routers.portainer-${NUMBER:-1}.service=portainer-${NUMBER:-1}
         - traefik.http.routers.portainer-${NUMBER:-1}.tls.certresolver=letsencrypt

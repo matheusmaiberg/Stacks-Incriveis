@@ -39,7 +39,7 @@
                 "platform": "linux",
                 "logo": "https://i.imgur.com/729Hh3P.png",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
-                                 "stackfile": "portainer/portainer-exposed.yml"}   
+                                 "stackfile": "portainer/portainer.yml"}   
             },
             {
                 "type": 2,
@@ -63,7 +63,7 @@
                 "description": "Gerenciamento e compartilhamento de maneira segura, tenha total controle das suas senhas e dados.",
                 "categories": ["Passbolt"],
                 "platform": "linux",
-                "logo": "",
+                "logo": "https://i.imgur.com/S6GsK8U.png",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
                                  "stackfile": "passbolt/passbolt.yml"}   
             }

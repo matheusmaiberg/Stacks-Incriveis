@@ -8,20 +8,20 @@ services:
     ports:
       - 2300:2368
     environment:
-      # see https://ghost.org/docs/config/#configuration-options
+      # Leia https://ghost.org/docs/config/#configuration-options
       database__client: mysql
       database__connection__host: 127.0.0.1
       database__connection__user: ghost
       database__connection__password: ghost
       database__connection__database: ghost
-      url: https://${SUBDOMAIN_GHOST:-ghost}.${DOMAIN:-localhost}
+      url: https://${DOMAIN:-localhost}
     networks:
       - internal
       - traefik-public
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.ghost-${NUMBER:-1}.rule=Host(`${SUBDOMAIN_GHOST}.${DOMAIN:-localhost}`)
+        - traefik.http.routers.ghost-${NUMBER:-1}.rule=Host(`${DOMAIN:-localhost}`)
         - traefik.http.routers.ghost-${NUMBER:-1}.entrypoints=${SCHEME:-https}
         - traefik.http.routers.ghost-${NUMBER:-1}.service=ghost-${NUMBER:-1}
         - traefik.http.routers.ghost-${NUMBER:-1}.tls.certresolver=letsencrypt
@@ -33,6 +33,13 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=myp@ssw0rd
+      - DB_MYSQLDB_PORT=3306
+      - DB_TYPE=mysql
+      - DB_MYSQLDB_HOST=localhost
+      - DB_MYSQLDB_PORT=3306
+      - DB_MYSQLDB_DATABASE=${MYSQL_DATABASE:-ghost}
+      - DB_MYSQLDB_USER=${MYSQL_USER:-ghost}
+      - DB_MYSQLDB_PASSWORD=${MYSQL_PASSWORD:-myp@ssw0rd}
     networks:
       - internal
 

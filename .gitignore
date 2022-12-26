@@ -1,2 +1,3 @@
 temp.json
 .devcontainer/devcontainer.json
+n8n/.env-server

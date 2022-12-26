@@ -22,14 +22,14 @@ services:
         chown -R 33:33 /var/www/passbolt/
         /usr/bin/wait-for.sh -t 0 mariadb:3306 -- /docker-entrypoint.sh
     environment:
-      - APP_FULL_BASE_URL=${SCHEME:-https}://${SUBDOMAIN_PASSBOLT:-passbolt}.${DOMAIN:-localhost}
+      - APP_FULL_BASE_URL=${SCHEME:-https}://${DOMAIN:-localhost}
       - DATASOURCES_DEFAULT_HOST=mariadb
       - DATASOURCES_DEFAULT_USERNAME=passbolt
       - DATASOURCES_DEFAULT_PASSWORD=myp@ssw0rd
       - DATASOURCES_DEFAULT_DATABASE=passbolt
       - DATASOURCES_DEFAULT_PORT=3306
       - PASSBOLT_REGISTRATION_PUBLIC=${PASSBOLT_REGISTRATION_PUBLIC:-false}
-      - EMAIL_DEFAULT_FROM=${SMTP_FROM:-admin@example.com}
+      - EMAIL_DEFAULT_FROM=${SMTP_SENDER:-admin@example.com}
       - EMAIL_TRANSPORT_DEFAULT_HOST=${SMTP_HOST}
       - EMAIL_TRANSPORT_DEFAULT_PORT=${SMTP_PORT:-587}
       - EMAIL_TRANSPORT_DEFAULT_USERNAME=${SMTP_USER}
@@ -42,7 +42,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.passbolt-${NUMBER:-1}.rule=Host(`${SUBDOMAIN_PASSBOLT:-passbolt}.${DOMAIN:-localhost}`)
+        - traefik.http.routers.passbolt-${NUMBER:-1}.rule=Host(`${DOMAIN:-localhost}`)
         - traefik.http.routers.passbolt-${NUMBER:-1}.entrypoints=${SCHEME:-https}
         - traefik.http.routers.passbolt-${NUMBER:-1}.service=passbolt-${NUMBER:-1}
         - traefik.http.routers.passbolt-${NUMBER:-1}.tls.certresolver=letsencrypt
@@ -74,4 +74,4 @@ networks:
     attachable: true
   traefik:
     external: true
-    name: traefik-net
+    name: traefik-public

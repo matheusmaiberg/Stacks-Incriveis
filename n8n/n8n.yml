@@ -23,9 +23,9 @@ services:
     environment:
       - NODE_ENV=production
       - N8N_PROTOCOL=${SCHEME:-https}
-      - N8N_HOST=${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}
-      - WEBHOOK_TUNNEL_URL=${SCHEME:-https}://${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}/
-      - VUE_APP_URL_BASE_API=${SCHEME:-https}://${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}/
+      - N8N_HOST=${DOMAIN:-localhost}
+      - WEBHOOK_TUNNEL_URL=${SCHEME:-https}://${DOMAIN:-localhost}/
+      - VUE_APP_URL_BASE_API=${SCHEME:-https}://${DOMAIN:-localhost}/
       - DB_TYPE=mariadb
       - DB_MYSQLDB_HOST=mariadb
       - DB_MYSQLDB_PORT=3306
@@ -38,7 +38,7 @@ services:
       - NODE_FUNCTION_ALLOW_EXTERNAL=${NODE_FUNCTION_ALLOW_EXTERNAL}
       - N8N_EMAIL_MODE=${N8N_EMAIL_MODE:-smtp}
       - N8N_SMTP_HOST=${SMTP_SERVER}
-      - N8N_SMTP_PORT-${SMTP_PORT:-584}
+      - N8N_SMTP_PORT-${SMTP_PORT:-587}
       - N8N_SMTP_USER=${SMTP_USER}
       - N8N_SMTP_PASS=${SMTP_PASSWORD}
       - N8N_SMTP_SENDER=${SMTP_SENDER:-naoresponda@exemplo.com.br}
@@ -47,7 +47,7 @@ services:
     deploy:
       labels:
         - traefik.enable=true
-        - traefik.http.routers.n8n-${NUMBER:-1}.rule=Host(`${SUBDOMAIN_N8N:-n8n}.${DOMAIN:-localhost}`)
+        - traefik.http.routers.n8n-${NUMBER:-1}.rule=Host(`${DOMAIN:-localhost}`)
         - traefik.http.routers.n8n-${NUMBER:-1}.entrypoints=${SCHEME:-https}
         - traefik.http.routers.n8n-${NUMBER:-1}.service=n8n-${NUMBER:-1}
         - traefik.http.routers.n8n-${NUMBER:-1}.tls.certresolver=letsencrypt
