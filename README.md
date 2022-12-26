@@ -1,15 +1,16 @@
-# One Click Stacks
-## Stacks prontas pra você implantar na sua VPS com poucos cliques.
+# Stacks Incriveis
+## Stacks prontas pra você implantar na sua VPS com poucos cliques. Chega de ficar procurando no google por arquivos do docker compose para implantar no seu servidor.
 
-Faça o deploy de mais de 5+ open-source apps usando os templates do Portainer ou com um unico comando para os mais avançados.
+Faça o deploy de mais de 5+ open-source apps usando os templates do Portainer ou com um unico comando. E para quem quer segurança com suporte a secrets do docker.
 
 Aplicativos configurados e personalizados ao máximo para implantação em pouquissimos passos.
 
 - [x] Compatibilidade com Traefik
 - [x] Compatibilidade com Portainer
+- [-] Compatibilidade com Secrets (desenvolvendo)
 - [x] Sem necessidade de gerenciar .envs, mas com opção ainda disponivel para quem precisar
-- [x] Compatibilidade com distribuição de armazenamento (GlusterFS, Ceph, NFS) usando `VOLUME_PATH=/volume/final/`
-- [x] Já prontas para instalacão via comando DOMAIN=subdominio.seudominio.com e com diponibilidade do arquivo .env para produção.
+- [x] Compatibilidade com (GlusterFS, Ceph, NFS) usando `VOLUME_PATH=/volume/final/`
+- [x] Já prontas para instalacão via comando DOMAIN=subdominio.seudominio.com e com diponibilidade do arquivo .env.
 
 ### Contribua também
 - **Aberto para contribuição** - Qualquer pessoa pode mandar os requests e consertar erros e fornecer atualizações para as versões das aplicações.
@@ -34,10 +35,12 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
     
 </details>
 
+Recomendado somente o uso de váriaveis em senhas para testes ou desenvolvimento, estou adicionando suporte a secrets por padrão para que você tenha mais segurança no deploy, como uso com clientes essas stacks, achei necessário adicionar o suporte a elas.
+
 Variáveis também serão disponivilzadas em arquivos .env para maior controle para quem quiser implantar pelo docker stack compose ou via interface web do portainer.
 
 ## Preparando tudo
-Setando as váriaveis que irão ser usadas para a maioria das aplicações usadas nas stacks.
+No ambiente de deploy, ou seja, fora dos testes recomendo fortemente o uso de secrets, que normalmente .
 
 ### 1. Deploy Docker
 ```bash
