@@ -65,9 +65,9 @@ docker network create --driver=overlay traefik-public
 
 ### 2. Deploy Portainer e traefik (superstack)
 ```bash
+SUBDOMINIO_PORTAINER=portainer \
 DOMINIO=seudominio.com.br \
 ACME_EMAIL=seuemail@gmail.com \
-SUBDOMINIO_PORTAINER=portainer.subdominio.com.br \
 docker stack deploy -c superstack/superstack.yml superstack
 ```
 
