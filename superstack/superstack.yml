@@ -1,0 +1,105 @@
+##########################///Instrução para o deploy manual - ONE CLICK STACKS\\\###############################
+#                        para implantação manual baixe ou copie esse arquivo                                   #
+#                                   comando para o deploy manual                                               #
+#          DOMINIO=portainer.seusite.com docker stack deploy -c superstack/superstack.yml superstack           #
+#                          Nunca faça deploy sem a variavel ACME_EMAIL declarada                               #
+#      Variaveis podem ser editadas em App templates >> Copy as Custom ou no serviço após ser implantado       #
+################################################################################################################
+
+version: '3.8'
+
+services:
+  traefik:
+      image: traefik:${VERSAO_TRAEFIK:-v2.9.5}
+      command:
+        - --log.level=ERROR
+        - --providers.docker
+        - --providers.docker.network=traefik-public
+        - --providers.docker.exposedByDefault=false
+        - --providers.docker.swarmMode=true
+        - --providers.docker.endpoint=unix:///var/run/docker.sock
+        - --entrypoints.http.address=:80
+        - --entrypoints.https.address=:443
+        - --entryPoints.http.proxyProtocol.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+        - --entryPoints.http.forwardedHeaders.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+        - --entryPoints.https.proxyProtocol.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+        - --entryPoints.https.forwardedHeaders.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+        - --entrypoints.http.http.redirections.entryPoint.to=https
+        - --entrypoints.http.http.redirections.entryPoint.scheme=https
+        - --entrypoints.http.http.redirections.entrypoint.permanent=true
+        - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+        - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-seuemail@gmail.com}
+        - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+        - --certificatesresolvers.leresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+        ### Descomenta Comandos para permitir frontend e api e (usuario nas labels)
+        #- --api
+        #- --api.dashboard=true
+      volumes:
+        - ${VOLUME_PATH}letsencrypt:/letsencrypt
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+      ports:
+        - {target: 80, published: 80, mode: host, protocol: tcp}
+        - {target: 443, published: 443, mode: host, protocol: tcp}
+      deploy:
+        mode: ${MODE:-replicated}
+        labels:
+        - traefik.enable=true
+        - traefik.http.services.traefik.loadbalancer.server.port=8080
+        - traefik.http.routers.traefik.tls.certresolver=le
+        ### Descomentar os comandos para permitir API e Frontend (crie um usuario)
+        ### Cria usuario e senha para o frontend ===>>> echo $(htpasswd -nb usuario senha) | sed -e s/\\$/\\$\\$/g
+        #- "traefik.http.middlewares.authtraefik.basicauth.users=usuario:senha"
+        #- traefik.http.middlewares.authtraefik.basicauth.users=admin
+        #- traefik.http.routers.traefik.middlewares=authtraefik
+        #- traefik.http.routers.traefik.service=api@internal
+        #- traefik.http.routers.traefik.rule=Host(`${SUBDOMINO_TRAEFIK:-traefik}.${DOMINIO:-seusite.com.br}`)
+      networks:
+        - traefik
+
+  portainer:
+    image: ${IMAGEM_PORTAINER:-portainer/portainer-ce}:${VERSAO_PORTAINER:-latest}
+    command: -H tcp://tasks.agent:9001 --tlsskipverify --templates https://raw.githubusercontent.com/matheusmaiberg/one-click-stacks/main/templates.json
+    volumes:
+      - ${VOLUME_PATH}portainer:/data
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.portainer-${NUMBER:-1}.rule=Host(`${SUBDOMINIO_PORTAINER:-portainer}.${DOMINIO:-seusite.com.br}`)
+        - traefik.http.routers.portainer-${NUMBER:-1}.entrypoints=${SCHEME:-https}
+        - traefik.http.routers.portainer-${NUMBER:-1}.service=portainer-${NUMBER:-1}
+        - traefik.http.routers.portainer-${NUMBER:-1}.tls.certresolver=letsencrypt
+        - traefik.http.services.portainer-${NUMBER:-1}.loadbalancer.server.port=9000
+      ### Edge
+        - traefik.http.routers.edge.rule=Host(`${SUBDOMINO_PORTAINER:-portainer}.${DOMINIO:-seusite.com.br}`)
+        - traefik.http.routers.edge.entrypoints=http
+        - traefik.http.services.edge.loadbalancer.server.port=8000
+        - traefik.http.routers.edge.service=edge
+      mode: replicated
+      replicas: 1
+    networks:
+      - internal
+      - traefik
+
+  agent:
+    image: portainer/agent:${VERSAO_AGENT:-latest}
+    environment:
+      - AGENT_CLUSTER_ADDR=tasks.agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    deploy:
+      mode: global
+    networks:
+      - internal
+
+volumes:
+  portainer:
+  letsencrypt:
+
+networks:
+  internal:
+    driver: overlay
+    attachable: true
+  traefik:
+    external: true
+    name: traefik-public

@@ -4,22 +4,9 @@
         [
             {
                 "type": 2,
-                "title": "Traefik",
-                "name": "traefik",
-                "note": "<html><div> <h2>O melhor gerenciador de proxy reverso</h2> <p> Essencial para rodar os templates do <a href='https://github.com/matheusmaiberg/one-click-stacks'>One Click Stacks</a> esse é o que vai controlar o backend da aplicação e que vai apontar todas as entradas dos subdominios para os containers. </p> <p> Documentação <a href='https://doc.traefik.io/traefik/providers/docker/'>Traefik</a>. </p> <h3>Guidelines para deploy Traefik</h3> <h4>Via linha de comando bash (Recomendado)</h4> <p> Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack. </p> <p> <code contenteditable='true'> ACME_EMAIL=seuemail@gmail.com \\<br> docker stack deploy -c local_da_stack/traefik.yml traefik </code> </p> <hr noshade> <h4>Via clonagem de template no Portainer</h4> <p> Volte na tela anterior e clique em <b>Copy as Custom</b>.<br> Salve o template como seu colocando um titulo e descrição. </p> <p> Depois clique em Stacks e de um nome para sua Stack.<br> Logo abaixo clique na quarta opção em <b>Custom Template</b> e selecione o template salvo.<br> Clique no botão add an enviroment variable e adicione a variável abaixo. </p> <p> <code contenteditable='true'> Name: ACME_EMAIL Value: seuemail@gmail.com </code> </p> <p> Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b>. </p></div></html>",
-                "website": "https://doc.traefik.io/traefik/",
-                "description": "Servidor web para gerenciamento de proxy reverso para expor seus serviços em dominios e subdominios.",
-                "categories": ["Webserver"],
-                "platform": "linux",
-                "logo": "https://gitlab.com/uploads/-/system/project/avatar/22066180/traefik.logo.png",
-                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
-                                 "stackfile": "traefik/traefik.yml"}   
-            },
-            {
-                "type": 2,
                 "title": "n8n",
                 "name": "n8n",
-                "note": "<h3>Guidelines para deploy n8n</h3><hr noshade><p> Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p><code> SUBDOMAIN_N8N=n8n <br>DOMAIN=seudominio.com.br <br>ACME_EMAIL=seuemail@gmail.com</code><hr noshade><p> Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção enviroment com o container rodando.</p><code> SMTP_SERVER=smtp.gmail.com <br>SMTP_PORT=465 <br>SMTP_USER=email@dominio.com.br <br>SMTP_PASSWORD=suasenhasupersegura SMTP_SENDER=naoresponda@seudominio.com</code><hr noshade><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p></b><p>",
+                "note": "<h3>Guidelines para deploy n8n</h3><hr noshade><p> Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p> SUBDOMAIN_N8N=n8n <br>DOMAIN=seudominio.com.br <br>ACME_EMAIL=seuemail@gmail.com<hr noshade><p> Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção enviroment com o container rodando.</p> SMTP_SERVER=smtp.gmail.com <br>SMTP_PORT=465 <br>SMTP_USER=email@dominio.com.br <br>SMTP_PASSWORD=suasenhasupersegura SMTP_SENDER=naoresponda@seudominio.com<hr noshade><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p></b><p>",
                 "website": "https://docs.n8n.io/hosting/",
                 "description": "Ferramenta poderosa de automação para conectar qualquer serviço a outro via Webhooks e Api.",
                 "categories": ["Automação"],
@@ -27,19 +14,6 @@
                 "logo": "https://uploads-ssl.webflow.com/5fcdef3cc7cf1d1e14b4ba0c/5ff1cd94f528ec2a29875d5f_n8n-io.png",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
                                  "stackfile": "n8n/n8n.yml"}   
-            },
-            {
-                "type": 2,
-                "title": "Portainer",
-                "name": "portainer",
-                "note": "<h2>Portainer</h2><p>",
-                "website": "https://portainer.io/",
-                "description": "Ferramenta de gerenciamento de aplicações em container e clusters como Docker e Kubernetes.",
-                "categories": ["Gerenciamento de Servidor"],
-                "platform": "linux",
-                "logo": "https://i.imgur.com/729Hh3P.png",
-                "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
-                                 "stackfile": "portainer/portainer.yml"}   
             },
             {
                 "type": 2,
@@ -69,16 +43,16 @@
             },
             {
                 "type": 2,
-                "title": "Baserow",
-                "name": "baserow",
-                "note": "<h2>Baserow</h2>",
-                "website": "https://baserow.com/",
+                "title": "NocoDB",
+                "name": "nocodb",
+                "note": "<h2>NocoDB</h2>",
+                "website": "https://nocodb.com/",
                 "description": "Alternativa ao aitable.",
-                "categories": ["Baserow"],
+                "categories": ["Planilha","Base de Dados"],
                 "platform": "linux",
                 "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAjVBMVEX///9FcKlWYnCa3f9qyv8Aos7BzeA3Z6U6aaaputPIy89KWGetsrje8/+U2//I7P+x4v9hx/8Ancyu3u2QzuXr+P/k9v+e3//D6v+k3f8hp9Eiq9O+4u9gu9uBmsBpibbt7vBcaHXR7//0+/8AmMmKzOPR2ufg5u9hgrMqYKFzkLq2xNrU3Ok4SFr29vekDQXKAAABjElEQVR4nO3ZyU4CQRiFURQFHHDAWXHEeXr/xzMtaRbGUlPS9SOes+3bqXy7Lmi1AAAAAAAAAAAA/pdRP2W/niQXufaKFu5vpBzUk3ZykumwcGE7YaueHKQWmRQqVKhQoUKFChUqVKhQocKQwpRJ4R+/4482U67qSXKRq1+0EABgoj/1D5sPRtGFR9sNK/uP26eFS41SqFChQoUKFSpUqFChQoUKZ6Vw3u/4V1sNC/+dBgCYQzvZxu/vJZ8PY8MmlgeZjsdfX8Pr1OA0uKx2vJzpZPz+cJAaKCxFoUKF8RQqVBhPoUKF8RQqnP3C7Dv+yV+54+9mG7/fv0k934kNAwDm020nxG119t1PRr929tCNcF+dvfLN2Y/TKewtRDh/L/z67J5ChQobpbCiUKHCZimsKFSosFkKKwp/WtjtBajv+F+PplPYWQnxVJ39/M2oM5VCAIDW62pJEYUXL2vlLIYUri2Wc6lQoUKFChUqVKhQoUKFChWGFc79Hf91vaSIQgAAAAAAAAAAgNnxBpeH9Z+JhPOYAAAAAElFTkSuQmCC",
                 "repository":   {"url": "https://github.com/matheusmaiberg/one-click-stacks",
-                                 "stackfile": "baserow/baserow.yml"}   
+                                 "stackfile": "noco/nocodb.yml"}   
             }
         ]
 }      

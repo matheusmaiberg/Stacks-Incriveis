@@ -11,7 +11,7 @@ version: '3.8'
 
 services:
   n8n:
-    image: n8nio/n8n:${VERSION:-0.201.0}
+    image: n8nio/n8n:${VERSION:-0.209.0}
     entrypoint: /bin/sh
     command:
       - -c

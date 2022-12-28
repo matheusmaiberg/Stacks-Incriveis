@@ -1,0 +1,36 @@
+# docker stack deploy -c wppconnect.yml wppconnect
+
+version: '3.8'
+services:
+  wppconnect:
+    image: wppconnect/server-cli
+    # configurado para porta do chatwoot interna na 3080 (frontend ativado)
+    command: wppserver --secretKey Sb2xlIjoiQWRtaW4iLa1CJJ --frontend --port 3080
+    ### Expor as portas no localhost:2400 (caso nao tenha subdomio configurado)
+    #ports:
+    #  - 2400:3080
+    deploy:
+      mode: replicated
+      labels:
+        ### Ativar traefik para fazer o proxy reverso
+        - traefik.enable=true
+        # Dominio do frontend e Traefik + SSL 
+        - traefik.http.routers.wppconnect-${NUMBER:-1}.rule=Host(`${DOMINIO:-wppconnect.dominio.com.br}`)
+        - traefik.http.routers.wppconnect-${NUMBER:-1}.entrypoints=${SCHEME:-https}
+        - traefik.http.routers.wppconnect-${NUMBER:-1}.service=wppconnect-${NUMBER:-1}
+        - traefik.http.routers.wppconnect-${NUMBER:-1}.tls.certresolver=letsencrypt
+        ### Load balancer 
+        - traefik.http.services.wppconnect-${NUMBER:-1}.loadbalancer.server.port=3080      
+    networks:
+      - internal
+      - traefik
+
+networks:
+  ### Rede interna (para usar com outras stacks como chatwoot ou izing ou )
+  internal:
+    driver: overlay
+    attachable: true
+  ### rede do Traefik para expor frontend 
+  traefik:
+    external: true
+    name: traefik-public

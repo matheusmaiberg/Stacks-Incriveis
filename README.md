@@ -9,7 +9,7 @@ Aplicativos configurados e personalizados ao máximo para implantação em pouqu
 - [x] Compatibilidade com Portainer
 - [-] Compatibilidade com Secrets (desenvolvendo)
 - [x] Sem necessidade de gerenciar .envs, mas com opção ainda disponivel para quem precisar
-- [x] Compatibilidade com (GlusterFS, Ceph, NFS) usando `VOLUME_PATH=/volume/final/`
+- [x] Compatibilidade com (GlusterFS, Ceph, NFS) usando `VOLUME_PATH=/mnt//`
 - [x] Já prontas para instalacão via comando DOMAIN=subdominio.seudominio.com e com diponibilidade do arquivo .env.
 
 ### Contribua também
@@ -23,7 +23,7 @@ São usadas variáveis para que você economize tempo ao setar varios aplicativo
 
 <details><summary>Veja aqui as variáveis padrão do one click stacks.</summary>
     
-- **DOMAIN** - Seu dominio padrão. Ex: seudominio.com.br
+- **DOMINIO** - Seu dominio padrão. Ex: seudominio.com.br
 - **ACME_EMAIL** - Email usado para aquisição dos certificados Let's Encrypt. SUPER IMPORTANTE
 - **SMTP_SENDER** - Email que irá aparecer quando se envia um email novo pelo servidor. Ex: nao-responda@gmail.com
 - **SMTP_SERVER** - Endereço do servidor SMTP que irá enviar os emails. Ex: gmail.smtp.com ou mail.seudominio.com
@@ -43,6 +43,7 @@ Variáveis também serão disponivilzadas em arquivos .env para maior controle p
 No ambiente de deploy, ou seja, fora dos testes recomendo fortemente o uso de secrets, que normalmente .
 
 ### 1. Deploy Docker
+Instalar dependencias:
 ```bash
 sudo apt-get update
 sudo apt-get install \
@@ -51,20 +52,23 @@ sudo apt-get install \
     gnupg \
     lsb-release
 ```
+Instalar o docker:
 ```bash
  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
+Criar o ambiente swarm:
 ```bash
 docker swarm init
 docker network create --driver=overlay traefik-public
-docker stack deploy -c traefik/traefik.yml traefik
 ```
 [Documentação Docker](https://docs.docker.com/engine/install/ubuntu/)
 
-### 2. Deploy Portainer e traefik
+### 2. Deploy Portainer e traefik (superstack)
 ```bash
-ACME_EMAIL=seuemail@gmail.com DOMAIN=portainer.subdominio.com.br docker stack deploy -c portainer/portainer.yml portainer
-docker stack deploy -c traefik/traefik.yml traefik
+DOMINIO=seudominio.com.br \
+ACME_EMAIL=seuemail@gmail.com \
+SUBDOMINIO_PORTAINER=portainer.subdominio.com.br \
+docker stack deploy -c superstack/superstack.yml superstack
 ```
 
 ### 3. Cheque se as portais HTTP and HTTPS estão expostas pelo Traefik
@@ -74,14 +78,20 @@ curl https://ipv4.am.i.mullvad.net/port/443
 ```
 
 ### 4. Acesse o portainer
-Acesso o endereço do seu VPS com o dominio dele pela porta 9000 http://00.00.00.00:9000 ou pelo subdominio portainer.seudominio.com.br
+Acesso o endereço do seu VPS pelo dominio portainer.seudominio.com.br
 
 ### 5. Faça o deploy das One Click Stacks
+#### Via portainer
+Na superstack já tem uma configuração que as stacks são vinculadas com o arquivo templates.json da Stacks Incriveis.
+
+
+Acesse App Templates > Copy as Custom > Create custom template > Stacks > Add stack > Custom Template
+
+Via comando CLI:
 ```bash
 DOMAIN=<subdominio.meudominio.com.br> docker stack deploy -c <stack.yml> <nome>
 ```
-
-### Exemplo
+Exemplo:
 ```bash
 DOMAIN=n8n.seudominio.com.br docker stack deploy -c stacks/n8n.yml n8n
 ```
