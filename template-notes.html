@@ -2,7 +2,7 @@
 
 Alguns caracteres como ()\""'' vão precisar de uma barra invertida "\" antes deles para serem reconhecidos pelo JSON
 
-Apos editar colar o texto no removedor de espaços e marcar a opcao de remover espaços e copiar para o arquivo templates.json na "note"
+Apos editar colar o texto no removedor de espaços e marcar a opção de remover espaços e copiar para o arquivo templates.json na "note"
 https://prodeveloper.com.br/ferramenta-para-remover-quebras-de-linha-online/
 -->
 
@@ -11,7 +11,7 @@ https://prodeveloper.com.br/ferramenta-para-remover-quebras-de-linha-online/
 <div>
     <h3>O melhor gerenciador de proxy reverso</h3>
     <p>
-        Essencial para rodar os templates do <a href="https://github.com/matheusmaiberg/one-click-stacks">One Click Stacks</a> esse é o que vai controlar o backend da aplicação e que vai apontar todas as entradas dos subdominios para os containers. 
+        Essencial para rodar os templates do <a href="https://github.com/matheusmaiberg/one-click-stacks">One Click Stacks</a> esse é o que vai controlar o backend da aplicação e que vai apontar todas as entradas dos subdomínios para os containers. 
     </p>
     <p>
         Documentação <a href="https://doc.traefik.io/traefik/providers/docker/">Traefik</a>.
@@ -19,11 +19,11 @@ https://prodeveloper.com.br/ferramenta-para-remover-quebras-de-linha-online/
     <h3>Guidelines para deploy Traefik</h3>
     <h5>Via linha de comando bash (Recomendado)</h5>
     <p>
-        Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.
+        Defina as variáveis subdomínio e domínio e email da ACME antes de instalar a stack.
     </p>
     <p contenteditable='true'>  
             ACME_EMAIL=seuemail@gmail.com \\<br>
-            docker stack deploy -c local_da_stack/traefik.yml traefik
+            docker stack deploy -c local_da_stack/Traefik.yml traefik
     </p>
     <hr noshade>
     <h5>Via clonagem de template no Portainer</h5>
@@ -34,7 +34,7 @@ https://prodeveloper.com.br/ferramenta-para-remover-quebras-de-linha-online/
     <p>
         Depois clique em Stacks e de um nome para sua Stack.<br>
         Logo abaixo clique na quarta opção em <b>Custom Template</b> e selecione o template salvo.<br>
-        Clique no botão add an enviroment variable e adicione a variável abaixo.
+        Clique no botão add an environment variable e adicione a variável abaixo.
     </p>
     <p contenteditable='true'>
         Name: ACME_EMAIL<br>
@@ -49,13 +49,13 @@ https://prodeveloper.com.br/ferramenta-para-remover-quebras-de-linha-online/
 <html>
 <div>
     <h3>Guidelines para deploy n8n</h3>
-    <p contenteditable='true'> Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p>
+    <p contenteditable='true'> Defina as variáveis subdomínio e domínio e email da ACME antes de instalar a stack.</p>
             SUBDOMAIN_N8N=n8n<br>
             DOMAIN=seudominio.com.br<br>
             ACME_EMAIL=seuemail@gmail.com
     <hr noshade>
     <p contenteditable='true'> 
-        Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção enviroment com o container rodando.</p>
+        Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção environment com o container rodando.</p>
             SMTP_SERVER=smtp.gmail.com<br>
             SMTP_PORT=465<br>
             SMTP_USER=email@dominio.com.br<br>

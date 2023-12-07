@@ -2,3 +2,6 @@ temp.json
 .devcontainer/devcontainer.json
 n8n/.env-server
 pt-BR.json
+backups
+all stacks
+.vscode

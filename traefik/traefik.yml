@@ -12,24 +12,29 @@ services:
   traefik:
     image: traefik:${VERSION:-v2.9.5}
     command:
-      # - --log.level=DEBUG
+      # Ativando o docker como provider
       - --providers.docker
-      - --providers.docker.network=traefik-public
       - --providers.docker.exposedByDefault=false
-      - --providers.docker.swarmMode=true
+      - --providers.docker.network=traefik-public
       - --providers.docker.endpoint=unix:///var/run/docker.sock
-      - --entrypoints.http.address=:80
-      - --entrypoints.https.address=:443
-      - --entryPoints.http.proxyProtocol.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
-      - --entryPoints.http.forwardedHeaders.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
-      - --entryPoints.https.proxyProtocol.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
-      - --entryPoints.https.forwardedHeaders.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
-      - --entrypoints.http.http.redirections.entryPoint.to=https
-      - --entrypoints.http.http.redirections.entryPoint.scheme=https
-      - --entrypoints.http.http.redirections.entrypoint.permanent=true
+      # Ativando o Swarm para vário servidores em paralelo
+      - --providers.docker.swarmMode=true
+      # Configurando os entrypoints
+      - --entrypoints.web.address=:80
+      - --entryPoints.web.proxyProtocol.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+      - --entryPoints.web.forwardedHeaders.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+      - --entrypoints.websecure.address=:443
+      - --entryPoints.websecure.proxyProtocol.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+      - --entryPoints.websecure.forwardedHeaders.trustedIPs=${TRUSTED_IPS:-127.0.0.1}
+      # Se quiser redirecionar automaticamente de http para https
+      # - --entrypoints.http.http.redirections.entryPoint.to=websecure 
+      # - --entrypoints.http.http.redirections.entryPoint.scheme=websecure
+      # - --entrypoints.http.http.redirections.entrypoint.permanent=true
+      # Configurando o letsencrypt para certificados
       - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
       - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@example.com}
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      # - --log.level=DEBUG
     volumes:
       - ${VOLUME_PATH}letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
