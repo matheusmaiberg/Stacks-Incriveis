@@ -4,13 +4,19 @@ Faça o deploy de mais de 10+ open-source apps usando os templates do Portainer 
 
 > [!TIP]
 > Sem necessidade de gerenciar .envs, mas com opção ainda disponivel para quem precisar
+
+> [!TIP]
 > Compatibilidade com (GlusterFS, Ceph, NFS) usando `VOLUME_PATH=/mnt/`
+
+> [!TIP]
 > Já prontas para instalação via comando DOMAIN=subdominio.seudominio.com e com diponibilidade do arquivo .env.
 
 > [!WARNING]
 > Guarde suas chaves em um local seguro.
 
-## Stacks prontas pra você implantar na sua VPS com poucos cliques. Chega de ficar procurando no google por arquivos do docker compose para implantar no seu servidor
+## Stacks prontas pra você implantar na sua VPS com poucos cliques. 
+
+Chega de ficar procurando no google por arquivos do docker compose para implantar no seu servidor
 
 Aplicativos configurados e personalizados ao máximo para implantação em pouquissimos passos.
 
