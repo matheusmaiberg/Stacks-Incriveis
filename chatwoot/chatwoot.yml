@@ -1,15 +1,3 @@
-##########################///Instrução para o deploy manual - ONE CLICK STACKS\\\###############################
-#                        para implantação manual baixe ou copie esse arquivo                                   #
-#                                   comando para o deploy manual                                               #
-#          DOMAIN=chatwoot.seudominio.com docker stack deploy -c chatwoot/chatwoot.yml chatwoot                #
-#                          Nunca faça deploy sem a variavel ACME_EMAIL declarada                               #
-#      Variaveis podem ser editadas em App templates >> Copy as Custom ou no serviço após ser implantado       #
-#                     docker exec -it chatwoot_web bundle exec rails db:chatwoot_prepare                       #
-#                           docker exec -it chatwoot_web bundle exec rails db:seed                             #
-#                          docker exec -it chatwoot_web bundle exec rails db:migrate                           #
-################################################################################################################
-
-
 version: '3.8'
 
 x-variaveis:
@@ -18,12 +6,13 @@ x-variaveis:
     ENABLE_ACCOUNT_SIGNUP: "false"
     INSTALLATION_ENV: "docker"
     FORCE_SSL: "true"
+    DEFAULT_LOCALE: ${LANGUAGE:-PT_BR}
   # Secret Key
     SECRET_KEY_BASE: ${SECRET_KEY_BASE:-"chave_hexadecimal_obrigatoria"}  # bundle exec rake secret
     FRONTEND_URL: ${SCHEME:-https}://${DOMAIN:-chatwoot.localhost}
     NODE_ENV: ${NODE_ENV:-production}
     RAILS_ENV: ${RAILS_ENV:-production}
-    # Banco de dados (conectar ao container do postgres via Portainer e rodar os comandos "postgres psql -U postgres" e depois "create database chatwoot;")
+    # Banco de dados (conectar ao container do Postgres via Portainer e rodar os comandos "postgres psql -U postgres" e depois "create database chatwoot;")
     POSTGRES_HOST: "postgres"
     POSTGRES_USERNAME: "chatwoot"
     POSTGRES_DATABASE: "chatwoot"
@@ -33,33 +22,33 @@ x-variaveis:
     REDIS_PASSWORD: "myp@ssw0rd"
     # Configurações do SMTP
     SMTP_AUTHENTICATION: plain
-    SMTP_ENABLE_STARTTLS_AUTO: true
+    SMTP_ENABLE_STARTTLS_AUTO: "true"
     SMTP_ADDRESS: ${SMTP_SERVER}
     SMTP_DOMAIN: ${SMTP_DOMAIN}
     SMTP_PORT: ${SMTP_PORT:-587}
     SMTP_USERNAME: ${SMTP_USER}
     SMTP_PASSWORD: ${SMTP_PASSWORD}
-    # Configurações de linguagem
-    DEFAULT_LOCALE: ${LANGUAGE:-PT_BR}
+    # ChatGPT 
     OPENAI_API_KEY: ${OPENAI:-sk-exampleopenaiapikey}
-    # Continuidade de emails
-    RAILS_INBOUND_EMAIL_SERVICE: mandrill
-    MAILER_INBOUND_EMAIL_DOMAIN: seudominio.com.br
-    RAILS_INBOUND_EMAIL_PASSWORD: myp@ssw0rd
     # Botão AUTH Google na tela de login
     # GOOGLE_OAUTH_CLIENT_ID: ${G_CLIENT_ID:-example.apps.googleusercontent.com}
     # GOOGLE_OAUTH_CLIENT_SECRET: ${G_LIENT_SECRET:-GOCSPX-example}
     # GOOGLE_OAUTH_CALLBACK_URL: ${G_CALLBACK_URL:-https://${SUBDOMAIN}.${DOMAIN}.com.br/omniauth/google_oauth2/callback}
+    # Continuidade de emails (Recomendo usar o mandrill)
+    # RAILS_INBOUND_EMAIL_SERVICE: mandrill
+    # MAILER_INBOUND_EMAIL_DOMAIN: seudominio.com.br
+    # RAILS_INBOUND_EMAIL_PASSWORD: your-mandrill-p@ssw0rd
 
+# Backend
 services:
   chatwoot:
-    environment:
-      <<: *variaveis
-    image: chatwoot/chatwoot:${VERSION:-v2.9.1}
-    entrypoint: docker/entrypoints/rails.sh
-    # Após deploy trocar os comandos comentando, o prepare cria as tabelas do banco de dados e segundo expõe e executa o frontend na porta 3000 do container
     command: bundle exec rails db:chatwoot_prepare 
     # command: bundle exec rails s -p 3000 -b 0.0.0.0
+    environment:
+      <<: *variaveis
+    image: chatwoot/chatwoot:${VERSION:-v3.3.1}
+    entrypoint: docker/entrypoints/rails.sh
+    # Após deploy trocar os comandos comentando, o prepare cria as tabelas do banco de dados e segundo expõe e executa o frontend na porta 3000 do container
     deploy:
       mode: replicated
       replicas: 1
@@ -73,19 +62,22 @@ services:
         - traefik.http.services.chatwoot-${NUMBER:-1}.loadbalancer.server.port=3000
         - traefik.http.routers.chatwoot-${NUMBER:-1}.entrypoints=${SCHEME:-websecure}
         - traefik.http.routers.chatwoot-${NUMBER:-1}.tls.certresolver=letsencrypt
+        # resolver problema de websocket
+        - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+        - traefik.http.routers.chatwoot_app.middlewares=sslheader
     volumes:
       - chatwoot_data:/app/storage
       # Pasta com os arquivos do frontend (favicon, logo e outras)
       # - /root/apps/chatwoot/public:/app/public
     networks:
       - traefik
-      - internal
+      - interna
 
   # Backend
   chatwoot_worker:
     environment:
       <<: *variaveis
-    image: chatwoot/chatwoot:v3.3.1
+    image: chatwoot/chatwoot:${VERSION:-v3.3.1}
     command: bundle exec sidekiq -C config/sidekiq.yml
     volumes:
       - chatwoot_data:/app/storage
@@ -98,16 +90,16 @@ services:
         constraints:
           - node.role == manager
     networks:
-      - internal
+      - interna
 
 volumes:
   chatwoot_data:
 
 networks:
-  internal:
-    driver: overlay
-    attachable: true
-    name: apps_network
   traefik:
     external: true
     name: traefik_public
+  interna:
+    driver: overlay
+    attachable: true
+    name: apps_network
