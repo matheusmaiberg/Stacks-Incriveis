@@ -12,78 +12,102 @@
 
 version: '3.8'
 
-x-defaults: &defaults
-  environment:
-    - SECRET_KEY_BASE=${SECRET_KEY_BASE:-"chave_hexadecimal_obrigatoria"}  # bundle exec rake secret
-    - FRONTEND_URL=${SCHEME:-https}://${DOMAIN:-chatwoot.localhost}
-    - NODE_ENV=${NODE_ENV:-production}
-    - RAILS_ENV=${RAILS_ENV:-production}
-    - POSTGRES_HOST=postgres
-    - POSTGRES_USERNAME=chatwoot
-    - POSTGRES_DATABASE=chatwoot
-    - POSTGRES_PASSWORD=myp@ssw0rd
-    - REDIS_URL=redis://redis:6379
-    - REDIS_PASSWORD=myp@ssw0rd
-    - SMTP_AUTHENTICATION=plain
-    - SMTP_ENABLE_STARTTLS_AUTO=true
-    - SMTP_ADDRESS=${SMTP_SERVER}
-    - SMTP_DOMAIN=${SMTP_DOMAIN}
-    - SMTP_PORT=${SMTP_PORT:-587}
-    - SMTP_USERNAME=${SMTP_USER}
-    - SMTP_PASSWORD=${SMTP_PASSWORD}
-    - DEFAULT_LOCALE=${LANGUAGE:-PT_BR}
+x-variaveis:
+  &variaveis
+    INSTALLATION_NAME: "Sua Empresa"
+    ENABLE_ACCOUNT_SIGNUP: "false"
+    INSTALLATION_ENV: "docker"
+    FORCE_SSL: "true"
+  # Secret Key
+    SECRET_KEY_BASE: ${SECRET_KEY_BASE:-"chave_hexadecimal_obrigatoria"}  # bundle exec rake secret
+    FRONTEND_URL: ${SCHEME:-https}://${DOMAIN:-chatwoot.localhost}
+    NODE_ENV: ${NODE_ENV:-production}
+    RAILS_ENV: ${RAILS_ENV:-production}
+    # Banco de dados (conectar ao container do postgres via Portainer e rodar os comandos "postgres psql -U postgres" e depois "create database chatwoot;")
+    POSTGRES_HOST: "postgres"
+    POSTGRES_USERNAME: "chatwoot"
+    POSTGRES_DATABASE: "chatwoot"
+    POSTGRES_PASSWORD: "myp@ssw0rd"
+    # Configurações do Redis
+    REDIS_URL: redis://redis:6379
+    REDIS_PASSWORD: "myp@ssw0rd"
+    # Configurações do SMTP
+    SMTP_AUTHENTICATION: plain
+    SMTP_ENABLE_STARTTLS_AUTO: true
+    SMTP_ADDRESS: ${SMTP_SERVER}
+    SMTP_DOMAIN: ${SMTP_DOMAIN}
+    SMTP_PORT: ${SMTP_PORT:-587}
+    SMTP_USERNAME: ${SMTP_USER}
+    SMTP_PASSWORD: ${SMTP_PASSWORD}
+    # Configurações de linguagem
+    DEFAULT_LOCALE: ${LANGUAGE:-PT_BR}
+    OPENAI_API_KEY: ${OPENAI:-sk-exampleopenaiapikey}
+    # Continuidade de emails
+    RAILS_INBOUND_EMAIL_SERVICE: mandrill
+    MAILER_INBOUND_EMAIL_DOMAIN: seudominio.com.br
+    RAILS_INBOUND_EMAIL_PASSWORD: myp@ssw0rd
+    # Botão AUTH Google na tela de login
+    # GOOGLE_OAUTH_CLIENT_ID: ${G_CLIENT_ID:-example.apps.googleusercontent.com}
+    # GOOGLE_OAUTH_CLIENT_SECRET: ${G_LIENT_SECRET:-GOCSPX-example}
+    # GOOGLE_OAUTH_CALLBACK_URL: ${G_CALLBACK_URL:-https://${SUBDOMAIN}.${DOMAIN}.com.br/omniauth/google_oauth2/callback}
+
 services:
-  web:
-    <<: *defaults
+  chatwoot:
+    environment:
+      <<: *variaveis
     image: chatwoot/chatwoot:${VERSION:-v2.9.1}
     entrypoint: docker/entrypoints/rails.sh
-    command: ['bundle', 'exec', 'rails', 's', '-p', '3000', '-b', '0.0.0.0']
+    # Após deploy trocar os comandos comentando, o prepare cria as tabelas do banco de dados e segundo expõe e executa o frontend na porta 3000 do container
+    command: bundle exec rails db:chatwoot_prepare 
+    # command: bundle exec rails s -p 3000 -b 0.0.0.0
     deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
       labels:
         - traefik.enable=true
-        - traefik.http.routers.chatwoot-${NUMBER:-1}.rule=Host(`${DOMAIN:-chatwoot.localhost}`)
-        - traefik.http.routers.chatwoot-${NUMBER:-1}.entrypoints=${SCHEME:-https}
         - traefik.http.routers.chatwoot-${NUMBER:-1}.service=chatwoot-${NUMBER:-1}
-        - traefik.http.routers.chatwoot-${NUMBER:-1}.tls.certresolver=letsencrypt
+        - traefik.http.routers.chatwoot-${NUMBER:-1}.rule=Host(`${SUBDOMAIN:-chatwoot}.${DOMAIN:-localhost}`)
         - traefik.http.services.chatwoot-${NUMBER:-1}.loadbalancer.server.port=3000
-    networks:
-      - internal
-      - traefik
-
-  sidekiq:
-    <<: *defaults
-    image: chatwoot/chatwoot:${VERSION:-v2.9.1}
-    command: ['bundle', 'exec', 'sidekiq', '-C', 'config/sidekiq.yml']
-    networks:
-      - internal
-
-  redis:
-    <<: *defaults
-    image: redis:6-alpine
-    command: /bin/sh -c 'redis-server --requirepass $$REDIS_PASSWORD'
-    networks:
-      - internal
-
-  postgres:
-    image: postgres:12-alpine
-    environment:
-      - POSTGRES_DB=chatwoot
-      - POSTGRES_USER=chatwoot
-      - POSTGRES_PASSWORD=myp@ssw0rd
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "chatwoot"]
+        - traefik.http.routers.chatwoot-${NUMBER:-1}.entrypoints=${SCHEME:-websecure}
+        - traefik.http.routers.chatwoot-${NUMBER:-1}.tls.certresolver=letsencrypt
     volumes:
-      - ${VOLUME_PATH}postgres:/var/lib/postgresql/data
+      - chatwoot_data:/app/storage
+      # Pasta com os arquivos do frontend (favicon, logo e outras)
+      # - /root/apps/chatwoot/public:/app/public
+    networks:
+      - traefik
+      - internal
+
+  # Backend
+  chatwoot_worker:
+    environment:
+      <<: *variaveis
+    image: chatwoot/chatwoot:v3.3.1
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - chatwoot_data:/app/storage
+      # Pasta com os arquivos do frontend (favicon, logo e outras)
+      # - /root/apps/chatwoot/public:/app/public
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
     networks:
       - internal
 
 volumes:
-  postgres:
+  chatwoot_data:
 
 networks:
   internal:
     driver: overlay
     attachable: true
+    name: apps_network
   traefik:
     external: true
-    name: traefik-public
+    name: traefik_public
