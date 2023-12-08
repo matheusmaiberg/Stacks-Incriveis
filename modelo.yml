@@ -1,0 +1,52 @@
+version: "3.8"
+
+x-variaveis:
+  &variaveis
+    USER_LOGIN: "email@email.com"
+    USER_PASSWORD: "myP@ssword"
+
+services:
+  service_name:
+    image: 
+    command: 
+    environment:
+      <<: *variaveis
+    volumes:
+      - volume_name:/mount/path/on/container
+    ports:
+    - 9999:9999
+    networks:
+      - publica
+      - interna
+    deploy:
+      # mode: replicated # Mode: replicated
+      replicas: 1
+      # placement:
+      #   constraints:
+      #     - node.role == manager
+      # resources:
+      #   limits:
+      #     cpus: "0.5"
+      #     memory: 200M
+      labels:
+        # Ativa o Traefik no container
+        traefik.enable: "true"
+        traefik.http.routers.service_name.service: "service_name"
+        traefik.http.services.service_name.loadbalancer.server.port: 9999
+        traefik.http.routers.service_name.rule: "Host(``)"
+        traefik.http.routers.service_name.tls.certresolver: "le"
+        traefik.http.routers.service_name.entrypoints: websecure"
+        traefik.http.routers.service_name.tls: "true"
+
+volumes: 
+  volume_name:
+
+networks:
+  publica:
+    name: traefik_public
+    external: true
+  interna:
+    name: app_network
+    external: true
+    driver: overlay
+    

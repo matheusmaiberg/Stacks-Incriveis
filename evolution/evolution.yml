@@ -1,0 +1,89 @@
+version: "3.8"
+
+x-variaveis:
+  &variaveis
+    SUBDOMAIN: evo
+    DOMAIN: seudominio.com.br
+    # Server configs
+    SERVER_PORT: 8080
+    SERVER_TYPE: "https"
+    SERVER_URL: https://${SUBDOMAIN}.${DOMAIN:-localhost}.com.br
+    CONFIG_SESSION_PHONE_NAME: Chrome # Firefox | Edge | Opera | Safari
+    CONFIG_SESSION_PHONE_CLIENT: Sua-empresa
+    # ApiKey Config
+    AUTHENTICATION_TYPE: apikey
+    AUTHENTICATION_API_KEY: example-AI5ABCDAC5C8AA7AD15ACDE8C
+    AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES: true
+    QRCODE_LIMIT: 30
+    QRCODE_COLOR: #000000 # Laranja #ff6900 | Preto #000000 | Vermelho #db291c
+    WEBSOCKET_ENABLED: false
+    # Database configs https://www.mongodb.com/pt-br/cloud/atlas/lp/try4
+    DATABASE_ENABLED: false # Mude para true caso for trabalhar com MongoDB
+    DATABASE_CONNECTION_URI: mongodb://root:root@mongodb:27017/?authSource=admin&readPreference=primary&ssl=false&directConnection=true
+    DATABASE_CONNECTION_DB_PREFIX_NAME: evdocker
+    # CORS para limitar quais domínios podem fazer requisições a API
+    CORS_ORIGIN: "*" # Estrela deixa liberado ou "seudominio1.com, seudominio2.com"
+    CORS_METHODS: "POST,GET,PUT,DELETE" # Limitar tipo de requisição
+    CORS_CREDENTIALS: true
+    # Logs
+    LOG_LEVEL: ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS
+    LOG_COLOR: true # Ativa ou não a cor nos logs
+    LOG_BAILEYS: "error" # fatal | error | warn | info | debug | trace
+    DEL_INSTANCE: false # Deletar instancias desconectadas em 5min
+    # Redis configs (Não recomendo para multi instancias, ainda em testes)
+    REDIS_ENABLED: false # Mude para true caso for usar redis
+    REDIS_URI: redis://redis:6379
+    REDIS_PREFIX_KEY: "evdocker"
+    # RabbitMQ configs
+    RABBITMQ_ENABLED: false # Mude para true caso for usar RabbitMQ
+    RABBITMQ_URI: amqp://guest:guest@rabbitmq:5672
+
+
+services:
+  evolution:
+    image: davidsongomes/evolution-api:${VERSION:-v1.5.4}
+    command: ["node", "./dist/src/main.js"]
+    environment:
+      <<: *variaveis
+    volumes:
+      - evolution_instances_instances:/evolution/instances
+      - evolution_data:/evolution/store
+    ports:
+    - 8080:8080
+    networks:
+      - publica
+      - interna
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      # Replicar em outras maquinas do swarm
+      mode: replicated
+      replicas: 1
+      # Limitar recursos (Mínimo recomendado)
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 200M
+      labels:
+        # Ativa o Traefik no container
+        traefik.enable: true
+        traefik.http.routers.evolution.service: "evolution"
+        traefik.http.services.evolution.loadbalancer.server.port: 8080
+        traefik.http.routers.evolution.rule: "Host(`${SUBDOMAIN:-evo}.${DOMAIN:-localhost}`)"
+        traefik.http.routers.evolution.tls.certresolver: "le"
+        traefik.http.routers.evolution.entrypoints: "websecure"
+        traefik.http.routers.evolution.tls: true
+
+volumes: 
+  evolution_instances:
+  evolution_data:
+
+networks:
+  publica:
+    name: traefik_public
+    external: true
+  interna:
+    name: app_network
+    external: true
+    driver: overlay
