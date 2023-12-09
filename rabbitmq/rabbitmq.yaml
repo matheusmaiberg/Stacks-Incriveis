@@ -1,0 +1,28 @@
+version: "3.8"
+
+x-variaveis:
+  &variaveis
+    RABBITMQ_DEFAULT_USER: "usuario"
+    RABBITMQ_DEFAULT_PASS: "su@senha"
+    RABBITMQ_ERLANG_COOKIE: "crieUmCookieParaSeuServidor" # Mantenha esse cookie seguro (duas ou mais instancias vao usar isso pra sincronizar)
+    
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    hostname: "rabbitMQ" # Seja cuidadoso com o hostname, mantenha seguro
+    environment:
+      <<: *variaveis
+    ports:
+    - 25672:25672
+    - 15672:15672
+    - 4672:4672
+    - 4369:4369
+    networks:
+      - interna
+
+networks:
+  interna:
+    name: app_network
+    external: true
+    driver: overlay
+    
