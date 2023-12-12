@@ -30,7 +30,7 @@ services:
         traefik.http.services.dozzle.loadbalancer.server.port: 8080
         traefik.http.routers.dozzle.rule: "Host(`logs.dominio.com.br`)"
         # SSL
-        traefik.http.routers.dozzle.tls: true
+        traefik.http.routers.dozzle.tls: "true"
         traefik.http.routers.dozzle.tls.certresolver: "le"
         traefik.http.routers.dozzle.entrypoints: "websecure"
 
