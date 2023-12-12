@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 4040:8080
+    environment:
+      # DOZZLE_ADDR: 8081
+      DOZZLE_LEVEL: info
+
+      DOZZLE_FILTER: "status=running"
+      DOZZLE_USERNAME: "user"
+      DOZZLE_PASSWORD: "user"
+      DOZZLE_HOSTNAME: "logs.dominio.com.br"
+      # DOZZLE_FILTER: "label=log_me" # limits logs displayed to containers with this label
+      # DOCKER_HOST: tcp://socket-proxy:2375 # enable when using socket proxy
+    networks:
+      - externa
+      - interna
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dozzle.service=dozzle
+      - traefik.http.services.dozzle.loadbalancer.server.port=8080
+      - traefik.http.routers.dozzle.rule=Host(`logs.dominio.com.br`)
+      #SSL
+      - traefik.http.routers.dozzle.tls=true
+      - traefik.http.routers.dozzle.tls.certresolver=le
+      - traefik.http.routers.dozzle.entrypoints=websecure
+
+networks:
+  externa:
+    name: traefik_public
+    external: true
+  interna:
+    name: app_network
+    external: true
+    driver: overlay
