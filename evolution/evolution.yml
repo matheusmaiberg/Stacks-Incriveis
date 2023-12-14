@@ -31,7 +31,7 @@ x-variaveis:
     # RabbitMQ configs
     RABBITMQ_ENABLED: "false" # Mude para true caso for usar RabbitMQ
     RABBITMQ_URI: amqp://guest:guest@rabbitmq:5672
-
+    TYPEBOT_API_VERSION: "latest" # Use a 'old' para versões antigas da api do Typebot
 
 services:
   evolution:
