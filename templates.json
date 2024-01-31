@@ -17,11 +17,36 @@
       },
       "env": [
 				{
+					"name": "EXPOSED_PORT",
+					"label": "Porta",
+					"description": "A porta que será exposta sua Evolution API.",
+					"required": true,
+					"preset": false,
+          "select": [
+            {
+              "text": "8080",
+              "value": "8080",
+              "default": true
+            },
+            {
+              "text": "8081",
+              "value": "8081"
+            },
+            {
+              "text": "8090",
+              "value": "8090"
+            },
+            {
+              "text": "8091",
+              "value": "8091"
+            }
+          ]
+				},
+				{
 					"name": "VERSION",
 					"label": "Versão",
 					"description": "A versão da Evolution API que será instalada na sua VPS.",
 					"required": true,
-					"default": "api",
 					"preset": false,
           "select": [
             {

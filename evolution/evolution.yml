@@ -43,7 +43,7 @@ services:
       - evolution_instances:/evolution/instances
       - evolution_data:/evolution/store
     ports:
-    - 8080:8080
+    - ${EXPOSED_PORT}:8080
     networks:
       - publica
       - interna
