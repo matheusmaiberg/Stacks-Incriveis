@@ -3,9 +3,60 @@
   "templates": [
     {
       "type": 2,
+      "title": "Evolution API",
+      "name": "evolution",
+      "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull. ",
+      "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png",
+      "website": "https://doc.evolution-api.com/",
+      "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
+      "categories": ["Chatbot", "API", "WhatsApp"],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "stackfile": "evolution/evolution.yml"
+      },
+      "env": [
+        {
+          "name": "NOME_EMPRESA",
+          "label": "Nome da Conexão",
+          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
+          "required": true,
+          "default": "Chrome"
+        },
+        {
+          "name": "Seu domínio",
+          "label": "Seu domínio",
+          "description": "Seu domínio.",
+          "default": "seudominio.com.br",
+          "preset": true
+        },
+        {
+          "name": "QRCODE_COLOR",
+          "label": "Cor do QRCode",
+          "description": "A description for this env var",
+          "select": [
+            {
+              "text": "Preto",
+              "value": "#000000",
+              "default": true
+            },
+            {
+              "text": "Laranja",
+              "value": "#ff6900"
+            },
+            {
+              "text": "Vermelho",
+              "value": "#db291c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": 2,
       "title": "n8n",
       "name": "n8n",
-      "note": "<h3>Guidelines para deploy n8n</h3><hr noshade><p> Defina as variaveis subdominio e dominio e email da ACME antes de instalar a stack.</p> SUBDOMAIN_N8N=n8n <br>DOMAIN=seudominio.com.br <br>ACME_EMAIL=seuemail@gmail.com<hr noshade><p> Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção enviroment com o container rodando.</p> SMTP_SERVER=smtp.gmail.com <br>SMTP_PORT=465 <br>SMTP_USER=email@dominio.com.br <br>SMTP_PASSWORD=suasenhasupersegura SMTP_SENDER=naoresponda@seudominio.com<hr noshade><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p></b><p>",
+      "note": "<h3>Guidelines para deploy n8n</h3><hr noshade><p> Defina as variaveis subdominio e domínio e email da ACME antes de instalar a stack.</p> SUBDOMAIN_N8N=n8n <br>DOMAIN=seudominio.com.br <br>ACME_EMAIL=seuemail@gmail.com<hr noshade><p> Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção environment com o container rodando.</p> SMTP_SERVER=smtp.gmail.com <br>SMTP_PORT=465 <br>SMTP_USER=email@dominio.com.br <br>SMTP_PASSWORD=suasenhasupersegura SMTP_SENDER=naoresponda@seudominio.com<hr noshade><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p></b><p>",
       "website": "https://docs.n8n.io/hosting/",
       "description": "Ferramenta poderosa de automação para conectar qualquer serviço a outro via Webhooks e Api.",
       "categories": ["Automação"],
@@ -15,56 +66,6 @@
         "url": "https://github.com/matheusmaiberg/one-click-stacks",
         "stackfile": "n8n/n8n.yml"
       }
-    },
-    {
-      "type": 2,
-      "title": "Evolution API",
-      "name": "evolution",
-      "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull. ",
-      "website": "https://doc.evolution-api.com/",
-      "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
-      "categories": ["Chatbot", "API", "WhatsApp"],
-      "platform": "linux",
-      "logo": "",
-      "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "evolution/evolution.yml"
-      },
-      "env": [
-        {
-          "name": "NOME_EMPRESA",
-          "label": "Nome da Conexão",
-          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o ususário.",
-          "required": true,
-										"default": "Chrome"
-        },
-        {
-          "name": "SUBDOMINIO",
-          "default": "default_value",
-          "preset": true
-        },
-        {
-          "name": "ENV_VAR_WITH_SELECT_VALUE",
-          "label": "An environment variable",
-          "description": "A description for this env var",
-          "select": [
-            {
-              "text": "Yes, I agree",
-              "value": "Y",
-              "default": true
-            },
-            {
-              "text": "No, I disagree",
-              "value": "N"
-            },
-            {
-              "text": "Maybe",
-              "value": "YN"
-            }
-          ],
-          "description": "Some environment variable."
-        }
-      ]
     },
     {
       "type": 2,
@@ -117,7 +118,7 @@
       "name": "nocodb",
       "note": "<h2>NocoDB</h2>",
       "website": "https://nocodb.com/",
-      "description": "Alternativa ao aitable.",
+      "description": "Alternativa ao Airtable.",
       "categories": ["Planilha", "Base de Dados"],
       "platform": "linux",
       "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAjVBMVEX///9FcKlWYnCa3f9qyv8Aos7BzeA3Z6U6aaaputPIy89KWGetsrje8/+U2//I7P+x4v9hx/8Ancyu3u2QzuXr+P/k9v+e3//D6v+k3f8hp9Eiq9O+4u9gu9uBmsBpibbt7vBcaHXR7//0+/8AmMmKzOPR2ufg5u9hgrMqYKFzkLq2xNrU3Ok4SFr29vekDQXKAAABjElEQVR4nO3ZyU4CQRiFURQFHHDAWXHEeXr/xzMtaRbGUlPS9SOes+3bqXy7Lmi1AAAAAAAAAAAA/pdRP2W/niQXufaKFu5vpBzUk3ZykumwcGE7YaueHKQWmRQqVKhQoUKFChUqVKhQocKQwpRJ4R+/4482U67qSXKRq1+0EABgoj/1D5sPRtGFR9sNK/uP26eFS41SqFChQoUKFSpUqFChQoUKZ6Vw3u/4V1sNC/+dBgCYQzvZxu/vJZ8PY8MmlgeZjsdfX8Pr1OA0uKx2vJzpZPz+cJAaKCxFoUKF8RQqVBhPoUKF8RQqnP3C7Dv+yV+54+9mG7/fv0k934kNAwDm020nxG119t1PRr929tCNcF+dvfLN2Y/TKewtRDh/L/z67J5ChQobpbCiUKHCZimsKFSosFkKKwp/WtjtBajv+F+PplPYWQnxVJ39/M2oM5VCAIDW62pJEYUXL2vlLIYUri2Wc6lQoUKFChUqVKhQoUKFChWGFc79Hf91vaSIQgAAAAAAAAAAgNnxBpeH9Z+JhPOYAAAAAElFTkSuQmCC",
