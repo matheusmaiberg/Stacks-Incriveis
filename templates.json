@@ -5,7 +5,7 @@
       "type": 2,
       "title": "Evolution API",
       "name": "evolution",
-      "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull. ",
+      "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull.",
       "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png?raw=true",
       "website": "https://doc.evolution-api.com/",
       "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
@@ -16,19 +16,56 @@
         "stackfile": "evolution/evolution.yml"
       },
       "env": [
+				{
+					"name": "VERSION",
+					"label": "Versão",
+					"description": "A versão da Evolution API que será instalada na sua VPS.",
+					"required": true,
+					"default": "api",
+					"preset": false,
+          "select": [
+            {
+              "text": "v1.6.1",
+              "value": "v1.6.1",
+              "default": true
+            },
+            {
+              "text": "v1.6.0",
+              "value": "v1.6.0"
+            },
+            {
+              "text": "v1.5.4",
+              "value": "v1.5.4"
+            },
+            {
+              "text": "Testes (homolog)",
+              "value": "homolog"
+            }
+          ]
+				},
+				{
+					"name": "SUBDOMAIN",
+					"label": "Subdomínio da Evolution",
+					"description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
+					"required": true,
+					"default": "api",
+					"preset": false
+				},
         {
-          "name": "NOME_EMPRESA",
-          "label": "Nome da Conexão",
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
           "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
           "required": true,
-          "default": "Chrome"
-        },
-        {
-          "name": "Seu domínio",
-          "label": "Seu domínio",
-          "description": "Seu domínio.",
           "default": "seudominio.com.br",
-          "preset": true
+          "preset": false
+        },
+				{
+          "name": "NOME_EMPRESA",
+          "label": "Nome da conexão no WhatsApp",
+          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
+          "required": true,
+          "default": "Chrome",
+          "preset": false
         },
         {
           "name": "QRCODE_COLOR",
@@ -49,83 +86,70 @@
               "value": "#db291c"
             }
           ]
-        }
+        },
+        {
+          "name": "TYPEBOT_API_VERSION",
+          "label": "Versão da API do Typebot",
+          "description": "Versão da API do Typebot.",
+          "default": "latest",
+          "preset": false,
+          "select": [
+            {
+              "text": "Acima da v2.20.0",
+              "value": "latest",
+							"default": true
+            },
+            {
+              "text": "Abaixo da v2.19.0",
+              "value": "old"
+            }
+          ]
+        },
+				{
+          "name": "LOG_LEVEL",
+          "label": "Nível de logs",
+          "description": "Versão da API do Typebot.",
+          "default": "latest",
+          "preset": false,
+          "select": [
+            {
+              "text": "Todos",
+              "value": "ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS",
+							"default": true
+            },
+            {
+              "text": "Erros",
+              "value": "ERROR,VERBOSE"
+            },
+            {
+              "text": "Informações e avisos",
+              "value": "INFO,VERBOSE,WARN"
+            },
+            {
+              "text": "Webhooks",
+              "value": "WEBHOOKS"
+            }
+          ]
+				},
+				{
+          "name": "AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES",
+          "label": "Expor apikey no fetch instances",
+          "description": "Quando chamar o endpoint '/fetchInstances/', expor as chaves de api privada de cada uma das instancias de WhatsApp.",
+          "default": "latest",
+          "preset": false,
+          "select": [
+            {
+              "text": "Não",
+              "value": "false",
+							"default": true
+            },
+            {
+              "text": "Sim",
+              "value": "true"
+            }
+          ]
+				}
       ]
-    },
-    {
-      "type": 2,
-      "title": "n8n",
-      "name": "n8n",
-      "note": "<h3>Guidelines para deploy n8n</h3><hr noshade><p> Defina as variaveis subdominio e domínio e email da ACME antes de instalar a stack.</p> SUBDOMAIN_N8N=n8n <br>DOMAIN=seudominio.com.br <br>ACME_EMAIL=seuemail@gmail.com<hr noshade><p> Defina as variaveis de SMTP se quiser adicionar mais usuarios no futuro, tambem pode ser feita em Services >> n8n >> seção environment com o container rodando.</p> SMTP_SERVER=smtp.gmail.com <br>SMTP_PORT=465 <br>SMTP_USER=email@dominio.com.br <br>SMTP_PASSWORD=suasenhasupersegura SMTP_SENDER=naoresponda@seudominio.com<hr noshade><p>Após inserir as variáveis no seu sistema é so clicar em <b>Deploy the Stack</b></p></p></b><p>",
-      "website": "https://docs.n8n.io/hosting/",
-      "description": "Ferramenta poderosa de automação para conectar qualquer serviço a outro via Webhooks e Api.",
-      "categories": ["Automação"],
-      "platform": "linux",
-      "logo": "https://uploads-ssl.webflow.com/5fcdef3cc7cf1d1e14b4ba0c/5ff1cd94f528ec2a29875d5f_n8n-io.png",
-      "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "n8n/n8n.yml"
-      }
-    },
-    {
-      "type": 2,
-      "title": "Chatwoot",
-      "name": "chatwoot",
-      "note": "<h2>Chatwoot</h2><p>",
-      "website": "https://chatwoot.com/",
-      "description": "Ferramenta de chat multicanais, com suporte para WhatsApp, Instagram e Telegram.",
-      "categories": ["Chatbot"],
-      "platform": "linux",
-      "logo": "https://play-lh.googleusercontent.com/5t-CLvEg-ylq7j2eGpokJKBdOB-nz1G9qAb74G2ZCSHzwqkyX-iHdPBq_y7KfUiYGw2w",
-      "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "chatwoot/chatwoot.yml"
-      }
-    },
-    {
-      "type": 2,
-      "title": "Mautic",
-      "name": "Mautic",
-      "note": "<h2>Mautic</h2>",
-      "website": "https://passbolt.com/",
-      "description": "Email marketing.",
-      "categories": ["Marketing"],
-      "platform": "linux",
-      "logo": "https://www.mautic.org/themes/custom/mauticorg_base/logo.svg",
-      "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "mautic/mautic.yml"
-      }
-    },
-    {
-      "type": 2,
-      "title": "Passbolt",
-      "name": "passbolt",
-      "note": "<h2>Passbolt</h2>",
-      "website": "https://passbolt.com/",
-      "description": "Gerenciamento e compartilhamento de maneira segura, tenha total controle das suas senhas e dados.",
-      "categories": ["Segurança", "Senhas"],
-      "platform": "linux",
-      "logo": "https://cdn-images-1.medium.com/fit/c/336/336/1*O4smO4FDeybq_DRNj0rozQ.png",
-      "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "passbolt/passbolt.yml"
-      }
-    },
-    {
-      "type": 2,
-      "title": "NocoDB",
-      "name": "nocodb",
-      "note": "<h2>NocoDB</h2>",
-      "website": "https://nocodb.com/",
-      "description": "Alternativa ao Airtable.",
-      "categories": ["Planilha", "Base de Dados"],
-      "platform": "linux",
-      "logo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAjVBMVEX///9FcKlWYnCa3f9qyv8Aos7BzeA3Z6U6aaaputPIy89KWGetsrje8/+U2//I7P+x4v9hx/8Ancyu3u2QzuXr+P/k9v+e3//D6v+k3f8hp9Eiq9O+4u9gu9uBmsBpibbt7vBcaHXR7//0+/8AmMmKzOPR2ufg5u9hgrMqYKFzkLq2xNrU3Ok4SFr29vekDQXKAAABjElEQVR4nO3ZyU4CQRiFURQFHHDAWXHEeXr/xzMtaRbGUlPS9SOes+3bqXy7Lmi1AAAAAAAAAAAA/pdRP2W/niQXufaKFu5vpBzUk3ZykumwcGE7YaueHKQWmRQqVKhQoUKFChUqVKhQocKQwpRJ4R+/4482U67qSXKRq1+0EABgoj/1D5sPRtGFR9sNK/uP26eFS41SqFChQoUKFSpUqFChQoUKZ6Vw3u/4V1sNC/+dBgCYQzvZxu/vJZ8PY8MmlgeZjsdfX8Pr1OA0uKx2vJzpZPz+cJAaKCxFoUKF8RQqVBhPoUKF8RQqnP3C7Dv+yV+54+9mG7/fv0k934kNAwDm020nxG119t1PRr929tCNcF+dvfLN2Y/TKewtRDh/L/z67J5ChQobpbCiUKHCZimsKFSosFkKKwp/WtjtBajv+F+PplPYWQnxVJ39/M2oM5VCAIDW62pJEYUXL2vlLIYUri2Wc6lQoUKFChUqVKhQoUKFChWGFc79Hf91vaSIQgAAAAAAAAAAgNnxBpeH9Z+JhPOYAAAAAElFTkSuQmCC",
-      "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "noco/nocodb.yml"
-      }
     }
   ]
 }

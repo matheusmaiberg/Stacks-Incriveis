@@ -4,8 +4,7 @@ x-variaveis:
   &variaveis
     # Server configs
     SERVER_PORT: 8080
-    SERVER_TYPE: "https"
-    SERVER_URL: https://${SUBDOMAIN:-evo}.${DOMAIN:-seudominio.com.br}.com.br
+    SERVER_URL: https://${SUBDOMAIN:-evo}.${DOMAIN:-seudominio.com.br}
     CONFIG_SESSION_PHONE_NAME: Chrome # Firefox | Edge | Opera | Safari
     CONFIG_SESSION_PHONE_CLIENT: Sua-empresa
     # ApiKey Config
@@ -58,7 +57,7 @@ services:
       # Limitar recursos (Mínimo recomendado)
       resources:
         limits:
-          cpus: "0.5"
+          cpus: "1"
           memory: 200M
       labels:
         # Ativa o Traefik no container
