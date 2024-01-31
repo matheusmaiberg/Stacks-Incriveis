@@ -40,7 +40,7 @@ services:
     environment:
       <<: *variaveis
     volumes:
-      - evolution_instances_instances:/evolution/instances
+      - evolution_instances:/evolution/instances
       - evolution_data:/evolution/store
     ports:
     - 8080:8080
