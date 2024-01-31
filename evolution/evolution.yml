@@ -10,7 +10,7 @@ x-variaveis:
     CONFIG_SESSION_PHONE_CLIENT: Sua-empresa
     # ApiKey Config
     AUTHENTICATION_TYPE: apikey
-    AUTHENTICATION_API_KEY: example-AI5ABCDAC5C8AA7AD15ACDE8C
+    AUTHENTICATION_API_KEY: "example-AI5AB2AC5C8AA7AD15AC3DE8C"
     AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES: "true"
     QRCODE_LIMIT: 30
     QRCODE_COLOR: #000000 # Laranja #ff6900 | Preto #000000 | Vermelho #db291c
@@ -28,14 +28,15 @@ x-variaveis:
     LOG_COLOR: "true" # Ativa ou não a cor nos logs
     LOG_BAILEYS: "error" # fatal | error | warn | info | debug | trace
     DEL_INSTANCE: "false" # Deletar instancias desconectadas em 5min
+      # API Typebot
+    TYPEBOT_API_VERSION: "latest" # latest | old
     # RabbitMQ configs
     RABBITMQ_ENABLED: "false" # Mude para true caso for usar RabbitMQ
     RABBITMQ_URI: amqp://guest:guest@rabbitmq:5672
-    TYPEBOT_API_VERSION: "latest" # Use a 'old' para versões antigas da api do Typebot
 
 services:
   evolution:
-    image: davidsongomes/evolution-api:${VERSION:-v1.5.4}
+    image: atendai/evolution-api:${VERSION:-v1.5.4}
     command: ["node", "./dist/src/main.js"]
     environment:
       <<: *variaveis

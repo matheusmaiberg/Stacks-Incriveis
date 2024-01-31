@@ -6,7 +6,7 @@
       "title": "Evolution API",
       "name": "evolution",
       "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull. ",
-      "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png",
+      "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png?raw=true",
       "website": "https://doc.evolution-api.com/",
       "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
       "categories": ["Chatbot", "API", "WhatsApp"],
