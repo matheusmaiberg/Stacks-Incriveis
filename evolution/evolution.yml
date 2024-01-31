@@ -16,7 +16,7 @@ x-variaveis:
     WEBSOCKET_ENABLED: "false"
     # Database configs https://www.mongodb.com/pt-br/cloud/atlas/lp/try4
     DATABASE_ENABLED: "false" # Mude para true caso for trabalhar com MongoDB
-    DATABASE_CONNECTION_URI: mongodb://root:root@mongodb:27017/?authSource=admin&readPreference=primary&ssl=false&directConnection=true
+    DATABASE_CONNECTION_URI: mongodb://${MONGODB_USER}:$${MONGODB_PASS}@$${MONGODB_HOST}:${MONGODB_PORT}/?authSource=admin&readPreference=primary&ssl=false&directConnection=true
     DATABASE_CONNECTION_DB_PREFIX_NAME: evdocker
     # CORS para limitar quais domínios podem fazer requisições a API
     CORS_ORIGIN: "*" # Estrela deixa liberado ou "seudominio1.com, seudominio2.com"

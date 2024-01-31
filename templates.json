@@ -69,6 +69,38 @@
           ]
 				},
 				{
+					"name": "MONGODB_USER",
+					"label": "Usuário do MongoDB",
+					"description": "Seu usuário do MongoDB.",
+					"required": true,
+          "default": "root",
+					"preset": false
+				},
+				{
+					"name": "MONGODB_PASS",
+					"label": "Senha MongoDB",
+					"description": "Sua senha do MongoDB.",
+					"required": true,
+          "default": "root",
+					"preset": false
+				},
+				{
+					"name": "MONGODB_IP",
+					"label": "URL ou IP do MongoDB",
+					"description": "Url ou IP do MongoDB.",
+					"required": true,
+          "default": "mongodb",
+					"preset": false
+				},
+				{
+					"name": "MONGODB_PORT",
+					"label": "Porta MongoDB",
+					"description": "Porta do acesso ao MongoDB.",
+					"required": true,
+          "default": "27017",
+					"preset": false
+				},
+				{
 					"name": "SUBDOMAIN",
 					"label": "Subdomínio da Evolution",
 					"description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
