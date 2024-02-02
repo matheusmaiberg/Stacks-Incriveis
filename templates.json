@@ -9,19 +9,23 @@
       "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png?raw=true",
       "website": "https://doc.evolution-api.com/",
       "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
-      "categories": ["Chatbot", "API", "WhatsApp"],
+      "categories": [
+        "Chatbot",
+        "API",
+        "WhatsApp"
+      ],
       "platform": "linux",
       "repository": {
         "url": "https://github.com/matheusmaiberg/one-click-stacks",
         "stackfile": "evolution/evolution.yml"
       },
       "env": [
-				{
-					"name": "EXPOSED_PORT",
-					"label": "Porta",
-					"description": "A porta que será exposta sua Evolution API.",
-					"required": true,
-					"preset": false,
+        {
+          "name": "EXPOSED_PORT",
+          "label": "Porta",
+          "description": "A porta que será exposta sua Evolution API.",
+          "required": true,
+          "preset": false,
           "select": [
             {
               "text": "8080",
@@ -41,13 +45,13 @@
               "value": "8091"
             }
           ]
-				},
-				{
-					"name": "VERSION",
-					"label": "Versão",
-					"description": "A versão da Evolution API que será instalada na sua VPS.",
-					"required": true,
-					"preset": false,
+        },
+        {
+          "name": "VERSION",
+          "label": "Versão",
+          "description": "A versão da Evolution API que será instalada na sua VPS.",
+          "required": true,
+          "preset": true,
           "select": [
             {
               "text": "v1.6.1",
@@ -67,47 +71,55 @@
               "value": "homolog"
             }
           ]
-				},
-				{
-					"name": "MONGODB_USER",
-					"label": "Usuário do MongoDB",
-					"description": "Seu usuário do MongoDB.",
-					"required": true,
+        },
+        {
+          "name": "AUTHENTICATION_API_KEY",
+          "label": "Chave de segurança (apikey global)",
+          "description": "Chave que tem que ser inserida no header todas as requisições para acessar a API.",
+          "required": true,
+          "default": "example-AI5AB2AC5C8AA7AD15AC3DE8C",
+          "preset": false
+        },
+        {
+          "name": "MONGODB_USER",
+          "label": "Usuário do MongoDB",
+          "description": "Seu usuário do MongoDB.",
+          "required": true,
           "default": "root",
-					"preset": false
-				},
-				{
-					"name": "MONGODB_PASS",
-					"label": "Senha MongoDB",
-					"description": "Sua senha do MongoDB.",
-					"required": true,
+          "preset": false
+        },
+        {
+          "name": "MONGODB_PASS",
+          "label": "Senha MongoDB",
+          "description": "Sua senha do MongoDB.",
+          "required": true,
           "default": "root",
-					"preset": false
-				},
-				{
-					"name": "MONGODB_IP",
-					"label": "URL ou IP do MongoDB",
-					"description": "Url ou IP do MongoDB.",
-					"required": true,
+          "preset": false
+        },
+        {
+          "name": "MONGODB_IP",
+          "label": "URL ou IP do MongoDB",
+          "description": "Url ou IP do MongoDB.",
+          "required": true,
           "default": "mongodb",
-					"preset": false
-				},
-				{
-					"name": "MONGODB_PORT",
-					"label": "Porta MongoDB",
-					"description": "Porta do acesso ao MongoDB.",
-					"required": true,
+          "preset": false
+        },
+        {
+          "name": "MONGODB_PORT",
+          "label": "Porta MongoDB",
+          "description": "Porta do acesso ao MongoDB.",
+          "required": true,
           "default": "27017",
-					"preset": false
-				},
-				{
-					"name": "SUBDOMAIN",
-					"label": "Subdomínio da Evolution",
-					"description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
-					"required": true,
-					"default": "api",
-					"preset": false
-				},
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio da Evolution",
+          "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
+          "required": true,
+          "default": "api",
+          "preset": false
+        },
         {
           "name": "DOMAIN",
           "label": "Domínio principal do seu site",
@@ -116,7 +128,7 @@
           "default": "seudominio.com.br",
           "preset": false
         },
-				{
+        {
           "name": "NOME_EMPRESA",
           "label": "Nome da conexão no WhatsApp",
           "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
@@ -154,7 +166,7 @@
             {
               "text": "Acima da v2.20.0",
               "value": "latest",
-							"default": true
+              "default": true
             },
             {
               "text": "Abaixo da v2.19.0",
@@ -162,7 +174,7 @@
             }
           ]
         },
-				{
+        {
           "name": "LOG_LEVEL",
           "label": "Nível de logs",
           "description": "Versão da API do Typebot.",
@@ -172,7 +184,7 @@
             {
               "text": "Todos",
               "value": "ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS",
-							"default": true
+              "default": true
             },
             {
               "text": "Erros",
@@ -187,8 +199,8 @@
               "value": "WEBHOOKS"
             }
           ]
-				},
-				{
+        },
+        {
           "name": "AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES",
           "label": "Expor apikey no fetch instances",
           "description": "Quando chamar o endpoint '/fetchInstances/', expor as chaves de api privada de cada uma das instancias de WhatsApp.",
@@ -198,14 +210,14 @@
             {
               "text": "Não",
               "value": "false",
-							"default": true
+              "default": true
             },
             {
               "text": "Sim",
               "value": "true"
             }
           ]
-				}
+        }
       ]
     }
   ]
