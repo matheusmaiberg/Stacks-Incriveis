@@ -5,10 +5,10 @@
       "type": 2,
       "title": "Evolution API",
       "name": "evolution",
+      "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
       "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull.",
       "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png?raw=true",
       "website": "https://doc.evolution-api.com/",
-      "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
       "categories": [
         "Chatbot",
         "API",
@@ -161,7 +161,7 @@
           "label": "Versão da API do Typebot",
           "description": "Versão da API do Typebot.",
           "default": "latest",
-          "preset": false,
+          "preset": true,
           "select": [
             {
               "text": "Acima da v2.20.0",
@@ -179,7 +179,7 @@
           "label": "Nível de logs",
           "description": "Versão da API do Typebot.",
           "default": "latest",
-          "preset": false,
+          "preset": true,
           "select": [
             {
               "text": "Todos",
@@ -205,7 +205,7 @@
           "label": "Expor apikey no fetch instances",
           "description": "Quando chamar o endpoint '/fetchInstances/', expor as chaves de api privada de cada uma das instancias de WhatsApp.",
           "default": "latest",
-          "preset": false,
+          "preset": true,
           "select": [
             {
               "text": "Não",
