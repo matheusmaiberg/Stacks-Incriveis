@@ -1,0 +1,269 @@
+{
+  "services": [
+    {
+      "type": "compose",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "dify",
+        "source": {
+          "type": "git",
+          "repo": "https://github.com/easypanel-io/compose.git",
+          "ref": "main",
+          "rootPath": "/dify/code",
+          "composeFile": "docker-compose.yaml"
+        },
+        "env": "# ------------------------------\n# Environment Variables for API service & worker\n# ------------------------------\n\n# ------------------------------\n# Common Variables\n# ------------------------------\n\n# The backend URL of the console API,\n# used to concatenate the authorization callback.\n# If empty, it is the same domain.\n# Example: https://api.console.dify.ai\nCONSOLE_API_URL=\n\n# The front-end URL of the console web,\n# used to concatenate some front-end addresses and for CORS configuration use.\n# If empty, it is the same domain.\n# Example: https://console.dify.ai\nCONSOLE_WEB_URL=\n\n# Service API Url,\n# used to display Service API Base Url to the front-end.\n# If empty, it is the same domain.\n# Example: https://api.dify.ai\nSERVICE_API_URL=\n\n# WebApp API backend Url,\n# used to declare the back-end URL for the front-end API.\n# If empty, it is the same domain.\n# Example: https://api.app.dify.ai\nAPP_API_URL=\n\n# WebApp Url,\n# used to display WebAPP API Base Url to the front-end.\n# If empty, it is the same domain.\n# Example: https://app.dify.ai\nAPP_WEB_URL=\n\n# File preview or download Url prefix.\n# used to display File preview or download Url to the front-end or as Multi-model inputs;\n# Url is signed and has expiration time.\nFILES_URL=\n\n# ------------------------------\n# Server Configuration\n# ------------------------------\n\n# The log level for the application.\n# Supported values are `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`\nLOG_LEVEL=INFO\n\n# Debug mode, default is false.\n# It is recommended to turn on this configuration for local development\n# to prevent some problems caused by monkey patch.\nDEBUG=false\n\n# Flask debug mode, it can output trace information at the interface when turned on,\n# which is convenient for debugging.\nFLASK_DEBUG=false\n\n# A secretkey that is used for securely signing the session cookie \n# and encrypting sensitive information on the database.\n# You can generate a strong key using `openssl rand -base64 42`.\nSECRET_KEY=sk-9f73s3ljTXVcMT3Blb3ljTqtsKiGHXVcMT3BlbkFJLK7U\n\n# Password for admin user initialization.\n# If left unset, admin user will not be prompted for a password\n# when creating the initial admin account.\nINIT_PASSWORD=\n\n# Deployment environment.\n# Supported values are `PRODUCTION`, `TESTING`. Default is `PRODUCTION`.\n# Testing environment. There will be a distinct color label on the front-end page,\n# indicating that this environment is a testing environment.\nDEPLOY_ENV=PRODUCTION\n\n# Whether to enable the version check policy.\n# If set to empty, https://updates.dify.ai will not be called for version check.\nCHECK_UPDATE_URL=https://updates.dify.ai\n\n# Used to change the OpenAI base address, default is https://api.openai.com/v1.\n# When OpenAI cannot be accessed in China, replace it with a domestic mirror address,\n# or when a local model provides OpenAI compatible API, it can be replaced.\nOPENAI_API_BASE=https://api.openai.com/v1\n\n# When enabled, migrations will be executed prior to application startup\n# and the application will start after the migrations have completed.\nMIGRATION_ENABLED=true\n\n# File Access Time specifies a time interval in seconds for the file to be accessed.\n# The default value is 300 seconds.\nFILES_ACCESS_TIMEOUT=300\n\n# The maximum number of active requests for the application, where 0 means unlimited, should be a non-negative integer.\nAPP_MAX_ACTIVE_REQUESTS=0\n\n# ------------------------------\n# Container Startup Related Configuration\n# Only effective when starting with docker image or docker-compose.\n# ------------------------------\n\n# API service binding address, default: 0.0.0.0, i.e., all addresses can be accessed.\nDIFY_BIND_ADDRESS=0.0.0.0\n\n# API service binding port number, default 5001.\nDIFY_PORT=5001\n\n# The number of API server workers, i.e., the number of gevent workers.\n# Formula: number of cpu cores x 2 + 1\n# Reference: https://docs.gunicorn.org/en/stable/design.html#how-many-workers\nSERVER_WORKER_AMOUNT=\n\n# Defaults to gevent. If using windows, it can be switched to sync or solo.\nSERVER_WORKER_CLASS=\n\n# Similar to SERVER_WORKER_CLASS. Default is gevent.\n# If using windows, it can be switched to sync or solo.\nCELERY_WORKER_CLASS=\n\n# Request handling timeout. The default is 200,\n# it is recommended to set it to 360 to support a longer sse connection time.\nGUNICORN_TIMEOUT=360\n\n# The number of Celery workers. The default is 1, and can be set as needed.\nCELERY_WORKER_AMOUNT=\n\n# Flag indicating whether to enable autoscaling of Celery workers.\n#\n# Autoscaling is useful when tasks are CPU intensive and can be dynamically\n# allocated and deallocated based on the workload.\n#\n# When autoscaling is enabled, the maximum and minimum number of workers can\n# be specified. The autoscaling algorithm will dynamically adjust the number\n# of workers within the specified range.\n#\n# Default is false (i.e., autoscaling is disabled).\n#\n# Example:\n# CELERY_AUTO_SCALE=true\nCELERY_AUTO_SCALE=false\n\n# The maximum number of Celery workers that can be autoscaled.\n# This is optional and only used when autoscaling is enabled.\n# Default is not set.\nCELERY_MAX_WORKERS=\n\n# The minimum number of Celery workers that can be autoscaled.\n# This is optional and only used when autoscaling is enabled.\n# Default is not set.\nCELERY_MIN_WORKERS=\n\n# API Tool configuration\nAPI_TOOL_DEFAULT_CONNECT_TIMEOUT=10\nAPI_TOOL_DEFAULT_READ_TIMEOUT=60\n\n\n# ------------------------------\n# Database Configuration\n# The database uses PostgreSQL. Please use the public schema.\n# It is consistent with the configuration in the 'db' service below.\n# ------------------------------\n\nDB_USERNAME=postgres\nDB_PASSWORD=difyai123456\nDB_HOST=db\nDB_PORT=5432\nDB_DATABASE=dify\n# The size of the database connection pool.\n# The default is 30 connections, which can be appropriately increased.\nSQLALCHEMY_POOL_SIZE=30\n# Database connection pool recycling time, the default is 3600 seconds.\nSQLALCHEMY_POOL_RECYCLE=3600\n# Whether to print SQL, default is false.\nSQLALCHEMY_ECHO=false\n\n# Maximum number of connections to the database\n# Default is 100\n#\n# Reference: https://www.postgresql.org/docs/current/runtime-config-connection.html#GUC-MAX-CONNECTIONS\nPOSTGRES_MAX_CONNECTIONS=100\n\n# Sets the amount of shared memory used for postgres's shared buffers.\n# Default is 128MB\n# Recommended value: 25% of available memory\n# Reference: https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-SHARED-BUFFERS\nPOSTGRES_SHARED_BUFFERS=128MB\n\n# Sets the amount of memory used by each database worker for working space.\n# Default is 4MB\n#\n# Reference: https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-WORK-MEM\nPOSTGRES_WORK_MEM=4MB\n\n# Sets the amount of memory reserved for maintenance activities.\n# Default is 64MB\n#\n# Reference: https://www.postgresql.org/docs/current/runtime-config-resource.html#GUC-MAINTENANCE-WORK-MEM\nPOSTGRES_MAINTENANCE_WORK_MEM=64MB\n\n# Sets the planner's assumption about the effective cache size.\n# Default is 4096MB\n#\n# Reference: https://www.postgresql.org/docs/current/runtime-config-query.html#GUC-EFFECTIVE-CACHE-SIZE\nPOSTGRES_EFFECTIVE_CACHE_SIZE=4096MB\n\n# ------------------------------\n# Redis Configuration\n# This Redis configuration is used for caching and for pub/sub during conversation.\n# ------------------------------\n\nREDIS_HOST=redis\nREDIS_PORT=6379\nREDIS_USERNAME=\nREDIS_PASSWORD=difyai123456\nREDIS_USE_SSL=false\n\n# ------------------------------\n# Celery Configuration\n# ------------------------------\n\n# Use redis as the broker, and redis db 1 for celery broker.\n# Format as follows: `redis://<redis_username>:<redis_password>@<redis_host>:<redis_port>/<redis_database>`\n# Example: redis://:difyai123456@redis:6379/1\nCELERY_BROKER_URL=redis://:difyai123456@redis:6379/1\nBROKER_USE_SSL=false\n\n# ------------------------------\n# CORS Configuration\n# Used to set the front-end cross-domain access policy.\n# ------------------------------\n\n# Specifies the allowed origins for cross-origin requests to the Web API,\n# e.g. https://dify.app or * for all origins.\nWEB_API_CORS_ALLOW_ORIGINS=*\n\n# Specifies the allowed origins for cross-origin requests to the console API,\n# e.g. https://cloud.dify.ai or * for all origins.\nCONSOLE_CORS_ALLOW_ORIGINS=*\n\n# ------------------------------\n# File Storage Configuration\n# ------------------------------\n\n# The type of storage to use for storing user files.\n# Supported values are `local` and `s3` and `azure-blob` and `google-storage` and `tencent-cos`,\n# Default: `local`\nSTORAGE_TYPE=local\n\n# S3 Configuration\n# Whether to use AWS managed IAM roles for authenticating with the S3 service.\n# If set to false, the access key and secret key must be provided.\nS3_USE_AWS_MANAGED_IAM=false\n# The endpoint of the S3 service.\nS3_ENDPOINT=\n# The region of the S3 service.\nS3_REGION=us-east-1\n# The name of the S3 bucket to use for storing files.\nS3_BUCKET_NAME=difyai\n# The access key to use for authenticating with the S3 service.\nS3_ACCESS_KEY=\n# The secret key to use for authenticating with the S3 service.\nS3_SECRET_KEY=\n\n# Azure Blob Configuration\n# The name of the Azure Blob Storage account to use for storing files.\nAZURE_BLOB_ACCOUNT_NAME=difyai\n# The access key to use for authenticating with the Azure Blob Storage account.\nAZURE_BLOB_ACCOUNT_KEY=difyai\n# The name of the Azure Blob Storage container to use for storing files.\nAZURE_BLOB_CONTAINER_NAME=difyai-container\n# The URL of the Azure Blob Storage account.\nAZURE_BLOB_ACCOUNT_URL=https://<your_account_name>.blob.core.windows.net\n\n# Google Storage Configuration\n# The name of the Google Storage bucket to use for storing files.\nGOOGLE_STORAGE_BUCKET_NAME=your-bucket-name\n# The service account JSON key to use for authenticating with the Google Storage service.\nGOOGLE_STORAGE_SERVICE_ACCOUNT_JSON_BASE64=your-google-service-account-json-base64-string\n\n# The Alibaba Cloud OSS configurations,\n# only available when STORAGE_TYPE is `aliyun-oss`\nALIYUN_OSS_BUCKET_NAME=your-bucket-name\nALIYUN_OSS_ACCESS_KEY=your-access-key\nALIYUN_OSS_SECRET_KEY=your-secret-key\nALIYUN_OSS_ENDPOINT=https://oss-ap-southeast-1-internal.aliyuncs.com\nALIYUN_OSS_REGION=ap-southeast-1\nALIYUN_OSS_AUTH_VERSION=v4\n\n# Tencent COS Configuration\n# The name of the Tencent COS bucket to use for storing files.\nTENCENT_COS_BUCKET_NAME=your-bucket-name\n# The secret key to use for authenticating with the Tencent COS service.\nTENCENT_COS_SECRET_KEY=your-secret-key\n# The secret id to use for authenticating with the Tencent COS service.\nTENCENT_COS_SECRET_ID=your-secret-id\n# The region of the Tencent COS service.\nTENCENT_COS_REGION=your-region\n# The scheme of the Tencent COS service.\nTENCENT_COS_SCHEME=your-scheme\n\n# ------------------------------\n# Vector Database Configuration\n# ------------------------------\n\n# The type of vector store to use. \n# Supported values are `weaviate`, `qdrant`, `milvus`, `myscale`, `relyt`, `pgvector`, `chroma`, `opensearch`, `tidb_vector`, `oracle`, `tencent`, `elasticsearch`.\nVECTOR_STORE=weaviate\n\n# The Weaviate endpoint URL. Only available when VECTOR_STORE is `weaviate`.\nWEAVIATE_ENDPOINT=http://weaviate:8080\n# The Weaviate API key.\nWEAVIATE_API_KEY=WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih\n\n# The Qdrant endpoint URL. Only available when VECTOR_STORE is `qdrant`.\nQDRANT_URL=http://qdrant:6333\n# The Qdrant API key.\nQDRANT_API_KEY=difyai123456\n# The Qdrant client timeout setting.\nQDRANT_CLIENT_TIMEOUT=20\n# The Qdrant client enable gRPC mode.\nQDRANT_GRPC_ENABLED=false\n# The Qdrant server gRPC mode PORT.\nQDRANT_GRPC_PORT=6334\n\n# Milvus configuration Only available when VECTOR_STORE is `milvus`.\n# The milvus host.\nMILVUS_HOST=127.0.0.1\n# The milvus host.\nMILVUS_PORT=19530\n# The milvus username.\nMILVUS_USER=root\n# The milvus password.\nMILVUS_PASSWORD=Milvus\n# The milvus tls switch.\nMILVUS_SECURE=false\n\n# MyScale configuration, only available when VECTOR_STORE is `myscale`\n# For multi-language support, please set MYSCALE_FTS_PARAMS with referring to:\n# https://myscale.com/docs/en/text-search/#understanding-fts-index-parameters\nMYSCALE_HOST=myscale\nMYSCALE_PORT=8123\nMYSCALE_USER=default\nMYSCALE_PASSWORD=\nMYSCALE_DATABASE=dify\nMYSCALE_FTS_PARAMS=\n\n# pgvector configurations, only available when VECTOR_STORE is `pgvecto-rs or pgvector`\nPGVECTOR_HOST=pgvector\nPGVECTOR_PORT=5432\nPGVECTOR_USER=postgres\nPGVECTOR_PASSWORD=difyai123456\nPGVECTOR_DATABASE=dify\n\n# TiDB vector configurations, only available when VECTOR_STORE is `tidb`\nTIDB_VECTOR_HOST=tidb\nTIDB_VECTOR_PORT=4000\nTIDB_VECTOR_USER=xxx.root\nTIDB_VECTOR_PASSWORD=xxxxxx\nTIDB_VECTOR_DATABASE=dify\n\n# Chroma configuration, only available when VECTOR_STORE is `chroma`\nCHROMA_HOST=127.0.0.1\nCHROMA_PORT=8000\nCHROMA_TENANT=default_tenant\nCHROMA_DATABASE=default_database\nCHROMA_AUTH_PROVIDER=chromadb.auth.token_authn.TokenAuthClientProvider\nCHROMA_AUTH_CREDENTIALS=xxxxxx\n\n# Oracle configuration, only available when VECTOR_STORE is `oracle`\nORACLE_HOST=oracle\nORACLE_PORT=1521\nORACLE_USER=dify\nORACLE_PASSWORD=dify\nORACLE_DATABASE=FREEPDB1\n\n# relyt configurations, only available when VECTOR_STORE is `relyt`\nRELYT_HOST=db\nRELYT_PORT=5432\nRELYT_USER=postgres\nRELYT_PASSWORD=difyai123456\nRELYT_DATABASE=postgres\n\n# open search configuration, only available when VECTOR_STORE is `opensearch`\nOPENSEARCH_HOST=opensearch\nOPENSEARCH_PORT=9200\nOPENSEARCH_USER=admin\nOPENSEARCH_PASSWORD=admin\nOPENSEARCH_SECURE=true\n\n# tencent vector configurations, only available when VECTOR_STORE is `tencent`\nTENCENT_VECTOR_DB_URL=http://127.0.0.1\nTENCENT_VECTOR_DB_API_KEY=dify\nTENCENT_VECTOR_DB_TIMEOUT=30\nTENCENT_VECTOR_DB_USERNAME=dify\nTENCENT_VECTOR_DB_DATABASE=dify\nTENCENT_VECTOR_DB_SHARD=1\nTENCENT_VECTOR_DB_REPLICAS=2\n\n# ElasticSearch configuration, only available when VECTOR_STORE is `elasticsearch`\nELASTICSEARCH_HOST=0.0.0.0\nELASTICSEARCH_PORT=9200\nELASTICSEARCH_USERNAME=elastic\nELASTICSEARCH_PASSWORD=elastic\n\n# ------------------------------\n# Knowledge Configuration\n# ------------------------------\n\n# Upload file size limit, default 15M.\nUPLOAD_FILE_SIZE_LIMIT=15\n\n# The maximum number of files that can be uploaded at a time, default 5.\nUPLOAD_FILE_BATCH_LIMIT=5\n\n# ETl type, support: `dify`, `Unstructured`\n# `dify` Dify's proprietary file extraction scheme\n# `Unstructured` Unstructured.io file extraction scheme\nETL_TYPE=dify\n\n# Unstructured API path, needs to be configured when ETL_TYPE is Unstructured.\n# For example: http://unstructured:8000/general/v0/general\nUNSTRUCTURED_API_URL=\n\n# ------------------------------\n# Multi-modal Configuration\n# ------------------------------\n\n# The format of the image sent when the multi-modal model is input,\n# the default is base64, optional url.\n# The delay of the call in url mode will be lower than that in base64 mode.\n# It is generally recommended to use the more compatible base64 mode.\n# If configured as url, you need to configure FILES_URL as an externally accessible address so that the multi-modal model can access the image.\nMULTIMODAL_SEND_IMAGE_FORMAT=base64\n\n# Upload image file size limit, default 10M.\nUPLOAD_IMAGE_FILE_SIZE_LIMIT=10\n\n# ------------------------------\n# Sentry Configuration\n# Used for application monitoring and error log tracking.\n# ------------------------------\n\n# API Service Sentry DSN address, default is empty, when empty,\n# all monitoring information is not reported to Sentry.\n# If not set, Sentry error reporting will be disabled.\nAPI_SENTRY_DSN=\n\n# API Service The reporting ratio of Sentry events, if it is 0.01, it is 1%.\nAPI_SENTRY_TRACES_SAMPLE_RATE=1.0\n\n# API Service The reporting ratio of Sentry profiles, if it is 0.01, it is 1%.\nAPI_SENTRY_PROFILES_SAMPLE_RATE=1.0\n\n# Web Service Sentry DSN address, default is empty, when empty,\n# all monitoring information is not reported to Sentry.\n# If not set, Sentry error reporting will be disabled.\nWEB_SENTRY_DSN=\n\n# ------------------------------\n# Notion Integration Configuration\n# Variables can be obtained by applying for Notion integration: https://www.notion.so/my-integrations\n# ------------------------------\n\n# Configure as \"public\" or \"internal\".\n# Since Notion's OAuth redirect URL only supports HTTPS,\n# if deploying locally, please use Notion's internal integration.\nNOTION_INTEGRATION_TYPE=public\n# Notion OAuth client secret (used for public integration type)\nNOTION_CLIENT_SECRET=\n# Notion OAuth client id (used for public integration type)\nNOTION_CLIENT_ID=\n# Notion internal integration secret.\n# If the value of NOTION_INTEGRATION_TYPE is \"internal\",\n# you need to configure this variable.\nNOTION_INTERNAL_SECRET=\n\n# ------------------------------\n# Mail related configuration\n# ------------------------------\n\n# Mail type, support: resend, smtp\nMAIL_TYPE=resend\n\n# Default send from email address, if not specified\nMAIL_DEFAULT_SEND_FROM=\n\n# API-Key for the Resend email provider, used when MAIL_TYPE is `resend`.\nRESEND_API_KEY=your-resend-api-key\n\n# SMTP server configuration, used when MAIL_TYPE is `smtp`\nSMTP_SERVER=\nSMTP_PORT=465\nSMTP_USERNAME=\nSMTP_PASSWORD=\nSMTP_USE_TLS=true\nSMTP_OPPORTUNISTIC_TLS=false\n\n# ------------------------------\n# Others Configuration\n# ------------------------------\n\n# Maximum length of segmentation tokens for indexing\nINDEXING_MAX_SEGMENTATION_TOKENS_LENGTH=1000\n\n# Member invitation link valid time (hours),\n# Default: 72.\nINVITE_EXPIRY_HOURS=72\n\n# Reset password token valid time (hours),\n# Default: 24.\nRESET_PASSWORD_TOKEN_EXPIRY_HOURS=24\n\n# The sandbox service endpoint.\nCODE_EXECUTION_ENDPOINT=http://sandbox:8194\nCODE_MAX_NUMBER=9223372036854775807\nCODE_MIN_NUMBER=-9223372036854775808\nCODE_MAX_DEPTH=5\nCODE_MAX_PRECISION=20\nCODE_MAX_STRING_LENGTH=80000\nTEMPLATE_TRANSFORM_MAX_LENGTH=80000\nCODE_MAX_STRING_ARRAY_LENGTH=30\nCODE_MAX_OBJECT_ARRAY_LENGTH=30\nCODE_MAX_NUMBER_ARRAY_LENGTH=1000\n\n# SSRF Proxy server HTTP URL\nSSRF_PROXY_HTTP_URL=http://ssrf_proxy:3128\n# SSRF Proxy server HTTPS URL\nSSRF_PROXY_HTTPS_URL=http://ssrf_proxy:3128\n\n# ------------------------------\n# Environment Variables for db Service\n# ------------------------------\n\nPGUSER=${DB_USERNAME}\n# The password for the default postgres user.\nPOSTGRES_PASSWORD=${DB_PASSWORD}\n# The name of the default postgres database.\nPOSTGRES_DB=${DB_DATABASE}\n# postgres data directory\nPGDATA=/var/lib/postgresql/data/pgdata\n\n# ------------------------------\n# Environment Variables for sandbox Service\n# ------------------------------\n\n# The API key for the sandbox service\nSANDBOX_API_KEY=dify-sandbox\n# The mode in which the Gin framework runs\nSANDBOX_GIN_MODE=release\n# The timeout for the worker in seconds\nSANDBOX_WORKER_TIMEOUT=15\n# Enable network for the sandbox service\nSANDBOX_ENABLE_NETWORK=true\n# HTTP proxy URL for SSRF protection\nSANDBOX_HTTP_PROXY=http://ssrf_proxy:3128\n# HTTPS proxy URL for SSRF protection\nSANDBOX_HTTPS_PROXY=http://ssrf_proxy:3128\n# The port on which the sandbox service runs\nSANDBOX_PORT=8194\n\n# ------------------------------\n# Environment Variables for weaviate Service\n# (only used when VECTOR_STORE is weaviate)\n# ------------------------------\nWEAVIATE_PERSISTENCE_DATA_PATH='/var/lib/weaviate'\nWEAVIATE_QUERY_DEFAULTS_LIMIT=25\nWEAVIATE_AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED=true\nWEAVIATE_DEFAULT_VECTORIZER_MODULE=none\nWEAVIATE_CLUSTER_HOSTNAME=node1\nWEAVIATE_AUTHENTICATION_APIKEY_ENABLED=true\nWEAVIATE_AUTHENTICATION_APIKEY_ALLOWED_KEYS=WVF5YThaHlkYwhGUSmCRgsX3tD5ngdN8pkih\nWEAVIATE_AUTHENTICATION_APIKEY_USERS=hello@dify.ai\nWEAVIATE_AUTHORIZATION_ADMINLIST_ENABLED=true\nWEAVIATE_AUTHORIZATION_ADMINLIST_USERS=hello@dify.ai\n\n# ------------------------------\n# Environment Variables for Chroma\n# (only used when VECTOR_STORE is chroma)\n# ------------------------------\n\n# Authentication credentials for Chroma server\nCHROMA_SERVER_AUTHN_CREDENTIALS=difyai123456\n# Authentication provider for Chroma server\nCHROMA_SERVER_AUTHN_PROVIDER=chromadb.auth.token_authn.TokenAuthenticationServerProvider\n# Persistence setting for Chroma server\nCHROMA_IS_PERSISTENT=TRUE\n\n# ------------------------------\n# Environment Variables for Oracle Service\n# (only used when VECTOR_STORE is Oracle)\n# ------------------------------\nORACLE_PWD=Dify123456\nORACLE_CHARACTERSET=AL32UTF8\n\n# ------------------------------\n# Environment Variables for milvus Service\n# (only used when VECTOR_STORE is milvus)\n# ------------------------------\n# ETCD configuration for auto compaction mode\nETCD_AUTO_COMPACTION_MODE=revision\n# ETCD configuration for auto compaction retention in terms of number of revisions\nETCD_AUTO_COMPACTION_RETENTION=1000\n# ETCD configuration for backend quota in bytes\nETCD_QUOTA_BACKEND_BYTES=4294967296\n# ETCD configuration for the number of changes before triggering a snapshot\nETCD_SNAPSHOT_COUNT=50000\n# MinIO access key for authentication\nMINIO_ACCESS_KEY=minioadmin\n# MinIO secret key for authentication\nMINIO_SECRET_KEY=minioadmin\n# ETCD service endpoints\nETCD_ENDPOINTS=etcd:2379\n# MinIO service address\nMINIO_ADDRESS=minio:9000\n# Enable or disable security authorization\nMILVUS_AUTHORIZATION_ENABLED=true\n\n# ------------------------------\n# Environment Variables for pgvector / pgvector-rs Service\n# (only used when VECTOR_STORE is pgvector / pgvector-rs)\n# ------------------------------\nPGVECTOR_PGUSER=postgres\n# The password for the default postgres user.\nPGVECTOR_POSTGRES_PASSWORD=difyai123456\n# The name of the default postgres database.\nPGVECTOR_POSTGRES_DB=dify\n# postgres data directory\nPGVECTOR_PGDATA=/var/lib/postgresql/data/pgdata\n\n# ------------------------------\n# Environment Variables for opensearch\n# (only used when VECTOR_STORE is opensearch)\n# ------------------------------\nOPENSEARCH_DISCOVERY_TYPE=single-node\nOPENSEARCH_BOOTSTRAP_MEMORY_LOCK=true\nOPENSEARCH_JAVA_OPTS_MIN=512m\nOPENSEARCH_JAVA_OPTS_MAX=1024m\nOPENSEARCH_INITIAL_ADMIN_PASSWORD=Qazwsxedc!@#123\nOPENSEARCH_MEMLOCK_SOFT=-1\nOPENSEARCH_MEMLOCK_HARD=-1\nOPENSEARCH_NOFILE_SOFT=65536\nOPENSEARCH_NOFILE_HARD=65536\n\n# ------------------------------\n# Environment Variables for Nginx reverse proxy\n# ------------------------------\nNGINX_SERVER_NAME=_\nNGINX_HTTPS_ENABLED=false\n# HTTP port\nNGINX_PORT=80\n# SSL settings are only applied when HTTPS_ENABLED is true\nNGINX_SSL_PORT=443\n# if HTTPS_ENABLED is true, you're required to add your own SSL certificates/keys to the `./nginx/ssl` directory\n# and modify the env vars below accordingly.\nNGINX_SSL_CERT_FILENAME=dify.crt\nNGINX_SSL_CERT_KEY_FILENAME=dify.key\nNGINX_SSL_PROTOCOLS=TLSv1.1 TLSv1.2 TLSv1.3\n\n# Nginx performance tuning\nNGINX_WORKER_PROCESSES=auto\nNGINX_CLIENT_MAX_BODY_SIZE=15M\nNGINX_KEEPALIVE_TIMEOUT=65\n\n# Proxy settings\nNGINX_PROXY_READ_TIMEOUT=3600s\nNGINX_PROXY_SEND_TIMEOUT=3600s\n\n# Set true to accept requests for /.well-known/acme-challenge/\nNGINX_ENABLE_CERTBOT_CHALLENGE=false\n\n# ------------------------------\n# Certbot Configuration\n# ------------------------------\n\n# Email address (required to get certificates from Let's Encrypt)\nCERTBOT_EMAIL=your_email@example.com\n\n# Domain name\nCERTBOT_DOMAIN=your_domain.com\n\n# certbot command options\n# i.e: --force-renewal --dry-run --test-cert --debug\nCERTBOT_OPTIONS=\n\n# ------------------------------\n# Environment Variables for SSRF Proxy\n# ------------------------------\nSSRF_HTTP_PORT=3128\nSSRF_COREDUMP_DIR=/var/spool/squid\nSSRF_REVERSE_PROXY_PORT=8194\nSSRF_SANDBOX_HOST=sandbox\n\n# ------------------------------\n# docker env var for specifying vector db type at startup\n# (based on the vector db type, the corresponding docker\n# compose profile will be used)\n# if you want to use unstructured, add ',unstructured' to the end\n# ------------------------------\nCOMPOSE_PROFILES=${VECTOR_STORE:-weaviate}\n\n# ------------------------------\n# Docker Compose Service Expose Host Port Configurations\n# ------------------------------\nEXPOSE_NGINX_PORT=80\nEXPOSE_NGINX_SSL_PORT=443\n\n# ----------------------------------------------------------------------------\n# ModelProvider & Tool Position Configuration\n# Used to specify the model providers and tools that can be used in the app.\n# ----------------------------------------------------------------------------\n\n# Pin, include, and exclude tools\n# Use comma-separated values with no spaces between items.\n# Example: POSITION_TOOL_PINS=bing,google\nPOSITION_TOOL_PINS=\nPOSITION_TOOL_INCLUDES=\nPOSITION_TOOL_EXCLUDES=\n\n# Pin, include, and exclude model providers\n# Use comma-separated values with no spaces between items.\n# Example: POSITION_PROVIDER_PINS=openai,openllm\nPOSITION_PROVIDER_PINS=\nPOSITION_PROVIDER_INCLUDES=\nPOSITION_PROVIDER_EXCLUDES=",
+        "domains": [
+          {
+            "https": true,
+            "host": "teste-dify.f7tiwt.easypanel.host",
+            "port": 80,
+            "service": "nginx",
+            "path": "/",
+            "wildcard": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "evolution",
+        "source": {
+          "type": "image",
+          "image": "atendai/evolution-api:v2.1.0"
+        },
+        "env": "## Url da Evolution API\r\nSERVER_URL=https://devevo.qute.ro\r\n\r\n## Dados de Autenticação\r\nAUTHENTICATION_TYPE=apikey\r\nAUTHENTICATION_API_KEY=c99ca824cb1eb9b70670f54f79b1d951\r\nAUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES=true\r\n\r\n## Configurações\r\nLANGUAGE=pt-BR\r\nCONFIG_SESSION_PHONE_CLIENT=Qute\r\nCONFIG_SESSION_PHONE_NAME=chrome    \r\nCONFIG_SESSION_PHONE_VERSION=2.3000.1015901307\r\n\r\n## Configurações do Whatsapp Business Cloud (Api Oficial)\r\nWA_BUSINESS_TOKEN_WEBHOOK=evolution\r\nWA_BUSINESS_URL=https://graph.facebook.com\r\nWA_BUSINESS_VERSION=v20.0\r\nWA_BUSINESS_LANGUAGE=pt_BR\r\n\r\n## Sobre o QR-Code\r\nQRCODE_LIMIT=5\r\nQRCODE_COLOR=#47A7F6\r\n\r\n## Aivar Banco de Dados Postgres\r\nDATABASE_ENABLED=true\r\nDATABASE_PROVIDER=postgresql\r\nDATABASE_CONNECTION_URI=postgresql://postgres:Qute_123@teste_postgres:5432/evolution\r\nDATABASE_CONNECTION_CLIENT_NAME=evolution\r\nDATABASE_SAVE_DATA_INSTANCE=true\r\nDATABASE_SAVE_DATA_NEW_MESSAGE=true\r\nDATABASE_SAVE_MESSAGE_UPDATE=true\r\nDATABASE_SAVE_DATA_CONTACTS=true\r\nDATABASE_SAVE_DATA_CHATS=true\r\n\r\n# Integrações\r\nOPENAI_ENABLED=true\r\nDIFY_ENABLED=true\r\n\r\n## Ativar Banco de dados MinIO ou S3\r\nS3_ENABLED=false\r\nS3_ACCESS_KEY=\r\nS3_SECRET_KEY=\r\nS3_BUCKET=evolution\r\nS3_PORT=443\r\nS3_ENDPOINT=\r\nS3_USE_SSL=true    \r\n\r\n## Ativar o Cache Redis\r\nCACHE_REDIS_ENABLED=true\r\nCACHE_REDIS_URI=redis://default:Qute_123@teste_redis:6379/2\r\nCACHE_REDIS_PREFIX_KEY=evolution\r\nCACHE_REDIS_SAVE_INSTANCES=false\r\nCACHE_LOCAL_ENABLED=false\r\n\r\n## Configurações das instancias\r\nDEL_INSTANCE=false\r\nDEL_TEMP_INSTANCES=false\r\n\r\n## Carregar módulo Typebot\r\nTYPEBOT_ENABLED=true\r\nTYPEBOT_API_VERSION=latest\r\n\r\n## Carregar módulo Chatwoot\r\nCHATWOOT_ENABLED=true\r\nCHATWOOT_MESSAGE_READ=true\r\nCHATWOOT_MESSAGE_DELETE=true\r\nCHATWOOT_IMPORT_DATABASE_CONNECTION_URI=postgresql://postgres:Qute_123@teste_postgres:5432/chatwoot?sslmode=disable\r\nCHATWOOT_IMPORT_PLACEHOLDER_MEDIA_MESSAGE=false\r\n\r\n## Dados do RabbitMQ\r\nRABBITMQ_ENABLED=false\r\nRABBITMQ_URI=amqp://services:services@rabbitmq:5672/default\r\nRABBITMQ_EXCHANGE_NAME=evolution\r\nRABBITMQ_GLOBAL_ENABLED=false\r\nRABBITMQ_EVENTS_APPLICATION_STARTUP=false\r\nRABBITMQ_EVENTS_INSTANCE_CREATE=false\r\nRABBITMQ_EVENTS_INSTANCE_DELETE=false\r\nRABBITMQ_EVENTS_QRCODE_UPDATED=false\r\nRABBITMQ_EVENTS_MESSAGES_SET=false\r\nRABBITMQ_EVENTS_MESSAGES_UPSERT=true\r\nRABBITMQ_EVENTS_MESSAGES_EDITED=false\r\nRABBITMQ_EVENTS_MESSAGES_UPDATE=false\r\nRABBITMQ_EVENTS_MESSAGES_DELETE=false\r\nRABBITMQ_EVENTS_SEND_MESSAGE=false\r\nRABBITMQ_EVENTS_CONTACTS_SET=false\r\nRABBITMQ_EVENTS_CONTACTS_UPSERT=false\r\nRABBITMQ_EVENTS_CONTACTS_UPDATE=false\r\nRABBITMQ_EVENTS_PRESENCE_UPDATE=false\r\nRABBITMQ_EVENTS_CHATS_SET=false\r\nRABBITMQ_EVENTS_CHATS_UPSERT=false\r\nRABBITMQ_EVENTS_CHATS_UPDATE=false\r\nRABBITMQ_EVENTS_CHATS_DELETE=false\r\nRABBITMQ_EVENTS_GROUPS_UPSERT=false\r\nRABBITMQ_EVENTS_GROUP_UPDATE=false\r\nRABBITMQ_EVENTS_GROUP_PARTICIPANTS_UPDATE=false\r\nRABBITMQ_EVENTS_CONNECTION_UPDATE=true\r\nRABBITMQ_EVENTS_CALL=false\r\nRABBITMQ_EVENTS_TYPEBOT_START=false\r\nRABBITMQ_EVENTS_TYPEBOT_CHANGE_STATUS=false\r\n\r\n## Informações do Webhook\r\nWEBHOOK_GLOBAL_ENABLED=false\r\nWEBHOOK_GLOBAL_URL=\r\nWEBHOOK_GLOBAL_WEBHOOK_BY_EVENTS=false\r\nWEBHOOK_EVENTS_APPLICATION_STARTUP=false\r\nWEBHOOK_EVENTS_QRCODE_UPDATED=true\r\nWEBHOOK_EVENTS_MESSAGES_SET=true\r\nWEBHOOK_EVENTS_MESSAGES_UPSERT=true\r\nWEBHOOK_EVENTS_MESSAGES_EDITED=true\r\nWEBHOOK_EVENTS_MESSAGES_UPDATE=true\r\nWEBHOOK_EVENTS_MESSAGES_DELETE=true\r\nWEBHOOK_EVENTS_SEND_MESSAGE=true\r\nWEBHOOK_EVENTS_CONTACTS_SET=true\r\nWEBHOOK_EVENTS_CONTACTS_UPSERT=true\r\nWEBHOOK_EVENTS_CONTACTS_UPDATE=true\r\nWEBHOOK_EVENTS_PRESENCE_UPDATE=true\r\nWEBHOOK_EVENTS_CHATS_SET=true\r\nWEBHOOK_EVENTS_CHATS_UPSERT=true\r\nWEBHOOK_EVENTS_CHATS_UPDATE=true\r\nWEBHOOK_EVENTS_CHATS_DELETE=true\r\nWEBHOOK_EVENTS_GROUPS_UPSERT=true\r\nWEBHOOK_EVENTS_GROUPS_UPDATE=true\r\nWEBHOOK_EVENTS_GROUP_PARTICIPANTS_UPDATE=true\r\nWEBHOOK_EVENTS_CONNECTION_UPDATE=true\r\nWEBHOOK_EVENTS_LABELS_EDIT=true\r\nWEBHOOK_EVENTS_LABELS_ASSOCIATION=true\r\nWEBHOOK_EVENTS_CALL=true\r\nWEBHOOK_EVENTS_TYPEBOT_START=false\r\nWEBHOOK_EVENTS_TYPEBOT_CHANGE_STATUS=false\r\nWEBHOOK_EVENTS_ERRORS=false\r\nWEBHOOK_EVENTS_ERRORS_WEBHOOK=",
+        "deploy": {
+          "replicas": 1,
+          "command": null,
+          "zeroDowntime": true
+        },
+        "mounts": [
+          {
+            "type": "volume",
+            "name": "evolution_instances",
+            "mountPath": "/evolution/instances"
+          }
+        ]
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "minio",
+        "source": {
+          "type": "image",
+          "image": "quay.io/minio/minio"
+        },
+        "env": "MINIO_BROWSER_REDIRECT_URL=https://devmno.qute.ro\nMINIO_SERVER_URL=https://devs3.qute.ro\nMINIO_ROOT_USER=admin\nMINIO_ROOT_PASSWORD=Qute_123",
+        "deploy": {
+          "replicas": 1,
+          "command": "minio server /data --console-address \":9001\"",
+          "zeroDowntime": true
+        },
+        "domains": [
+          {
+            "host": "devmno.qute.ro",
+            "https": true,
+            "port": 9001,
+            "path": "/",
+            "wildcard": false
+          },
+          {
+            "host": "devs3.qute.ro",
+            "https": true,
+            "port": 9000,
+            "path": "/",
+            "wildcard": false
+          }
+        ],
+        "mounts": [
+          {
+            "type": "volume",
+            "name": "minio_data",
+            "mountPath": "/data"
+          }
+        ]
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "n8n",
+        "source": {
+          "type": "image",
+          "image": "n8nio/n8n:1.59.4"
+        },
+        "env": "WEBHOOK_URL=https://teste-n8n.f7tiwt.easypanel.host",
+        "deploy": {
+          "replicas": 1,
+          "command": null,
+          "zeroDowntime": true
+        },
+        "domains": [
+          {
+            "host": "teste-n8n.f7tiwt.easypanel.host",
+            "https": true,
+            "port": 5678,
+            "path": "/",
+            "wildcard": false
+          }
+        ],
+        "mounts": [
+          {
+            "type": "volume",
+            "name": "data",
+            "mountPath": "/home/node/.n8n"
+          }
+        ]
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "pgadmin",
+        "source": {
+          "type": "image",
+          "image": "dpage/pgadmin4:latest"
+        },
+        "env": "# Configura o e-mail de contato do Admin\r\nPGADMIN_DEFAULT_EMAIL=admin@qute.ro\r\n# Configura a senha de contato do Admin\r\nPGADMIN_DEFAULT_PASSWORD=Qute_123\r\n# Habilita proteção aprimorada para cookies, aumentando a segurança da sessão no dashboard\r\nPGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True",
+        "deploy": {
+          "replicas": 1,
+          "command": null,
+          "zeroDowntime": true
+        },
+        "domains": [
+          {
+            "host": "devpga.qute.ro",
+            "https": true,
+            "port": 80,
+            "path": "/",
+            "wildcard": false
+          }
+        ],
+        "mounts": [
+          {
+            "type": "volume",
+            "name": "pgadmin4_data",
+            "mountPath": "/var/lib/pgadmin"
+          }
+        ]
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "pgbouncer",
+        "source": {
+          "type": "image",
+          "image": "edoburu/pgbouncer:v1.23.1-p2"
+        },
+        "env": "# Define o Usuário do Postgres\r\nDB_USER=postgres\r\n# Define a Senha do Postgres\r\nDB_PASSWORD=Qute_123\r\n# Define o Host do Postgres\r\nDB_HOST=dev_postgres\r\n# Bancos de dados que deve atuar (vazio para todos)\r\n#- DB_NAME=db1,db2\r\n# Modo de Pool\r\nPOOL_MODE=session\r\n# Tipo de Auth do Postgres\r\nAUTH_TYPE=scram-sha-256",
+        "deploy": {
+          "replicas": 1,
+          "command": null,
+          "zeroDowntime": true
+        },
+        "domains": [
+          {
+            "host": "dev-pgbouncer.ahv3my.easypanel.host",
+            "https": true,
+            "port": 80,
+            "path": "/",
+            "wildcard": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "postgres",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "postgres",
+        "image": "postgres:latest",
+        "password": "Qute_123"
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "rabbitmq",
+        "source": {
+          "type": "image",
+          "image": "rabbitmq:3.13.7-management"
+        },
+        "env": " # Defina o cookie Erlang com 32 posições para autenticação entre nós do RabbitMQ no cluster\r\nRABBITMQ_ERLANG_COOKIE=c99ca824cb1eb9b70670f54f79b1d951\r\n# Define o Virtual Host padrão que será criado no RabbitMQ\r\nRABBITMQ_DEFAULT_VHOST=default\r\n# Define o nome de usuário padrão para acessar o RabbitMQ\r\nRABBITMQ_DEFAULT_USER=admin\r\n# Define a senha padrão para o usuário definido no RabbitMQ\r\nRABBITMQ_DEFAULT_PASS=Qute_123\r\n# Configura o Modo de Deploy da Aplicação",
+        "deploy": {
+          "replicas": 1,
+          "command": null,
+          "zeroDowntime": true
+        },
+        "domains": [
+          {
+            "host": "devrmq.qute.ro",
+            "https": true,
+            "port": 15672,
+            "path": "/",
+            "wildcard": false
+          }
+        ],
+        "mounts": [
+          {
+            "type": "volume",
+            "name": "rabbitmq_data",
+            "mountPath": "/var/lib/rabbitmq/"
+          }
+        ]
+      }
+    },
+    {
+      "type": "redis",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "redis",
+        "image": "redis:latest",
+        "password": "Qute_123"
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "redis-insight",
+        "source": {
+          "type": "image",
+          "image": "redis/redisinsight:latest"
+        },
+        "env": "RI_BASE_API_URL=https://devrdi.qute.ro\r\n# Define a URL base para os recursos estáticos do Redis Insight\r\nRI_RESOURCES_BASE_URL=https://devrdi.qute.ro\r\n# Define a porta na qual o Redis Insight será acessível\r\nRI_APP_PORT=8001\r\n# Prefixo para as rotas da API do Redis Insight\r\nRI_API_PREFIX=api",
+        "deploy": {
+          "replicas": 1,
+          "command": null,
+          "zeroDowntime": true
+        },
+        "domains": [
+          {
+            "host": "devrdi.qute.ro",
+            "https": true,
+            "port": 8001,
+            "path": "/",
+            "wildcard": false
+          }
+        ],
+        "mounts": [
+          {
+            "type": "volume",
+            "name": "redis_insight_data",
+            "mountPath": "/data"
+          }
+        ]
+      }
+    }
+  ]
+}
