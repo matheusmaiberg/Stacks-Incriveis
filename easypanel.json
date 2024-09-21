@@ -184,6 +184,15 @@
             "port": 5678,
             "path": "/",
             "wildcard": false
+          },
+          {
+            "host": "n8n.agenx.com.br",
+            "https": true,
+            "port": 5678,
+            "path": "/",
+            "middlewares": [],
+            "certificateResolver": "",
+            "wildcard": false
           }
         ],
         "mounts": [
@@ -334,6 +343,41 @@
             "type": "volume",
             "name": "redis_insight_data",
             "mountPath": "/data"
+          }
+        ]
+      }
+    },
+    {
+      "type": "compose",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "supabase",
+        "source": {
+          "type": "git",
+          "repo": "https://github.com/easypanel-io/compose.git",
+          "ref": "main",
+          "rootPath": "/supabase/code",
+          "composeFile": "docker-compose.yml"
+        },
+        "env": "############\n# Secrets\n# YOU MUST CHANGE THESE BEFORE GOING INTO PRODUCTION\n############\n\nPOSTGRES_PASSWORD=your-super-secret-and-long-postgres-password\nJWT_SECRET=your-super-secret-jwt-token-with-at-least-32-characters-long\nANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE\nSERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJzZXJ2aWNlX3JvbGUiLAogICAgImlzcyI6ICJzdXBhYmFzZS1kZW1vIiwKICAgICJpYXQiOiAxNjQxNzY5MjAwLAogICAgImV4cCI6IDE3OTk1MzU2MDAKfQ.DaYlNEoUrrEn2Ig7tqibS-PHK5vgusbcbo7X36XVt4Q\nDASHBOARD_USERNAME=supabase\nDASHBOARD_PASSWORD=this_password_is_insecure_and_should_be_updated\n\n############\n# Database - You can change these to any PostgreSQL database that has logical replication enabled.\n############\n\nPOSTGRES_HOST=db\nPOSTGRES_DB=postgres\nPOSTGRES_PORT=5432\n# default user is postgres\n\n############\n# API Proxy - Configuration for the Kong Reverse proxy.\n############\n\nKONG_HTTP_PORT=8000\nKONG_HTTPS_PORT=8443\n\n\n############\n# API - Configuration for PostgREST.\n############\n\nPGRST_DB_SCHEMAS=public,storage,graphql_public\n\n\n############\n# Auth - Configuration for the GoTrue authentication server.\n############\n\n## General\nSITE_URL=http://localhost:3000\nADDITIONAL_REDIRECT_URLS=\nJWT_EXPIRY=3600\nDISABLE_SIGNUP=false\nAPI_EXTERNAL_URL=http://localhost:8000\n\n## Mailer Config\nMAILER_URLPATHS_CONFIRMATION=\"/auth/v1/verify\"\nMAILER_URLPATHS_INVITE=\"/auth/v1/verify\"\nMAILER_URLPATHS_RECOVERY=\"/auth/v1/verify\"\nMAILER_URLPATHS_EMAIL_CHANGE=\"/auth/v1/verify\"\n\n## Email auth\nENABLE_EMAIL_SIGNUP=true\nENABLE_EMAIL_AUTOCONFIRM=false\nSMTP_ADMIN_EMAIL=admin@example.com\nSMTP_HOST=supabase-mail\nSMTP_PORT=2500\nSMTP_USER=fake_mail_user\nSMTP_PASS=fake_mail_password\nSMTP_SENDER_NAME=fake_sender\nENABLE_ANONYMOUS_USERS=false\n\n## Phone auth\nENABLE_PHONE_SIGNUP=true\nENABLE_PHONE_AUTOCONFIRM=true\n\n\n############\n# Studio - Configuration for the Dashboard\n############\n\nSTUDIO_DEFAULT_ORGANIZATION=Default Organization\nSTUDIO_DEFAULT_PROJECT=Default Project\n\nSTUDIO_PORT=3000\n# replace if you intend to use Studio outside of localhost\nSUPABASE_PUBLIC_URL=http://localhost:8000\n\n# Enable webp support\nIMGPROXY_ENABLE_WEBP_DETECTION=true\n\n############\n# Functions - Configuration for Functions\n############\n# NOTE: VERIFY_JWT applies to all functions. Per-function VERIFY_JWT is not supported yet.\nFUNCTIONS_VERIFY_JWT=false\n\n############\n# Logs - Configuration for Logflare\n# Please refer to https://supabase.com/docs/reference/self-hosting-analytics/introduction\n############\n\nLOGFLARE_LOGGER_BACKEND_API_KEY=your-super-secret-and-long-logflare-key\n\n# Change vector.toml sinks to reflect this change\nLOGFLARE_API_KEY=your-super-secret-and-long-logflare-key\n\n# Docker socket location - this value will differ depending on your OS\nDOCKER_SOCKET_LOCATION=/var/run/docker.sock\n\n# Google Cloud Project details\nGOOGLE_PROJECT_ID=GOOGLE_PROJECT_ID\nGOOGLE_PROJECT_NUMBER=GOOGLE_PROJECT_NUMBER\n",
+        "domains": [
+          {
+            "https": true,
+            "host": "teste-supabase.f7tiwt.easypanel.host",
+            "port": 8000,
+            "service": "kong",
+            "path": "/",
+            "wildcard": false
+          },
+          {
+            "https": true,
+            "host": "supabase.agenx.com.br",
+            "port": 8080,
+            "service": "kong",
+            "path": "/",
+            "middlewares": [],
+            "certificateResolver": "",
+            "wildcard": false
           }
         ]
       }
