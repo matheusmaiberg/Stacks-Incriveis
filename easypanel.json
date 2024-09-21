@@ -1,6 +1,79 @@
 {
   "services": [
     {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "chatwoot",
+        "source": {
+          "type": "image",
+          "image": "chatwoot/chatwoot:v3.9.0"
+        },
+        "env": "SECRET_KEY_BASE=d14a834af34edf156329c201efd7af87\nFRONTEND_URL=https://$(PRIMARY_DOMAIN)\nDEFAULT_LOCALE=pt-BR\nFORCE_SSL=false\nENABLE_ACCOUNT_SIGNUP=true\nREDIS_URL=redis://default@$(PROJECT_NAME)_chatwoot-redis:6379\nREDIS_PASSWORD=a7bfa1fff402edc10ffe\nREDIS_OPENSSL_VERIFY_MODE=none\nPOSTGRES_DATABASE=$(PROJECT_NAME)\nPOSTGRES_HOST=$(PROJECT_NAME)_chatwoot-db\nPOSTGRES_USERNAME=postgres\nPOSTGRES_PASSWORD=8899bc38b1320c1b3841\nRAILS_MAX_THREADS=5\nNODE_ENV=production\nRAILS_ENV=production\nINSTALLATION_ENV=docker\nTRUSTED_PROXIES=*",
+        "deploy": {
+          "replicas": 1,
+          "command": "bundle exec rails db:chatwoot_prepare && bundle exec rails s -p 3000 -b 0.0.0.0",
+          "zeroDowntime": true
+        },
+        "domains": [
+          {
+            "host": "teste-chatwoot.f7tiwt.easypanel.host",
+            "https": true,
+            "port": 3000,
+            "path": "/",
+            "wildcard": false
+          }
+        ],
+        "mounts": [
+          {
+            "type": "volume",
+            "name": "data",
+            "mountPath": "/data/storage"
+          },
+          {
+            "type": "volume",
+            "name": "app",
+            "mountPath": "/app/storage"
+          }
+        ]
+      }
+    },
+    {
+      "type": "postgres",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "chatwoot-db",
+        "image": "postgres:12",
+        "password": "8899bc38b1320c1b3841"
+      }
+    },
+    {
+      "type": "redis",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "chatwoot-redis",
+        "image": "redis:7",
+        "password": "a7bfa1fff402edc10ffe"
+      }
+    },
+    {
+      "type": "app",
+      "data": {
+        "projectName": "teste",
+        "serviceName": "chatwoot-sidekiq",
+        "source": {
+          "type": "image",
+          "image": "chatwoot/chatwoot:v3.9.0"
+        },
+        "env": "SECRET_KEY_BASE=d14a834af34edf156329c201efd7af87\nFRONTEND_URL=https://$(PRIMARY_DOMAIN)\nDEFAULT_LOCALE=pt-BR\nFORCE_SSL=false\nENABLE_ACCOUNT_SIGNUP=true\nREDIS_URL=redis://default@$(PROJECT_NAME)_chatwoot-redis:6379\nREDIS_PASSWORD=a7bfa1fff402edc10ffe\nREDIS_OPENSSL_VERIFY_MODE=none\nPOSTGRES_DATABASE=$(PROJECT_NAME)\nPOSTGRES_HOST=$(PROJECT_NAME)_chatwoot-db\nPOSTGRES_USERNAME=postgres\nPOSTGRES_PASSWORD=8899bc38b1320c1b3841\nRAILS_MAX_THREADS=5\nNODE_ENV=production\nRAILS_ENV=production\nINSTALLATION_ENV=docker\nTRUSTED_PROXIES=*",
+        "deploy": {
+          "replicas": 1,
+          "command": "bundle exec sidekiq -C config/sidekiq.yml",
+          "zeroDowntime": true
+        }
+      }
+    },
+    {
       "type": "compose",
       "data": {
         "projectName": "teste",
