@@ -45,7 +45,7 @@ services:
     ports:
     - ${EXPOSED_PORT}:8080
     networks:
-      - publica
+      - externa
       - interna
     deploy:
       placement:
@@ -74,7 +74,7 @@ volumes:
   evolution_data:
 
 networks:
-  publica:
+  externa:
     external: true
   interna:
     external: true
