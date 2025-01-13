@@ -75,9 +75,6 @@ volumes:
 
 networks:
   publica:
-    name: traefik_public
     external: true
   interna:
-    name: app_network
     external: true
-    driver: overlay
