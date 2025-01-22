@@ -1,0 +1,80 @@
+services:
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - HTTP_PORT=3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-configs:/etc/grafana
+    networks:
+      - externa
+      - interna
+    # ports:
+    #   - "3000:3000"
+    deploy: 
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.grafana.service: "grafana"
+        traefik.http.services.grafana.loadbalancer.server.port: "3000"
+        traefik.http.routers.grafana.rule: "Host(`${SUBDOMAIN}.${DOMAIN}`)"
+        traefik.http.routers.grafana.tls: "true"
+        traefik.http.routers.grafana.tls.certresolver: "le"
+        traefik.http.routers.grafana.entrypoints: "websecure"
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - prom-data:/prometheus
+      #- /root/apps/grafana/prometheus.yaml:/etc/prometheus
+    # ports:
+    #  - "9090:9090"
+    configs:
+      - source: config_prometheus
+        target: /etc/prometheus/prometheus.yml
+    networks:
+      - interna
+  
+  node_exporter:
+    image: prom/node-exporter:latest
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude'
+      - '^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)'
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    # ports:
+    #   - "9100:9100"
+    networks:
+      - interna
+      
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0     
+    # ports:
+    #   - "9200:8080"
+    networks:
+      - interna
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    privileged: true
+      
+configs:
+  config_prometheus:
+    external: true
+    
+volumes:
+  grafana-data:
+  grafana-configs:
+  prom-data:
+networks:  
+  externa:
+    external: true
+  interna:
+    external: true
