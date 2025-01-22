@@ -219,6 +219,42 @@
           ]
         }
       ]
+    },
+    {
+      "type": 2,
+      "title": "Dozzle",
+      "name": "dozzle",
+      "description": "O Dozzle é uma aplicação para monitoramento de logs em tempo real.",
+      "note": "O Dozzle é uma aplicação para monitoramento de logs em tempo real, ideal para rodar em ambientes de produção. Embora não seja obrigatório, é altamente recomendado. Caso esteja com pressa para rodar sua aplicação, você pode pular esta parte e retornar mais tarde",
+      "logo": "https://raw.githubusercontent.com/amir20/dozzle/refs/heads/master/docs/public/logo.svg?raw=true",
+      "website": "https://dozzle.dev/",
+      "categories": [
+        "Log",
+        "Debug"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "stackfile": "dozzle/dozzle.yml"
+      },
+      "env": [
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio da Evolution",
+          "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
+          "required": true,
+          "default": "api",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        }
+      ]
     }
   ]
 }
