@@ -1,44 +1,37 @@
-version: "3.8"
-
-x-variaveis:
-  &variaveis
-    DOZZLE_LEVEL: info
-    DOZZLE_FILTER: "status=running"
-    DOZZLE_USERNAME: "user"
-    DOZZLE_PASSWORD: "user"
-    DOZZLE_HOSTNAME: "logs.dominio.com.br"
-    # DOZZLE_ADDR: 8081
-    # DOZZLE_FILTER: "label=log_me" # limits logs displayed to containers with this label
-    # DOCKER_HOST: tcp://socket-proxy:2375 # enable when using socket proxy
-
 services:
   dozzle:
     image: amir20/dozzle:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      <<: *variaveis
-    networks:
-      - publica
+#    ports: 
+#      - 4040:8080
+    environment: 
+      DOZZLE_MODE: "swarm"
+      DOZZLE_AUTH_PROVIDER: "simple"
+      DOZZLE_LEVEL: "info"
+      DOZZLE_FILTER: "status=running"
+      DOZZLE_HOSTNAME: "${SUBDOMAIN}.${DOMAIN}"
+      # DOZZLE_FILTER: "label=log_me" 
+    networks: 
+      - externa
       - interna
-    ports:
-      - 4040:8080
-    deploy: 
+    deploy:
       labels:
         traefik.enable: "true"
         traefik.http.routers.dozzle.service: "dozzle"
         traefik.http.services.dozzle.loadbalancer.server.port: 8080
-        traefik.http.routers.dozzle.rule: "Host(`logs.dominio.com.br`)"
-        # SSL
+        traefik.http.routers.dozzle.rule: "Host(`${SUBDOMAIN}.${DOMAIN}`)" # Atualize
         traefik.http.routers.dozzle.tls: "true"
         traefik.http.routers.dozzle.tls.certresolver: "le"
         traefik.http.routers.dozzle.entrypoints: "websecure"
-
+    configs: 
+      - source: config_dozzle
+        target: /data/users.yml
+configs: 
+  config_dozzle: 
+    external: true
 networks:
-  publica:
-    name: traefik_public
+  externa:
     external: true
   interna:
-    name: app_network
     external: true
-    driver: overlay
