@@ -3,7 +3,7 @@
   "templates": [
     {
       "type": 2,
-      "title": "Evolution API",
+      "title": "02 | Evolution API",
       "name": "evolution",
       "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
       "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull.",
@@ -222,7 +222,7 @@
     },
     {
       "type": 2,
-      "title": "Dozzle",
+      "title": "01 | Dozzle",
       "name": "dozzle",
       "description": "O Dozzle é uma aplicação para monitoramento de logs em tempo real.",
       "note": "O Dozzle é uma aplicação para monitoramento de logs em tempo real, ideal para rodar em ambientes de produção. Embora não seja obrigatório, é altamente recomendado. Caso esteja com pressa para rodar sua aplicação, você pode pular esta parte e retornar mais tarde",
