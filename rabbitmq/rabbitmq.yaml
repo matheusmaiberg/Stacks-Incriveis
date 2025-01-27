@@ -1,28 +1,32 @@
-version: "3.8"
+x-variaveis: &variaveis
+    RABBITMQ_DEFAULT_USER: "admin"
+    RABBITMQ_DEFAULT_PASS: "sua_senha_super_segura"
+    RABBITMQ_ERLANG_COOKIE: "server"
 
-x-variaveis:
-  &variaveis
-    RABBITMQ_DEFAULT_USER: "usuario"
-    RABBITMQ_DEFAULT_PASS: "su@senha"
-    RABBITMQ_ERLANG_COOKIE: "crieUmCookieParaSeuServidor" # Mantenha esse cookie seguro (duas ou mais instancias vao usar isso pra sincronizar)
-    
 services:
   rabbitmq:
     image: rabbitmq:3.11-management
-    hostname: "rabbitMQ" # Seja cuidadoso com o hostname, mantenha seguro
     environment:
       <<: *variaveis
-    ports:
-    - 25672:25672
-    - 15672:15672
-    - 4672:4672
-    - 4369:4369
+    #ports:
+    #  - 25672:25672
+    #  - 15672:15672
+    #  - 5672:5672
+    #  - 4369:4369
     networks:
+      - externa
       - interna
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.rabbitmq.entrypoints: "websecure"
+        traefik.http.routers.rabbitmq.tls.certresolver: "le"
+        traefik.http.services.rabbitmq.loadbalancer.server.port: 15672
+        traefik.http.routers.rabbitmq.service: "rabbitmq"
+        traefik.http.routers.rabbitmq.rule: "Host(`${SUBDOMAIN:-rabbitmq}.${DOMAIN:-seudominio.com.br}`)"
 
 networks:
-  interna:
-    name: app_network
+  externa:
     external: true
-    driver: overlay
-    
+  interna:
+    external: true

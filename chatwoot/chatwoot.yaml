@@ -1,0 +1,121 @@
+x-variaveis:
+  &variaveis
+    INSTALLATION_NAME: "Sua Empresa"
+    ENABLE_ACCOUNT_SIGNUP: "false"
+    INSTALLATION_ENV: "docker"
+    FORCE_SSL: "true"
+    DEFAULT_LOCALE: "pt_BR"
+    SECRET_KEY_BASE: "senha “Encryption key 256”"  # Rode o comando: bundle exec rake secret
+    FRONTEND_URL: "https://${SUBDOMAIN:-chatwoot}.${DOMAIN:-seudominio.com.br}"
+    NODE_ENV: "production"
+    RAILS_ENV: "production"
+
+    # Banco de dados (conectar ao container do Postgres via Portainer e rodar os comandos "postgres psql -U postgres" e depois "create database chatwoot;")
+    POSTGRES_HOST: "postgres"
+    POSTGRES_USERNAME: "postgres"
+    POSTGRES_DATABASE: "chatwoot"
+    POSTGRES_PASSWORD: "SENHA DO POSTGRES"
+
+    # Configurações do Redis
+    REDIS_URL: "redis://redis:6379"
+
+    ## Armazenamento Minio ou Amazon S3
+    # ACTIVE_STORAGE_SERVICE: "s3_compatible"
+    # STORAGE_BUCKET_NAME: "chatwoot"
+    # STORAGE_ACCESS_KEY_ID: ""
+    # STORAGE_SECRET_ACCESS_KEY: ""
+    # STORAGE_REGION: "us-east-1"
+    # STORAGE_ENDPOINT: "https://s3.seusite.com.br"
+    # STORAGE_FORCE_PATH_STYLE: "true"
+
+    # Configurações do SMTP
+    # SMTP_AUTHENTICATION: login
+    # SMTP_ENABLE_STARTTLS_AUTO: ""
+    # SMTP_ADDRESS: ""
+    # SMTP_DOMAIN: "seusite.com.br"
+    # SMTP_PORT: 587
+    # SMTP_USERNAME: ""
+    # SMTP_PASSWORD: ""
+    # SMTP_SSL: "false" ## Se a porta for 465 = true | Se a porta for 587 = false
+    # SMTP_OPENSSL_VERIFY_MODE: "peer"
+    # MAILER_INBOUND_EMAIL_DOMAIN: "email@seusite.com.br" ## Email SMTP
+    # MAILER_SENDER_EMAIL: "LiveHelp <email@seusite.com.br>" ## Email SMTP
+    
+    # ChatGPT 
+    # OPENAI_API_KEY: ""
+
+    # Botão AUTH Google na tela de login
+    # GOOGLE_OAUTH_CLIENT_ID: ${G_CLIENT_ID:-example.apps.googleusercontent.com}
+    # GOOGLE_OAUTH_CLIENT_SECRET: ${G_LIENT_SECRET:-GOCSPX-example}
+    # GOOGLE_OAUTH_CALLBACK_URL: ${G_CALLBACK_URL:-https://${SUBDOMAIN}.${DOMAIN}.com.br/omniauth/google_oauth2/callback}
+
+    # Continuidade de emails (Recomendo usar o mandrill)
+    # RAILS_INBOUND_EMAIL_SERVICE: mandrill
+    # MAILER_INBOUND_EMAIL_DOMAIN: seudominio.com.br
+    # RAILS_INBOUND_EMAIL_PASSWORD: your-mandrill-p@ssw0rd
+
+# Backend
+services: 
+  chatwoot: 
+    command: >
+       sh -c "bundle exec rails db:chatwoot_prepare
+       && bundle exec rails s -p 3000 -b 0.0.0.0"
+       && bundle exec rails db:migrate
+    environment:
+      <<: *variaveis
+    image: sendingtk/chatwoot:v3.13.6
+    entrypoint: docker/entrypoints/rails.sh
+    # Após deploy trocar os comandos comentando, o prepare cria as tabelas do banco de dados e segundo expõe e executa o frontend na porta 3000 do container
+    deploy: 
+      mode: replicated
+      replicas: 1
+      placement: 
+        constraints: 
+          - node.role == manager
+      labels: 
+        - traefik.enable=true
+        - traefik.http.routers.chatwoot.service=chatwoot
+        - traefik.http.routers.chatwoot.rule=Host(`${SUBDOMAIN:-chatwoot}.${DOMAIN:-seudominio.com.br}`)
+        - traefik.http.services.chatwoot.loadbalancer.server.port=3000
+        - traefik.http.routers.chatwoot.entrypoints=websecure
+        - traefik.http.routers.chatwoot.tls.certresolver=le
+        - traefik.http.services.chatwoot.loadbalancer.passhostheader=true
+        - traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+        - traefik.http.routers.chatwoot.middlewares=sslheader@docker
+    volumes:
+      - chatwoot_data:/app/storage
+      # Pasta com os arquivos do frontend (favicon, logo e outras)
+      # - /root/apps/chatwoot/public:/app/public
+    networks:
+      - traefik
+      - interna
+
+  # Backend
+  chatwoot_worker: 
+    environment: 
+      <<: *variaveis
+    image: sendingtk/chatwoot:v3.13.6
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes: 
+      - chatwoot_data:/app/storage
+      # Pasta com os arquivos do frontend (favicon, logo e outras)
+      # - /root/apps/chatwoot/public:/app/public
+    deploy: 
+      mode: replicated
+      replicas: 1
+      placement: 
+        constraints: 
+          - node.role == manager
+    networks: 
+      - interna
+
+volumes: 
+  chatwoot_data:
+
+networks: 
+  traefik: 
+    external: true
+    name: externa
+  interna: 
+    external: true
+    name: interna
