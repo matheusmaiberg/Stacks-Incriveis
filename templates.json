@@ -360,7 +360,7 @@
       "name": "rabbitmq",
       "description": "O RabbitMQ é um dos principais gerenciadores de filas de mensageria Open Source do mercado.",
       "note": "O RabbitMQ é um dos principais gerenciadores de filas de mensageria Open Source do mercado. Ele garantirá a alta disponibilidade da nossa aplicação e o gerenciamento eficiente das mensagens.",
-      "logo": "https://cdn.iconscout.com/icon/free/png-256/free-rabbitmq-icon-download-in-svg-png-gif-file-formats--logo-brand-world-logos-vol-1-pack-icons-282296.png?f=webp?raw=true",
+      "logo": "https://uploads.sitepoint.com/wp-content/uploads/2014/06/1403445197RabbitMQ.sh-600x600-300x300.png?raw=true",
       "website": "https://rabbitmq.com",
       "categories": [
         "Anna"
@@ -395,7 +395,7 @@
       "name": "redis",
       "description": "O Redis é o principal banco de dados em memória Open Source, amplamente utilizado para memória cache.",
       "note": "O Redis é o principal banco de dados em memória Open Source, amplamente utilizado para memória cache, gerenciamento de dados temporários e diversas outras funcionalidades que exigem alta performance.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://luizladeira.wordpress.com/wp-content/uploads/2020/09/redis-1.png?raw=true",
       "website": "https://redis.com",
       "categories": [
         "Anna"
