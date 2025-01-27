@@ -333,7 +333,7 @@
       "name": "pgbouncer",
       "description": "O PgBouncer é uma ferramenta essencial para produção e ambientes de alta demanda.",
       "note": "O PgBouncer é uma ferramenta essencial para produção e ambientes de alta demanda. Ele gerencia as conexões com o banco de dados, proporcionando maior eficiência e escalabilidade.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg?raw=true",
       "website": "https://pgbouncer.com",
       "categories": [
         "Anna"
@@ -360,7 +360,7 @@
       "name": "rabbitmq",
       "description": "O RabbitMQ é um dos principais gerenciadores de filas de mensageria Open Source do mercado.",
       "note": "O RabbitMQ é um dos principais gerenciadores de filas de mensageria Open Source do mercado. Ele garantirá a alta disponibilidade da nossa aplicação e o gerenciamento eficiente das mensagens.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://cdn.iconscout.com/icon/free/png-256/free-rabbitmq-icon-download-in-svg-png-gif-file-formats--logo-brand-world-logos-vol-1-pack-icons-282296.png?f=webp?raw=true",
       "website": "https://rabbitmq.com",
       "categories": [
         "Anna"
