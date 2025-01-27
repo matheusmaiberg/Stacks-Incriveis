@@ -298,7 +298,7 @@
       "name": "postgres",
       "description": "O PostgreSQL será o banco de dados relacional da nossa aplicação.",
       "note": "O PostgreSQL será o banco de dados relacional da nossa aplicação. Neste guia, configuraremos o PostgreSQL com um script para criar bancos de dados automaticamente e integraremos o PgAdmin para gerenciamento visual.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://pt.wikipedia.org/wiki/PostgreSQL#/media/Ficheiro:Postgresql_elephant.svg?raw=true",
       "website": "https://Postgres.com",
       "categories": [
         "Anna"
