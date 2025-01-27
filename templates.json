@@ -414,7 +414,7 @@
       "name": "minio",
       "description": "O Minio é uma versão Open Source compatível com o protocolo S3 da Amazon.",
       "note": "O Minio é uma versão Open Source compatível com o protocolo S3 da Amazon. Usaremos o Minio para o gerenciamento de arquivos em geral, incluindo integração com nossas aplicações.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://images.peerspot.com/image/upload/c_scale,f_auto,q_auto,w_100/w9l593yvqnusnz7stqcq6fcnvf6o.png?raw=true",
       "website": "https://minio.com",
       "categories": [
         "Anna"
@@ -457,7 +457,7 @@
       "name": "chatwoot",
       "description": "O Chatwoot é uma aplicação robusta para comunicação omnichannel.",
       "note": "O Chatwoot é uma aplicação robusta para comunicação omnichannel, ideal para integrar canais como chat ao vivo, e-mails e redes sociais em um único lugar. Este guia abordará o setup completo para produção, incluindo Redis, Postgres e SMTP.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://raw.githubusercontent.com/chatwoot/chatwoot/refs/heads/develop/public/brand-assets/logo_thumbnail.svg?raw=true",
       "website": "https://chatwoot.com",
       "categories": [
         "Anna"
@@ -492,7 +492,7 @@
       "name": "n8n",
       "description": "O n8n é uma poderosa ferramenta de automação low-code e de código aberto.",
       "note": "O n8n é uma poderosa ferramenta de automação low-code e de código aberto. Ele permite criar fluxos de trabalho automatizados com facilidade, integrando diversas fontes de dados. Neste guia, configuraremos o n8n para produção com suporte a Redis, Postgres e armazenamento S3.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://raw.githubusercontent.com/n8n-io/n8n/refs/heads/master/packages/editor-ui/src/components/Logo/logo-icon.svg?raw=true",
       "website": "https://n8n.com",
       "categories": [
         "Anna"
@@ -535,7 +535,7 @@
       "name": "pdf",
       "description": "O Stirling PDF é uma ferramenta open source para gerenciamento e processamento avançado de arquivos PDF.",
       "note": "O Stirling PDF é uma ferramenta open source para gerenciamento e processamento avançado de arquivos PDF. Ele suporta funcionalidades como OCR (Reconhecimento Óptico de Caracteres) e configurações de segurança, tornando-se ideal para uso em ambientes de produção.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://raw.githubusercontent.com/Stirling-Tools/Stirling-PDF/main/docs/stirling.png?raw=true",
       "website": "https://Stirling.com",
       "categories": [
         "Anna"
