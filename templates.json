@@ -226,14 +226,13 @@
       "name": "dozzle",
       "description": "O Dozzle é uma aplicação para monitoramento de logs em tempo real.",
       "note": "OBS: È obrigatório o config. ## **Passo 1: Configurando Credenciais do Dozzle**
-
-1. Acesse a seção **`Configs`** no menu lateral do Portainer, no nó principal.
-2. Crie uma nova configuração chamada **`config_dozzle`** com o seguinte conteúdo: 
+1. Acesse a seção **`Configs`** no menu lateral do Portainer, nó principal.
+2. Crie uma nova configuração chamada **`config_dozzle`** com o seguinte conteúdo:
 users:
   seu_user:
-    name: "User Name"
-    password: "sua_senha"
-    password: "hash_da_sua_senha"
+    name: 'User Name'
+    password: 'sua_senha'
+    password: 'hash_da_sua_senha'
     email: example@example.com",
       "logo": "https://raw.githubusercontent.com/amir20/dozzle/refs/heads/master/docs/public/logo.svg?raw=true",
       "website": "https://dozzle.dev",
