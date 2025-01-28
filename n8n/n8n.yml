@@ -1,52 +1,81 @@
-version: "3.8"
-x-variaveis:
+x-variaveis: 
   &variaveis
-    N8N_ENCRYPTION_KEY: noJbC3oLKzSGXEyRNtV0DoiQmK5zBG83
-    N8N_HOST: n8n.seudominio.com.br
-    N8N_EDITOR_BASE_URL: https://n8n.seudominio.com.br/
+    DB_TYPE: postgresdb
+    DB_POSTGRESDB_PORT: 5432
+    DB_POSTGRESDB_HOST: postgres
+    DB_POSTGRESDB_DATABASE: n8n
+    DB_POSTGRESDB_USER: postgres
+    DB_POSTGRESDB_PASSWORD: SENHA_DO_POSTGRES
+    
+    # Configs do frontend e webhook
+    N8N_HOST: ${SUBDOMAIN:-webhook}.${DOMAIN:-seudominio.com.br}
+    WEBHOOK_URL: https://${SUBDOMAIN_WEBHOOK:-webhook}.${DOMAIN:-seudominio.com.br}
+    N8N_EDITOR_BASE_URL: https://${SUBDOMAIN:-webhook}.${DOMAIN:-seudominio.com.br}/
     N8N_PROTOCOL: https
+    
+    # Configurações da fila (Redis worker)
     NODE_ENV: production
-    WEBHOOK_URL: https://webhook.seudominio.com.br/
+    N8N_ENCRYPTION_KEY: "noJbC3oLKzSGXEyRNtV0DoiQmK5zBG83"
     EXECUTIONS_MODE: queue
     QUEUE_BULL_REDIS_HOST: redis
     QUEUE_BULL_REDIS_PORT: 6379
-    QUEUE_BULL_REDIS_DB: 2
-    NODE_FUNCTION_ALLOW_EXTERNAL: moment,lodash,moment-with-locales
+    QUEUE_BULL_REDIS_DB: 5
+    
+    # Armazenamento S3
+    N8N_EXTERNAL_STORAGE_S3_HOST: s3.seusite.com.br
+    N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME: n8n
+    N8N_EXTERNAL_STORAGE_S3_BUCKET_REGION: eu-south 
+    N8N_EXTERNAL_STORAGE_S3_ACCESS_KEY: 
+    N8N_EXTERNAL_STORAGE_S3_ACCESS_SECRET: 
+    
+    # Email
+    #N8N_EMAIL_MODE: smtp
+    #N8N_SMTP_HOST: 
+    #N8N_SMTP_USER: 
+    #N8N_SMTP_PASS: 
+    #N8N_SMTP_SENDER: N8N <n8n@seusite.com.br>
+    #N8N_SMTP_PORT: 465
+
+    # Configs de Compatibilidade 
+    NODE_FUNCTION_ALLOW_EXTERNAL: "*"
+    NODE_FUNCTION_ALLOW_BUILTIN: "*"
+    N8N_PAYLOAD_SIZE_MAX: 512
     EXECUTIONS_DATA_PRUNE: "true"
     EXECUTIONS_DATA_MAX_AGE: 336
     N8N_COMMUNITY_PACKAGES_ENABLED: "true"
-    N8N_EMAIL_MODE: smtp
-    N8N_SMTP_HOST: stmp.host.com
-    N8N_SMTP_USER: user@user.com
-    N8N_SMTP_PASS: senhadoemailousmtp
-    N8N_SMTP_SENDER: N8N <n8n@seudominio.com>
-    N8N_SMTP_PORT: 465 # 587 | 25 | 993
     N8N_REINSTALL_MISSING_PACKAGES: "true"
-    DB_TYPE: postgresdb
-    DB_POSTGRESDB_PORT: 5432
-    DB_POSTGRESDB_HOST: postgres # Endereço da database
-    DB_POSTGRESDB_DATABASE: n8n
-    DB_POSTGRESDB_USER: postgres
-    DB_POSTGRESDB_PASSWORD: sennhadopostgres
-
-services:
-  n8n_editor:
-    image: n8nio/n8n:latest
-    environment:
+    GENERIC_TIMEZONE: "America/Sao_Paulo"
+    EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS: "true"
+    EXECUTIONS_DATA_SAVE_ON_PROGRESS: "all"
+        
+    # Configuracao de IA (ajuda nos node code)
+    N8N_AI_ENABLED: "false"
+    N8N_AI_PROVIDER: "openai"
+    N8N_AI_OPENAI_API_KE: 
+    
+    # Configuração LangSmith
+    #LANGCHAIN_ENDPOINT: 'https://api.smith.langchain.com'
+    #LANGCHAIN_TRACING_V2: "true"
+    #LANGCHAIN_API_KEY: Defina isso como sua chave de API
+    
+services: 
+  n8n_editor: 
+    image: n8nio/n8n:${VERSION:-1.68.0}
+    environment: 
       <<: *variaveis
-    deploy:
+    deploy: 
       mode: replicated
       replicas: 1
-    placement:
-      constraints:
-        - node.role == manager
+      placement: 
+        constraints: 
+          - node.role == manager
       resources:
         limits:
-          cpus: '1'
+          cpus: '2'
           memory: 1024M
       labels:
         - traefik.enable=true
-        - traefik.http.routers.n8n_editor.rule=Host(`n8n.seudominio.com.br`)
+        - traefik.http.routers.n8n_editor.rule=Host(`${SUBDOMAIN:-flows}.${DOMAIN:-seudominio.com.br}`)
         - traefik.http.routers.n8n_editor.service=n8n_editor
         - traefik.http.routers.n8n_editor.entrypoints=websecure
         - traefik.http.routers.n8n_editor.tls.certresolver=le
@@ -55,27 +84,26 @@ services:
     networks:
       - traefik_public
       - app_network
-    volumes:
-      - /root/apps/n8n/n8n-nodes:/home/node/.n8n/nodes
 
   n8n_webhook:
-    image: n8nio/n8n:latest
+    image: n8nio/n8n:${VERSION:-1.63.4}
     command: webhook
     environment:
       <<: *variaveis
     deploy:
       mode: replicated
+      # pode criar replicas
       replicas: 1
-    placement:
-      constraints:
-        - node.role == manager
+      placement:
+        constraints:
+          - node.role == manager
       resources:
         limits:
-          cpus: '1'
-          memory: 512M
+          cpus: '2'
+          memory: 1024M
       labels:
         - traefik.enable=true
-        - traefik.http.routers.n8n_webhook.rule=Host(`webhook.groufy.com.br`)
+        - traefik.http.routers.n8n_webhook.rule=Host(`${SUBDOMAIN_WEBHOOK:-webhook}.${DOMAIN:-seudominio.com.br}`)
         - traefik.http.routers.n8n_webhook.service=n8n_webhook
         - traefik.http.routers.n8n_webhook.entrypoints=websecure
         - traefik.http.routers.n8n_webhook.tls.certresolver=le
@@ -84,28 +112,26 @@ services:
     networks:
       - traefik_public
       - app_network
-    volumes:
-      - /root/apps/n8n/n8n-nodes:/home/node/.n8n/nodes
+
   n8n_worker:
-    image: n8nio/n8n:latest
-    command: worker --concurrency=10
+    image: n8nio/n8n:${VERSION:-1.63.4}
+    command: worker --concurrency=150
     environment:
       <<: *variaveis
     deploy:
       mode: replicated
+      # pode criar replicas
       replicas: 1
-    placement:
-      constraints:
-        - node.role == manager
+      placement:
+        constraints:
+          - node.role == manager
       resources:
         limits:
-          cpus: '1'
-          memory: 1024M
+          cpus: '2'
+          memory: 1548M
     networks:
       - traefik_public
       - app_network
-    volumes:
-      - /root/apps/n8n/n8n-nodes:/home/node/.n8n/nodes
 
 volumes:
   n8n-custom-nodes:
@@ -113,5 +139,7 @@ volumes:
 networks:
   traefik_public:
     external: true
+    name: externa
   app_network:
     external: true
+    name: interna

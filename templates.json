@@ -324,6 +324,30 @@
           "required": true,
           "default": "seudominio.com.br",
           "preset": false
+        },
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao PgAdmin",
+          "description": "Email para acesso ao PgAdmin.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "  Senha para acesso ao PgAdmin",
+          "description": "Senha para acesso ao PgAdmin.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
         }
       ]
     },
@@ -346,7 +370,7 @@
       "env": [
         {
           "name": "SENHA_POSTGRES",
-          "label": "Subdomínio do Pgbouncer",
+          "label": "Senha do Postgres",
           "description": "O subdominio que sera usado para acessar o Pgbouncer.",
           "required": true,
           "default": "1435BA8E1698F8E4FD72762AD3F86",
@@ -385,6 +409,22 @@
           "description": "Domínio principal do seu site.",
           "required": true,
           "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao Rabbitmq",
+          "description": "Email para acesso ao Rabbitmq.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "  Senha para acesso ao Rabbitmq",
+          "description": "Senha para acesso ao Rabbitmq.",
+          "required": true,
+          "default": "12345678",
           "preset": false
         }
       ]
@@ -560,6 +600,22 @@
           "description": "Domínio principal do seu site.",
           "required": true,
           "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao pdf",
+          "description": "Email para acesso ao pdf.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "  Senha para acesso ao pdf",
+          "description": "Senha para acesso ao pdf.",
+          "required": true,
+          "default": "12345678",
           "preset": false
         }
       ]

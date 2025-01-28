@@ -1,6 +1,6 @@
 x-variaveis: &variaveis
-    RABBITMQ_DEFAULT_USER: "admin"
-    RABBITMQ_DEFAULT_PASS: "sua_senha_super_segura"
+    RABBITMQ_DEFAULT_USER: "${SEU_EMAIL}"
+    RABBITMQ_DEFAULT_PASS: "${SUA_SENHA}"
     RABBITMQ_ERLANG_COOKIE: "server"
 
 services:
