@@ -16,7 +16,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "evolution/evolution.yml"
       },
       "env": [
@@ -225,7 +225,16 @@
       "title": "01 | Dozzle",
       "name": "dozzle",
       "description": "O Dozzle é uma aplicação para monitoramento de logs em tempo real.",
-      "note": "O Dozzle é uma aplicação para monitoramento de logs em tempo real, ideal para rodar em ambientes de produção. Embora não seja obrigatório, é altamente recomendado. Caso esteja com pressa para rodar sua aplicação, você pode pular esta parte e retornar mais tarde",
+      "note": "OBS: È obrigatório o config. ## **Passo 1: Configurando Credenciais do Dozzle**
+
+1. Acesse a seção **`Configs`** no menu lateral do Portainer, no nó principal.
+2. Crie uma nova configuração chamada **`config_dozzle`** com o seguinte conteúdo: 
+users:
+  seu_user:
+    name: "User Name"
+    password: "sua_senha"
+    password: "hash_da_sua_senha"
+    email: example@example.com",
       "logo": "https://raw.githubusercontent.com/amir20/dozzle/refs/heads/master/docs/public/logo.svg?raw=true",
       "website": "https://dozzle.dev",
       "categories": [
@@ -234,7 +243,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "dozzle/dozzle.yml"
       },
       "env": [
@@ -270,7 +279,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "grafana/grafana.yaml"
       },
       "env": [
@@ -305,7 +314,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "postgres/postgres.yaml"
       },
       "env": [
@@ -340,7 +349,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "pgbouncer/pgbouncer.yaml"
       },
       "env": [
@@ -367,7 +376,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "rabbitmq/rabbitmq.yaml"
       },
       "env": [
@@ -402,7 +411,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "redis/redis.yaml"
       },
       "env": [
@@ -421,7 +430,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "minio/minio.yaml"
       },
       "env": [
@@ -464,7 +473,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "chatwoot/chatwoot.yaml"
       },
       "env": [
@@ -499,7 +508,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "n8n/n8n.yaml"
       },
       "env": [
@@ -542,7 +551,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "pdf/pdf.yaml"
       },
       "env": [
@@ -577,7 +586,7 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
         "stackfile": "directus/directus.yaml"
       },
       "env": [
