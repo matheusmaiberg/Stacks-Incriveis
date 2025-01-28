@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  wordpress:
+    image: luizeof/dockerpress-apache:latest
+    hostname: "{{.Service.Name}}.{{.Task.Slot}}"
+    entrypoint: entrypoint.sh
+    command: apache2-foreground
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - externa
+      - interna
+    environment:
+      - WORDPRESS_DB_NAME=wp_database
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_PORT=3306
+      - WORDPRESS_DB_USER=wp_user
+      - WORDPRESS_DB_PASSWORD=wp_password
+      - VIRTUAL_HOST=wordpress.seudominio.com # Atualize
+      - ADMIN_USER=admin
+      - ADMIN_PASS=password124
+      - ADMIN_EMAIL=seu_email@gmail.com # Atualize
+      - WP_LOCALE=pt_BR
+      - PHP_VALUE=max_input_vars=5000
+      - PHP_MAX_INPUT_VARS=5000
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.wordpress.rule=Host(`wordpress.seudominio.com "`) # Atualize
+        - traefik.http.routers.wordpress.entrypoints=websecure
+        - traefik.http.routers.wordpress.tls.certresolver=le
+        - traefik.http.routers.wordpress.service=wordpress
+        - traefik.http.services.wordpress.loadbalancer.server.port=80
+        - traefik.http.services.wordpress.loadbalancer.passHostHeader=true
+
+volumes:
+  wordpress_data:
+    external: true
+    name: wordpress_data
+
+networks:
+  externa:
+    name: externa
+    external: true
+  interna:
+    name: interna
+    external: true

@@ -570,7 +570,7 @@
       "name": "directus",
       "description": "O Directus é uma aplicação backend completa que oferece uma API REST e uma interface visual fácil de configurar",
       "note": "O Directus é uma aplicação backend completa que oferece uma API REST e uma interface visual fácil de configurar. Seguiremos os passos para configurar o Directus com integração ao PostgreSQL, Redis e Minio.",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "logo": "https://raw.githubusercontent.com/directus/directus/refs/heads/main/app/src/assets/logo.svg?raw=true",
       "website": "https://directus.com",
       "categories": [
         "Anna"

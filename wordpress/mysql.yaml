@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: wp_database
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - interna
+
+volumes:
+  db_data:
+    external: true
+    name: db_data
+
+networks:
+  interna:
+    name: interna
+    external: true
