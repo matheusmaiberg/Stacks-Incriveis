@@ -60,7 +60,7 @@
           "label": "Subdomínio do Gafana",
           "description": "O subdominio que sera usado para acessar o Grafana.",
           "required": true,
-          "default": "grafana",
+          "default": "logs",
           "preset": false
         },
         {
@@ -100,8 +100,8 @@
         },
         {
           "name": "SUBDOMAIN",
-          "label": "Subdomínio do Postgres",
-          "description": "O subdominio que sera usado para acessar o Postgres.",
+          "label": "Subdomínio do PgAdmin",
+          "description": "O subdominio que sera usado para acessar o PgAdmin.",
           "required": true,
           "default": "pgadmin",
           "preset": false
@@ -124,10 +124,10 @@
         },
         {
           "name": "SUA_SENHA",
-          "label": "  Senha para acesso ao PgAdmin",
+          "label": "Senha para acesso ao PgAdmin",
           "description": "Senha para acesso ao PgAdmin.",
           "required": true,
-          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "default": "12345678",
           "preset": false
         }
       ]
@@ -446,7 +446,7 @@
       "platform": "linux",
       "repository": {
         "url": "https://github.com/gustavo9br/Stacks-Incriveis",
-        "stackfile": "evolution/evolution.yml"
+        "stackfile": "evolution/evolution.yaml"
       },
       "env": [
         {
@@ -462,7 +462,7 @@
           "label": "AUTHENTICATION_API_KEY",
           "description": "Gere uma 256 wep https://acte.ltd/utils/randomkeygen.",
           "required": true,
-          "default": "F7F3DC2B2E19629D4CA635156B5B3",
+          "default": "I3mmtWNNhqMPLgdDVLiSxbPkQpXis3Lt",
           "preset": false
         },
         {
@@ -470,7 +470,7 @@
           "label": "Subdomínio do Evolution",
           "description": "O subdominio que sera usado para acessar o Evolution.",
           "required": true,
-          "default": "directus",
+          "default": "evolution",
           "preset": false
         },
         {
