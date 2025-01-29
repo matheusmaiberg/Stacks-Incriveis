@@ -3,225 +3,6 @@
   "templates": [
     {
       "type": 2,
-      "title": "10 | Evolution API",
-      "name": "evolution",
-      "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
-      "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull.",
-      "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png?raw=true",
-      "website": "https://doc.evolution-api.com/",
-      "categories": [
-        "Chatbot",
-        "API",
-        "WhatsApp"
-      ],
-      "platform": "linux",
-      "repository": {
-        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
-        "stackfile": "evolution/evolution.yml"
-      },
-      "env": [
-        {
-          "name": "EXPOSED_PORT",
-          "label": "Porta",
-          "description": "A porta que será exposta sua Evolution API.",
-          "required": true,
-          "preset": false,
-          "select": [
-            {
-              "text": "8080",
-              "value": "8080",
-              "default": true
-            },
-            {
-              "text": "8081",
-              "value": "8081"
-            },
-            {
-              "text": "8090",
-              "value": "8090"
-            },
-            {
-              "text": "8091",
-              "value": "8091"
-            }
-          ]
-        },
-        {
-          "name": "VERSION",
-          "label": "Versão",
-          "description": "A versão da Evolution API que será instalada na sua VPS.",
-          "required": true,
-          "preset": true,
-          "select": [
-            {
-              "text": "v1.6.1",
-              "value": "v1.6.1",
-              "default": true
-            },
-            {
-              "text": "v1.6.0",
-              "value": "v1.6.0"
-            },
-            {
-              "text": "v1.5.4",
-              "value": "v1.5.4"
-            },
-            {
-              "text": "Testes (homolog)",
-              "value": "homolog"
-            }
-          ]
-        },
-        {
-          "name": "AUTHENTICATION_API_KEY",
-          "label": "Chave de segurança (apikey global)",
-          "description": "Chave que tem que ser inserida no header todas as requisições para acessar a API.",
-          "required": true,
-          "default": "example-AI5AB2AC5C8AA7AD15AC3DE8C",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_USER",
-          "label": "Usuário do MongoDB",
-          "description": "Seu usuário do MongoDB.",
-          "required": true,
-          "default": "root",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_PASS",
-          "label": "Senha MongoDB",
-          "description": "Sua senha do MongoDB.",
-          "required": true,
-          "default": "root",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_IP",
-          "label": "URL ou IP do MongoDB",
-          "description": "Url ou IP do MongoDB.",
-          "required": true,
-          "default": "mongodb",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_PORT",
-          "label": "Porta MongoDB",
-          "description": "Porta do acesso ao MongoDB.",
-          "required": true,
-          "default": "27017",
-          "preset": false
-        },
-        {
-          "name": "SUBDOMAIN",
-          "label": "Subdomínio da Evolution",
-          "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
-          "required": true,
-          "default": "api",
-          "preset": false
-        },
-        {
-          "name": "DOMAIN",
-          "label": "Domínio principal do seu site",
-          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
-          "required": true,
-          "default": "seudominio.com.br",
-          "preset": false
-        },
-        {
-          "name": "NOME_EMPRESA",
-          "label": "Nome da conexão no WhatsApp",
-          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
-          "required": true,
-          "default": "Chrome",
-          "preset": false
-        },
-        {
-          "name": "QRCODE_COLOR",
-          "label": "Cor do QRCode",
-          "description": "A description for this env var",
-          "select": [
-            {
-              "text": "Preto",
-              "value": "#000000",
-              "default": true
-            },
-            {
-              "text": "Laranja",
-              "value": "#ff6900"
-            },
-            {
-              "text": "Vermelho",
-              "value": "#db291c"
-            }
-          ]
-        },
-        {
-          "name": "TYPEBOT_API_VERSION",
-          "label": "Versão da API do Typebot",
-          "description": "Versão da API do Typebot.",
-          "default": "latest",
-          "preset": true,
-          "select": [
-            {
-              "text": "Acima da v2.20.0",
-              "value": "latest",
-              "default": true
-            },
-            {
-              "text": "Abaixo da v2.19.0",
-              "value": "old"
-            }
-          ]
-        },
-        {
-          "name": "LOG_LEVEL",
-          "label": "Nível de logs",
-          "description": "Versão da API do Typebot.",
-          "default": "latest",
-          "preset": true,
-          "select": [
-            {
-              "text": "Todos",
-              "value": "ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS",
-              "default": true
-            },
-            {
-              "text": "Erros",
-              "value": "ERROR,VERBOSE"
-            },
-            {
-              "text": "Informações e avisos",
-              "value": "INFO,VERBOSE,WARN"
-            },
-            {
-              "text": "Webhooks",
-              "value": "WEBHOOKS"
-            }
-          ]
-        },
-        {
-          "name": "AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES",
-          "label": "Expor apikey no fetch instances",
-          "description": "Quando chamar o endpoint '/fetchInstances/', expor as chaves de api privada de cada uma das instancias de WhatsApp.",
-          "default": "latest",
-          "preset": true,
-          "select": [
-            {
-              "text": "Não",
-              "value": "false",
-              "default": true
-            },
-            {
-              "text": "Sim",
-              "value": "true"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": 2,
       "title": "01 | Dozzle",
       "name": "dozzle",
       "description": "O Dozzle é uma aplicação para monitoramento de logs em tempo real.",
@@ -243,7 +24,7 @@
           "label": "Subdomínio da Evolution",
           "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
           "required": true,
-          "default": "api",
+          "default": "logs",
           "preset": false
         },
         {
@@ -310,6 +91,14 @@
       },
       "env": [
         {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
           "name": "SUBDOMAIN",
           "label": "Subdomínio do Postgres",
           "description": "O subdominio que sera usado para acessar o Postgres.",
@@ -323,14 +112,6 @@
           "description": "Domínio principal do seu site.",
           "required": true,
           "default": "seudominio.com.br",
-          "preset": false
-        },
-        {
-          "name": "SENHA_POSTGRES",
-          "label": "Senha do Postgres",
-          "description": "Senha do Postgres.",
-          "required": true,
-          "default": "1435BA8E1698F8E4FD72762AD3F86",
           "preset": false
         },
         {
@@ -534,10 +315,10 @@
         },
         {
           "name": "SECRET_KEY_BASE",
-          "label": "Subdomínio do Chatwoot",
-          "description": "O subdominio que sera usado para acessar o Chatwoot.",
+          "label": "Chave 32 caracteres",
+          "description": "Chave segura gerada com 32 caracteres aleatórios.",
           "required": true,
-          "default": "chatwoot",
+          "default": "mpRkYLWmiFRGpayAV0LbA0lPG1nBqQs3",
           "preset": false
         },
         {
@@ -621,6 +402,91 @@
           "description": "O subdominio webhook que sera usado para acessar o n8n.",
           "required": true,
           "default": "webhook",
+          "preset": false
+        },
+        {
+          "name": "S3_HOST",
+          "label": "Domínio s3 do Minio",
+          "description": "Domínio s3 do Minio.",
+          "required": true,
+          "default": "s3.seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_KEY",
+          "label": "Access Key do S3 do Bucket do Minio",
+          "description": "Access Key do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_SECRET",
+          "label": "Access Secret do S3 do Bucket do Minio",
+          "description": "Access Secret do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "10 | Evolution API",
+      "name": "evolution",
+      "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
+      "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull.",
+      "logo": "https://github.com/EvolutionAPI/evolution-api/blob/main/public/images/evolution-logo.png?raw=true",
+      "website": "https://doc.evolution-api.com/",
+      "categories": [
+        "Chatbot",
+        "API",
+        "WhatsApp"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "evolution/evolution.yml"
+      },
+      "env": [
+        {
+          "name": "SUA_EMPRESA",
+          "label": "Nome da sua Empresa",
+          "description": "Nome da sua Empresa.",
+          "required": true,
+          "default": "Bitfy",
+          "preset": false
+        },
+        {
+          "name": "AUTHENTICATION_API_KEY",
+          "label": "AUTHENTICATION_API_KEY",
+          "description": "Gere uma 256 wep https://acte.ltd/utils/randomkeygen.",
+          "required": true,
+          "default": "F7F3DC2B2E19629D4CA635156B5B3",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do Evolution",
+          "description": "O subdominio que sera usado para acessar o Evolution.",
+          "required": true,
+          "default": "directus",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
           "preset": false
         },
         {
