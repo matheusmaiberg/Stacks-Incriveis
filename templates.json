@@ -580,7 +580,7 @@
       "platform": "linux",
       "repository": {
         "url": "https://github.com/gustavo9br/Stacks-Incriveis",
-        "stackfile": "n8n/n8n.yaml"
+        "stackfile": "n8n/n8n.yml"
       },
       "env": [
         {
