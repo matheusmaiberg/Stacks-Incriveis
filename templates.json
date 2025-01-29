@@ -371,7 +371,7 @@
         {
           "name": "SENHA_POSTGRES",
           "label": "Senha do Postgres",
-          "description": "O subdominio que sera usado para acessar o Pgbouncer.",
+          "description": "Senha do Postgres.",
           "required": true,
           "default": "1435BA8E1698F8E4FD72762AD3F86",
           "preset": false
@@ -466,6 +466,22 @@
       },
       "env": [
         {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao Minio",
+          "description": "Email para acesso ao Minio.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "  Senha para acesso ao Minio",
+          "description": "Senha para acesso ao Minio.",
+          "required": true,
+          "default": "12345678",
+          "preset": false
+        },
+        {
           "name": "SUBDOMAIN",
           "label": "Subdomínio do Minio",
           "description": "O subdominio que sera usado para acessar o Minio.",
@@ -509,6 +525,30 @@
       },
       "env": [
         {
+          "name": "SUA_EMPRESA",
+          "label": "Nome da sua Empresa",
+          "description": "Nome da sua Empresa.",
+          "required": true,
+          "default": "Bitfy",
+          "preset": false
+        },
+        {
+          "name": "SECRET_KEY_BASE",
+          "label": "Subdomínio do Chatwoot",
+          "description": "O subdominio que sera usado para acessar o Chatwoot.",
+          "required": true,
+          "default": "chatwoot",
+          "preset": false
+        },
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
           "name": "SUBDOMAIN",
           "label": "Subdomínio do Chatwoot",
           "description": "O subdominio que sera usado para acessar o Chatwoot.",
@@ -544,11 +584,27 @@
       },
       "env": [
         {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
           "name": "SUBDOMAIN",
           "label": "Subdomínio do n8n",
           "description": "O subdominio que sera usado para acessar o n8n.",
           "required": true,
           "default": "flows",
+          "preset": false
+        },
+        {
+          "name": "VERSION",
+          "label": "Versão do n8n",
+          "description": "Versão do n8n.",
+          "required": true,
+          "default": "1.75.2",
           "preset": false
         },
         {
@@ -561,10 +617,34 @@
         },
         {
           "name": "SUBDOMAIN_WEBHOOK",
-          "label": "Subdomínio do n8n",
-          "description": "O subdominio que sera usado para acessar o n8n.",
+          "label": "Subdomínio webhook do n8n",
+          "description": "O subdominio webhook que sera usado para acessar o n8n.",
           "required": true,
           "default": "webhook",
+          "preset": false
+        },
+        {
+          "name": "S3_HOST",
+          "label": "Domínio s3 do Minio",
+          "description": "Domínio s3 do Minio.",
+          "required": true,
+          "default": "s3.seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_KEY",
+          "label": "Access Key do S3 do Bucket do Minio",
+          "description": "Access Key do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_SECRET",
+          "label": "Access Secret do S3 do Bucket do Minio",
+          "description": "Access Secret do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
           "preset": false
         }
       ]
@@ -638,6 +718,30 @@
       },
       "env": [
         {
+          "name": "SECRET_KEY_ENV",
+          "label": "Secret Keys & Env",
+          "description": "Secret Keys & Env com pelo menos 31 caracteres.",
+          "required": true,
+          "default": "PL2QiDCs70ceRmOLm1BL2L2Fz3LhsCgI",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao Directus",
+          "description": "Email para acesso ao Directus.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "Senha para acesso ao Directus",
+          "description": "Senha para acesso ao Directus.",
+          "required": true,
+          "default": "12345678",
+          "preset": false
+        },
+        {
           "name": "SUBDOMAIN",
           "label": "Subdomínio do Directus",
           "description": "O subdominio que sera usado para acessar o Directus.",
@@ -651,6 +755,38 @@
           "description": "Domínio principal do seu site.",
           "required": true,
           "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
+          "name": "S3_HOST",
+          "label": "Domínio s3 do Minio",
+          "description": "Domínio s3 do Minio.",
+          "required": true,
+          "default": "s3.seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_KEY",
+          "label": "Access Key do S3 do Bucket do Minio",
+          "description": "Access Key do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_SECRET",
+          "label": "Access Secret do S3 do Bucket do Minio",
+          "description": "Access Secret do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
           "preset": false
         }
       ]

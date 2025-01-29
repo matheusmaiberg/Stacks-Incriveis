@@ -1,11 +1,11 @@
 x-variaveis:
   &variaveis
-    INSTALLATION_NAME: "Sua Empresa"
+    INSTALLATION_NAME: "${SUA_EMPRESA}"
     ENABLE_ACCOUNT_SIGNUP: "false"
     INSTALLATION_ENV: "docker"
     FORCE_SSL: "true"
     DEFAULT_LOCALE: "pt_BR"
-    SECRET_KEY_BASE: "senha “Encryption key 256”"  # Rode o comando: bundle exec rake secret
+    SECRET_KEY_BASE: "${SECRET_KEY_BASE}"
     FRONTEND_URL: "https://${SUBDOMAIN:-chatwoot}.${DOMAIN:-seudominio.com.br}"
     NODE_ENV: "production"
     RAILS_ENV: "production"
@@ -63,7 +63,7 @@ services:
        && bundle exec rails db:migrate
     environment:
       <<: *variaveis
-    image: sendingtk/chatwoot:v3.13.6
+    image: sendingtk/chatwoot:v3.14.1
     entrypoint: docker/entrypoints/rails.sh
     # Após deploy trocar os comandos comentando, o prepare cria as tabelas do banco de dados e segundo expõe e executa o frontend na porta 3000 do container
     deploy: 
@@ -94,7 +94,7 @@ services:
   chatwoot_worker: 
     environment: 
       <<: *variaveis
-    image: sendingtk/chatwoot:v3.13.6
+    image: sendingtk/chatwoot:v3.14.1
     command: bundle exec sidekiq -C config/sidekiq.yml
     volumes: 
       - chatwoot_data:/app/storage

@@ -10,11 +10,10 @@ services:
       - interna
       - externa
     environment: 
-      - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=sua_senha_super_segura
-      - MINIO_BROWSER_REDIRECT_URL=https://minio.seudominio.com.br
-      - MINIO_SERVER_URL=https://s3.seudominio.com.br
-    deploy: 
+      - MINIO_ROOT_USER=${SEU_EMAIL}
+      - MINIO_ROOT_PASSWORD=${SUA_SENHA}
+      - MINIO_BROWSER_REDIRECT_URL=https://${SUBDOMAIN}.${DOMAIN}
+      - MINIO_SERVER_URL=https://${SUBDOMAIN_S3}.${DOMAIN}
       mode: replicated
       replicas: 1
       placement: 

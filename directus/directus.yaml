@@ -3,32 +3,31 @@ services:
     image: directus/directus:11.3.4
     environment:
       # Secret Keys & Env
-      - KEY=sua_senha # Atualize
-      - SECRET=sua_senha # Atualize
+      - KEY=${SECRET_KEY_ENV}
+      - SECRET=${SECRET_KEY_ENV}
       - APP_ENV=production
-      - ADMIN_EMAIL=example@example.com # Atualize
-      - ADMIN_PASSWORD=sua_senha # Atualize
-      - PUBLIC_URL=https://app.seu-dominio.com # Atualize
-
+      - ADMIN_EMAIL=${SEU_EMAIL}
+      - ADMIN_PASSWORD=${SUA_SENHA}
+      - PUBLIC_URL=https://${SUBDOMAIN}.${DOMAIN}
       # Dados SMTP
-      - EMAIL_TRANSPORT=smtp
-      - EMAIL_SMTP_USER=example@smtp.com # Atualize
-      - EMAIL_SMTP_PASSWORD=senha_smtp # Atualize
-      - EMAIL_SMTP_HOST=smtp-relay.brevo.com # Para outro Host, atualize 
-      - EMAIL_SMTP_PORT=587
-      - EMAIL_SMTP_IGNORE_TLS=true
-      - EMAIL_FROM=from@example.com # Atualize
-      - EMAIL_SMTP_SECURE=false
-      - EMAIL_VERIFY_SETUP=true
+      #- EMAIL_TRANSPORT=smtp
+      #- EMAIL_SMTP_USER=example@smtp.com
+      #- EMAIL_SMTP_PASSWORD=senha_smtp
+      #- EMAIL_SMTP_HOST=smtp-relay.brevo.com # Para outro Host, atualize 
+      #- EMAIL_SMTP_PORT=587
+      #- EMAIL_SMTP_IGNORE_TLS=true
+      #- EMAIL_FROM=from@example.com 
+      #- EMAIL_SMTP_SECURE=false
+      #- EMAIL_VERIFY_SETUP=true
 
       # Dados MinIO
       - STORAGE_LOCATIONS=s3
       - STORAGE_S3_DRIVER=s3 
-      - STORAGE_S3_KEY=directus
-      - STORAGE_S3_SECRET=sua_secret_key # Atualize
+      - STORAGE_S3_KEY=${ACCESS_KEY}
+      - STORAGE_S3_SECRET=${ACCESS_SECRET}
       - STORAGE_S3_BUCKET=directus
       - STORAGE_S3_REGION=us-east-1
-      - STORAGE_S3_ENDPOINT=s3.seu-dominio.com # Atualize
+      - STORAGE_S3_ENDPOINT=${S3_HOST}
       - STORAGE_S3_FORCE_PATH_STYLE=true
 
       # Redis
@@ -43,7 +42,7 @@ services:
       - DB_PORT=5432
       - DB_DATABASE=directus
       - DB_USER=postgres
-      - DB_PASSWORD=sua_senha_postgres # Atualize
+      - DB_PASSWORD=${SENHA_POSTGRES}
       
       # Cors
       - CORS_ENABLED=true
