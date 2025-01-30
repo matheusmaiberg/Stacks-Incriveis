@@ -1,23 +1,44 @@
 version: "3.7"
 services:
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: wp_database
-      MYSQL_USER: wp_user
-      MYSQL_PASSWORD: wp_password
-    volumes:
-      - db_data:/var/lib/mysql
+  mysql:
+    image: percona:8
+    hostname: "{{.Service.Name}}.{{.Task.Slot}}"
+    command:
+      [
+        --character-set-server=utf8mb4,
+        --collation-server=utf8mb4_general_ci,
+        --sql-mode=,
+        --default-authentication-plugin=mysql_native_password,
+        --max-allowed-packet=512MB,
+        --port=3306,
+      ]
     networks:
-      - interna
+      - externa
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - TZ=America/Fortaleza
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+          # - node.hostname == database
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024M
 
 volumes:
-  db_data:
+  mysql_data:
     external: true
-    name: db_data
+    name: mysql_data
 
 networks:
-  interna:
-    name: interna
+  externa:
     external: true
+    name: externa
