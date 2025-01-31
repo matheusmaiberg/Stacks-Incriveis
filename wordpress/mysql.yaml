@@ -13,7 +13,7 @@ services:
         --port=3306,
       ]
     networks:
-      - externa
+      - interna
     ports:
       - 3306:3306
     volumes:
@@ -39,6 +39,6 @@ volumes:
     name: mysql_data
 
 networks:
-  externa:
+  interna:
     external: true
-    name: externa
+    name: interna
