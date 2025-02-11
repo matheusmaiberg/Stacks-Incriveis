@@ -21,7 +21,7 @@
       "env": [
         {
           "name": "SUBDOMAIN",
-          "label": "Subdomínio da Evolution",
+          "label": "Subdomínio da dozzle",
           "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
           "required": true,
           "default": "logs",
@@ -30,7 +30,7 @@
         {
           "name": "DOMAIN",
           "label": "Domínio principal do seu site",
-          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
+          "description": "Domínio principal do seu site.",
           "required": true,
           "default": "seudominio.com.br",
           "preset": false
@@ -60,7 +60,7 @@
           "label": "Subdomínio do Gafana",
           "description": "O subdominio que sera usado para acessar o Grafana.",
           "required": true,
-          "default": "logs",
+          "default": "monitoramento",
           "preset": false
         },
         {

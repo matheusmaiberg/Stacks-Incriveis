@@ -1,6 +1,6 @@
 services:
   evolution:
-    image: atendai/evolution-api:v2.1.1
+    image: atendai/evolution-api:v2.2.3
     command: ["node", "./dist/src/main.js"]
     environment:
       ## Endereço Público da API
