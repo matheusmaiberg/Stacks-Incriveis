@@ -6,7 +6,7 @@ x-variaveis:
     FORCE_SSL: "true"
     DEFAULT_LOCALE: "pt_BR"
     SECRET_KEY_BASE: "${SECRET_KEY_BASE}"
-    FRONTEND_URL: "https://${SUBDOMAIN:-chatwoot}.${DOMAIN:-seudominio.com.br}"
+    FRONTEND_URL: "https://${SUBDOMAIN}.${DOMAIN}"
     NODE_ENV: "production"
     RAILS_ENV: "production"
 
@@ -75,7 +75,7 @@ services:
       labels: 
         - traefik.enable=true
         - traefik.http.routers.chatwoot.service=chatwoot
-        - traefik.http.routers.chatwoot.rule=Host(`${SUBDOMAIN:-chatwoot}.${DOMAIN:-seudominio.com.br}`)
+        - traefik.http.routers.chatwoot.rule=Host(`${SUBDOMAIN}.${DOMAIN}`)
         - traefik.http.services.chatwoot.loadbalancer.server.port=3000
         - traefik.http.routers.chatwoot.entrypoints=websecure
         - traefik.http.routers.chatwoot.tls.certresolver=le

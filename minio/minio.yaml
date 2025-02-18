@@ -14,6 +14,7 @@ services:
       - MINIO_ROOT_PASSWORD=${SUA_SENHA}
       - MINIO_BROWSER_REDIRECT_URL=https://${SUBDOMAIN}.${DOMAIN}
       - MINIO_SERVER_URL=https://${SUBDOMAIN_S3}.${DOMAIN}
+    deploy: 
       mode: replicated
       replicas: 1
       placement: 
@@ -25,7 +26,7 @@ services:
           memory: 2048M
       labels: 
         - traefik.enable=true
-        - traefik.http.routers.s3.rule=Host(`${SUBDOMAIN_S3:-s3}.${DOMAIN:-seudominio.com.br}`)
+        - traefik.http.routers.s3.rule=Host(`${SUBDOMAIN_S3}.${DOMAIN}`)
         - traefik.http.routers.s3.entrypoints=websecure
         - traefik.http.routers.s3.tls.certresolver=le
         - traefik.http.services.s3.loadbalancer.server.port=9000
@@ -37,7 +38,7 @@ services:
         - traefik.http.services.minio.loadbalancer.server.port=9001
         - traefik.http.services.minio.loadbalancer.passHostHeader=true
         - traefik.http.routers.minio.service=minio
-        - traefik.http.routers.minio.rule=Host(`${SUBDOMAIN:-minio}.${DOMAIN:-seudominio.com.br}`)
+        - traefik.http.routers.minio.rule=Host(`${SUBDOMAIN}.${DOMAIN}`)
 
 volumes: 
   minio_data: 
