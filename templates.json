@@ -3,7 +3,436 @@
   "templates": [
     {
       "type": 2,
-      "title": "02 | Evolution API",
+      "title": "01 | Dozzle",
+      "name": "dozzle",
+      "description": "O Dozzle é uma aplicação para monitoramento de logs em tempo real.",
+      "note": "OBS: È obrigatório o config. ## **Passo 1: Configurando Credenciais do Dozzle** 1. Acesse a seção **`Configs`** no menu lateral do Portainer, nó principal. 2. Crie uma nova configuração chamada **`config_dozzle`** com o conteúdo que se encontra na documentação:",
+      "logo": "https://raw.githubusercontent.com/amir20/dozzle/refs/heads/master/docs/public/logo.svg?raw=true",
+      "website": "https://dozzle.dev",
+      "categories": [
+        "Log",
+        "Debug"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "dozzle/dozzle.yml"
+      },
+      "env": [
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio da dozzle",
+          "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
+          "required": true,
+          "default": "logs",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "02 | Grafana",
+      "name": "grafana",
+      "description": "O Grafana é uma ferramenta robusta que suporta múltiplas fontes de dados e será utilizada para monitorar nossa aplicação.",
+      "note": "O Grafana é uma ferramenta robusta que suporta múltiplas fontes de dados e será utilizada para monitorar nossa aplicação. Com ela, podemos criar dashboards para visualização e análise de métricas.",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg?raw=true",
+      "website": "https://grafana.com",
+      "categories": [
+        "Log",
+        "Debug"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "grafana/grafana.yaml"
+      },
+      "env": [
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do Gafana",
+          "description": "O subdominio que sera usado para acessar o Grafana.",
+          "required": true,
+          "default": "monitoramento",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "03 | Postgres",
+      "name": "postgres",
+      "description": "O PostgreSQL será o banco de dados relacional da nossa aplicação.",
+      "note": "O PostgreSQL será o banco de dados relacional da nossa aplicação. Neste guia, configuraremos o PostgreSQL com um script para criar bancos de dados automaticamente e integraremos o PgAdmin para gerenciamento visual.",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg?raw=true",
+      "website": "https://Postgres.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "postgres/postgres.yaml"
+      },
+      "env": [
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do PgAdmin",
+          "description": "O subdominio que sera usado para acessar o PgAdmin.",
+          "required": true,
+          "default": "pgadmin",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao PgAdmin",
+          "description": "Email para acesso ao PgAdmin.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "Senha para acesso ao PgAdmin",
+          "description": "Senha para acesso ao PgAdmin.",
+          "required": true,
+          "default": "12345678",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "04 | Pgbouncer",
+      "name": "pgbouncer",
+      "description": "O PgBouncer é uma ferramenta essencial para produção e ambientes de alta demanda.",
+      "note": "O PgBouncer é uma ferramenta essencial para produção e ambientes de alta demanda. Ele gerencia as conexões com o banco de dados, proporcionando maior eficiência e escalabilidade.",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg?raw=true",
+      "website": "https://pgbouncer.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "pgbouncer/pgbouncer.yaml"
+      },
+      "env": [
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "05 | Rabbitmq",
+      "name": "rabbitmq",
+      "description": "O RabbitMQ é um dos principais gerenciadores de filas de mensageria Open Source do mercado.",
+      "note": "O RabbitMQ é um dos principais gerenciadores de filas de mensageria Open Source do mercado. Ele garantirá a alta disponibilidade da nossa aplicação e o gerenciamento eficiente das mensagens.",
+      "logo": "https://uploads.sitepoint.com/wp-content/uploads/2014/06/1403445197RabbitMQ.sh-600x600-300x300.png?raw=true",
+      "website": "https://rabbitmq.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "rabbitmq/rabbitmq.yaml"
+      },
+      "env": [
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do Rabbitmq",
+          "description": "O subdominio que sera usado para acessar o Rabbitmq.",
+          "required": true,
+          "default": "rabbitmq",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao Rabbitmq",
+          "description": "Email para acesso ao Rabbitmq.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "  Senha para acesso ao Rabbitmq",
+          "description": "Senha para acesso ao Rabbitmq.",
+          "required": true,
+          "default": "12345678",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "06 | Redis",
+      "name": "redis",
+      "description": "O Redis é o principal banco de dados em memória Open Source, amplamente utilizado para memória cache.",
+      "note": "O Redis é o principal banco de dados em memória Open Source, amplamente utilizado para memória cache, gerenciamento de dados temporários e diversas outras funcionalidades que exigem alta performance.",
+      "logo": "https://luizladeira.wordpress.com/wp-content/uploads/2020/09/redis-1.png?raw=true",
+      "website": "https://redis.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "redis/redis.yaml"
+      },
+      "env": [
+      ]
+    },
+    {
+      "type": 2,
+      "title": "07 | Minio",
+      "name": "minio",
+      "description": "O Minio é uma versão Open Source compatível com o protocolo S3 da Amazon.",
+      "note": "O Minio é uma versão Open Source compatível com o protocolo S3 da Amazon. Usaremos o Minio para o gerenciamento de arquivos em geral, incluindo integração com nossas aplicações.",
+      "logo": "https://images.peerspot.com/image/upload/c_scale,f_auto,q_auto,w_100/w9l593yvqnusnz7stqcq6fcnvf6o.png?raw=true",
+      "website": "https://minio.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "minio/minio.yaml"
+      },
+      "env": [
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao Minio",
+          "description": "Email para acesso ao Minio.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "  Senha para acesso ao Minio",
+          "description": "Senha para acesso ao Minio.",
+          "required": true,
+          "default": "12345678",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do Minio",
+          "description": "O subdominio que sera usado para acessar o Minio.",
+          "required": true,
+          "default": "minio",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN_S3",
+          "label": "Subdomínio do S3",
+          "description": "O subdominio que sera usado para acessar o S3.",
+          "required": true,
+          "default": "s3",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "08 | Chatwoot",
+      "name": "chatwoot",
+      "description": "O Chatwoot é uma aplicação robusta para comunicação omnichannel.",
+      "note": "O Chatwoot é uma aplicação robusta para comunicação omnichannel, ideal para integrar canais como chat ao vivo, e-mails e redes sociais em um único lugar. Este guia abordará o setup completo para produção, incluindo Redis, Postgres e SMTP.",
+      "logo": "https://raw.githubusercontent.com/chatwoot/chatwoot/refs/heads/develop/public/brand-assets/logo_thumbnail.svg?raw=true",
+      "website": "https://chatwoot.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "chatwoot/chatwoot.yaml"
+      },
+      "env": [
+        {
+          "name": "SUA_EMPRESA",
+          "label": "Nome da sua Empresa",
+          "description": "Nome da sua Empresa.",
+          "required": true,
+          "default": "Bitfy",
+          "preset": false
+        },
+        {
+          "name": "SECRET_KEY_BASE",
+          "label": "Chave 32 caracteres",
+          "description": "Chave segura gerada com 32 caracteres aleatórios.",
+          "required": true,
+          "default": "mpRkYLWmiFRGpayAV0LbA0lPG1nBqQs3",
+          "preset": false
+        },
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do Chatwoot",
+          "description": "O subdominio que sera usado para acessar o Chatwoot.",
+          "required": true,
+          "default": "chatwoot",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "09 | n8n",
+      "name": "n8n",
+      "description": "O n8n é uma poderosa ferramenta de automação low-code e de código aberto.",
+      "note": "O n8n é uma poderosa ferramenta de automação low-code e de código aberto. Ele permite criar fluxos de trabalho automatizados com facilidade, integrando diversas fontes de dados. Neste guia, configuraremos o n8n para produção com suporte a Redis, Postgres e armazenamento S3.",
+      "logo": "https://raw.githubusercontent.com/n8n-io/n8n/refs/heads/master/packages/editor-ui/src/components/Logo/logo-icon.svg?raw=true",
+      "website": "https://n8n.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "n8n/n8n.yml"
+      },
+      "env": [
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do n8n",
+          "description": "O subdominio que sera usado para acessar o n8n.",
+          "required": true,
+          "default": "flows",
+          "preset": false
+        },
+        {
+          "name": "VERSION",
+          "label": "Versão do n8n",
+          "description": "Versão do n8n.",
+          "required": true,
+          "default": "1.75.2",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN_WEBHOOK",
+          "label": "Subdomínio webhook do n8n",
+          "description": "O subdominio webhook que sera usado para acessar o n8n.",
+          "required": true,
+          "default": "webhook",
+          "preset": false
+        },
+        {
+          "name": "S3_HOST",
+          "label": "Domínio s3 do Minio",
+          "description": "Domínio s3 do Minio.",
+          "required": true,
+          "default": "s3.seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_KEY",
+          "label": "Access Key do S3 do Bucket do Minio",
+          "description": "Access Key do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_SECRET",
+          "label": "Access Secret do S3 do Bucket do Minio",
+          "description": "Access Secret do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "10 | Evolution API",
       "name": "evolution",
       "description": "Ferramenta para integração de WhatsApp com Typebot e Chatwoot.",
       "note": "Evolution é uma aplicação gratuita de código aberto para conectar seu WhatsApp via QRCode ou Código de confirmação com integração com Chatwoot, Typebot e outras ferramentas. Ela também permite criar automações com requisições RESTfull.",
@@ -16,242 +445,214 @@
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "evolution/evolution.yml"
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "evolution/evolution.yaml"
       },
       "env": [
         {
-          "name": "EXPOSED_PORT",
-          "label": "Porta",
-          "description": "A porta que será exposta sua Evolution API.",
+          "name": "SUA_EMPRESA",
+          "label": "Nome da sua Empresa",
+          "description": "Nome da sua Empresa.",
           "required": true,
-          "preset": false,
-          "select": [
-            {
-              "text": "8080",
-              "value": "8080",
-              "default": true
-            },
-            {
-              "text": "8081",
-              "value": "8081"
-            },
-            {
-              "text": "8090",
-              "value": "8090"
-            },
-            {
-              "text": "8091",
-              "value": "8091"
-            }
-          ]
-        },
-        {
-          "name": "VERSION",
-          "label": "Versão",
-          "description": "A versão da Evolution API que será instalada na sua VPS.",
-          "required": true,
-          "preset": true,
-          "select": [
-            {
-              "text": "v1.6.1",
-              "value": "v1.6.1",
-              "default": true
-            },
-            {
-              "text": "v1.6.0",
-              "value": "v1.6.0"
-            },
-            {
-              "text": "v1.5.4",
-              "value": "v1.5.4"
-            },
-            {
-              "text": "Testes (homolog)",
-              "value": "homolog"
-            }
-          ]
+          "default": "Bitfy",
+          "preset": false
         },
         {
           "name": "AUTHENTICATION_API_KEY",
-          "label": "Chave de segurança (apikey global)",
-          "description": "Chave que tem que ser inserida no header todas as requisições para acessar a API.",
+          "label": "AUTHENTICATION_API_KEY",
+          "description": "Gere uma 256 wep https://acte.ltd/utils/randomkeygen.",
           "required": true,
-          "default": "example-AI5AB2AC5C8AA7AD15AC3DE8C",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_USER",
-          "label": "Usuário do MongoDB",
-          "description": "Seu usuário do MongoDB.",
-          "required": true,
-          "default": "root",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_PASS",
-          "label": "Senha MongoDB",
-          "description": "Sua senha do MongoDB.",
-          "required": true,
-          "default": "root",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_IP",
-          "label": "URL ou IP do MongoDB",
-          "description": "Url ou IP do MongoDB.",
-          "required": true,
-          "default": "mongodb",
-          "preset": false
-        },
-        {
-          "name": "MONGODB_PORT",
-          "label": "Porta MongoDB",
-          "description": "Porta do acesso ao MongoDB.",
-          "required": true,
-          "default": "27017",
+          "default": "I3mmtWNNhqMPLgdDVLiSxbPkQpXis3Lt",
           "preset": false
         },
         {
           "name": "SUBDOMAIN",
-          "label": "Subdomínio da Evolution",
-          "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
+          "label": "Subdomínio do Evolution",
+          "description": "O subdominio que sera usado para acessar o Evolution.",
           "required": true,
-          "default": "api",
+          "default": "evolution",
           "preset": false
         },
         {
           "name": "DOMAIN",
           "label": "Domínio principal do seu site",
-          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
+          "description": "Domínio principal do seu site.",
           "required": true,
           "default": "seudominio.com.br",
           "preset": false
         },
         {
-          "name": "NOME_EMPRESA",
-          "label": "Nome da conexão no WhatsApp",
-          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
           "required": true,
-          "default": "Chrome",
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
           "preset": false
         },
         {
-          "name": "QRCODE_COLOR",
-          "label": "Cor do QRCode",
-          "description": "A description for this env var",
-          "select": [
-            {
-              "text": "Preto",
-              "value": "#000000",
-              "default": true
-            },
-            {
-              "text": "Laranja",
-              "value": "#ff6900"
-            },
-            {
-              "text": "Vermelho",
-              "value": "#db291c"
-            }
-          ]
+          "name": "S3_HOST",
+          "label": "Domínio s3 do Minio",
+          "description": "Domínio s3 do Minio.",
+          "required": true,
+          "default": "s3.seudominio.com.br",
+          "preset": false
         },
         {
-          "name": "TYPEBOT_API_VERSION",
-          "label": "Versão da API do Typebot",
-          "description": "Versão da API do Typebot.",
-          "default": "latest",
-          "preset": true,
-          "select": [
-            {
-              "text": "Acima da v2.20.0",
-              "value": "latest",
-              "default": true
-            },
-            {
-              "text": "Abaixo da v2.19.0",
-              "value": "old"
-            }
-          ]
+          "name": "S3_ACCESS_KEY",
+          "label": "Access Key do S3 do Bucket do Minio",
+          "description": "Access Key do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
         },
         {
-          "name": "LOG_LEVEL",
-          "label": "Nível de logs",
-          "description": "Versão da API do Typebot.",
-          "default": "latest",
-          "preset": true,
-          "select": [
-            {
-              "text": "Todos",
-              "value": "ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS",
-              "default": true
-            },
-            {
-              "text": "Erros",
-              "value": "ERROR,VERBOSE"
-            },
-            {
-              "text": "Informações e avisos",
-              "value": "INFO,VERBOSE,WARN"
-            },
-            {
-              "text": "Webhooks",
-              "value": "WEBHOOKS"
-            }
-          ]
-        },
-        {
-          "name": "AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES",
-          "label": "Expor apikey no fetch instances",
-          "description": "Quando chamar o endpoint '/fetchInstances/', expor as chaves de api privada de cada uma das instancias de WhatsApp.",
-          "default": "latest",
-          "preset": true,
-          "select": [
-            {
-              "text": "Não",
-              "value": "false",
-              "default": true
-            },
-            {
-              "text": "Sim",
-              "value": "true"
-            }
-          ]
+          "name": "S3_ACCESS_SECRET",
+          "label": "Access Secret do S3 do Bucket do Minio",
+          "description": "Access Secret do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
         }
       ]
     },
     {
       "type": 2,
-      "title": "01 | Dozzle",
-      "name": "dozzle",
-      "description": "O Dozzle é uma aplicação para monitoramento de logs em tempo real.",
-      "note": "O Dozzle é uma aplicação para monitoramento de logs em tempo real, ideal para rodar em ambientes de produção. Embora não seja obrigatório, é altamente recomendado. Caso esteja com pressa para rodar sua aplicação, você pode pular esta parte e retornar mais tarde",
-      "logo": "https://raw.githubusercontent.com/amir20/dozzle/refs/heads/master/docs/public/logo.svg?raw=true",
-      "website": "https://dozzle.dev/",
+      "title": "11 | PDF",
+      "name": "pdf",
+      "description": "O Stirling PDF é uma ferramenta open source para gerenciamento e processamento avançado de arquivos PDF.",
+      "note": "O Stirling PDF é uma ferramenta open source para gerenciamento e processamento avançado de arquivos PDF. Ele suporta funcionalidades como OCR (Reconhecimento Óptico de Caracteres) e configurações de segurança, tornando-se ideal para uso em ambientes de produção.",
+      "logo": "https://raw.githubusercontent.com/Stirling-Tools/Stirling-PDF/main/docs/stirling.png?raw=true",
+      "website": "https://Stirling.com",
       "categories": [
-        "Log",
-        "Debug"
+        "Anna"
       ],
       "platform": "linux",
       "repository": {
-        "url": "https://github.com/matheusmaiberg/one-click-stacks",
-        "stackfile": "dozzle/dozzle.yml"
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "pdf/pdf.yaml"
       },
       "env": [
         {
           "name": "SUBDOMAIN",
-          "label": "Subdomínio da Evolution",
-          "description": "O subdominio que sera usado para acessar e fazer requisições para a API da Evolution.",
+          "label": "Subdomínio do Stirling",
+          "description": "O subdominio que sera usado para acessar o Stirling.",
           "required": true,
-          "default": "api",
+          "default": "pdf",
           "preset": false
         },
         {
           "name": "DOMAIN",
           "label": "Domínio principal do seu site",
-          "description": "Nome da empresa que aparecera na configuração do Whatsapp para o usuário.",
+          "description": "Domínio principal do seu site.",
           "required": true,
           "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao pdf",
+          "description": "Email para acesso ao pdf.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "  Senha para acesso ao pdf",
+          "description": "Senha para acesso ao pdf.",
+          "required": true,
+          "default": "12345678",
+          "preset": false
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "12 | Directus",
+      "name": "directus",
+      "description": "O Directus é uma aplicação backend completa que oferece uma API REST e uma interface visual fácil de configurar",
+      "note": "O Directus é uma aplicação backend completa que oferece uma API REST e uma interface visual fácil de configurar. Seguiremos os passos para configurar o Directus com integração ao PostgreSQL, Redis e Minio.",
+      "logo": "https://raw.githubusercontent.com/directus/directus/refs/heads/main/app/src/views/public/logo-dark.svg?raw=true",
+      "website": "https://directus.com",
+      "categories": [
+        "Anna"
+      ],
+      "platform": "linux",
+      "repository": {
+        "url": "https://github.com/gustavo9br/Stacks-Incriveis",
+        "stackfile": "directus/directus.yaml"
+      },
+      "env": [
+        {
+          "name": "SECRET_KEY_ENV",
+          "label": "Secret Keys & Env",
+          "description": "Secret Keys & Env com pelo menos 31 caracteres.",
+          "required": true,
+          "default": "PL2QiDCs70ceRmOLm1BL2L2Fz3LhsCgI",
+          "preset": false
+        },
+        {
+          "name": "SEU_EMAIL",
+          "label": "Email para acesso ao Directus",
+          "description": "Email para acesso ao Directus.",
+          "required": true,
+          "default": "seu-email@mail.com",
+          "preset": false
+        },
+        {
+          "name": "SUA_SENHA",
+          "label": "Senha para acesso ao Directus",
+          "description": "Senha para acesso ao Directus.",
+          "required": true,
+          "default": "12345678",
+          "preset": false
+        },
+        {
+          "name": "SUBDOMAIN",
+          "label": "Subdomínio do Directus",
+          "description": "O subdominio que sera usado para acessar o Directus.",
+          "required": true,
+          "default": "directus",
+          "preset": false
+        },
+        {
+          "name": "DOMAIN",
+          "label": "Domínio principal do seu site",
+          "description": "Domínio principal do seu site.",
+          "required": true,
+          "default": "seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "SENHA_POSTGRES",
+          "label": "Senha do Postgres",
+          "description": "Senha do Postgres.",
+          "required": true,
+          "default": "1435BA8E1698F8E4FD72762AD3F86",
+          "preset": false
+        },
+        {
+          "name": "S3_HOST",
+          "label": "Domínio s3 do Minio",
+          "description": "Domínio s3 do Minio.",
+          "required": true,
+          "default": "s3.seudominio.com.br",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_KEY",
+          "label": "Access Key do S3 do Bucket do Minio",
+          "description": "Access Key do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
+          "preset": false
+        },
+        {
+          "name": "S3_ACCESS_SECRET",
+          "label": "Access Secret do S3 do Bucket do Minio",
+          "description": "Access Secret do S3 do Bucket do Minio.",
+          "required": true,
+          "default": "",
           "preset": false
         }
       ]
