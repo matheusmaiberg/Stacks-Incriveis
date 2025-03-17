@@ -139,7 +139,7 @@ services:
         traefik.http.services.evolution.loadbalancer.server.port: 8080
         traefik.http.services.evolution.loadbalancer.passHostHeader: "true"
         traefik.http.routers.evolution.service: "evolution"
-        traefik.http.routers.evolution.rule: "Host(`${SUBDOMAIN:-evo}.${DOMAIN:-seudominio.com.br}`)"
+        traefik.http.routers.evolution.rule: "Host(`${SUBDOMAIN}.${DOMAIN}`)"
         traefik.http.routers.evolution.tls.certresolver: "le"
         traefik.http.routers.evolution.entrypoints: "websecure"
         traefik.http.routers.evolution.tls: "true"
