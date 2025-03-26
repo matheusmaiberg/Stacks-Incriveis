@@ -3,7 +3,7 @@ x-variaveis:
     INSTALLATION_NAME: "${SUA_EMPRESA}"
     ENABLE_ACCOUNT_SIGNUP: "false"
     INSTALLATION_ENV: "docker"
-    FORCE_SSL: "true"
+    FORCE_SSL: "false"
     DEFAULT_LOCALE: "pt_BR"
     SECRET_KEY_BASE: "${SECRET_KEY_BASE}"
     FRONTEND_URL: "https://${SUBDOMAIN}.${DOMAIN}"
