@@ -1,0 +1,104 @@
+version: "3.8"
+
+services:
+  typebot_builder:
+    image: elestio/typebot-builder:v2.27.0
+    networks:
+      - externa
+      - interna
+    environment:
+      #user:pass@hostname:porta/banco
+      DATABASE_URL: postgresql://postgres:senha_do_postgres@postgres:5432/typebot
+      ENCRYPTION_SECRET: 2602ceb3ef3ced2646534d7ae073e87c
+      NEXTAUTH_URL: https://typebot.seudominio.com
+      NEXT_PUBLIC_VIEWER_URL: https://doit.seudominio.com
+      NEXTAUTH_URL_INTERNAL: http://localhost:3000
+      ADMIN_EMAIL: seu_email@gmail.com
+      #defina como "true" para desabilitar novos cadastros, faça isso depois de fazer o primeiro login
+      DISABLE_SIGNUP: "false"
+      #SMTP
+      SMTP_HOST: smtp.gmail.com
+      SMTP_USERNAME: seu_email@gmail.com
+      SMTP_PASSWORD: Senha_do_app_sem espaço
+      #coloque dentro do sinal de maior e menor ex: <michel@gmail.com>
+      #Infomome o mesmo valor utilizado da variavel SMTP_USERNAME
+      NEXT_PUBLIC_SMTP_FROM: "Sua Empresa <seu_email@gmail.com>"
+      SMTP_PORT: 587
+      SMTP_SECURE: "true"
+      #Minio
+      S3_ACCESS_KEY: hjl1bR1aV0SdlVawddqnH
+      S3_SECRET_KEY: VK2YhrlK1UY3mtVRddDmgEMJ8FNtvT5czUwxYXc7tI
+      S3_BUCKET: typebot
+      S3_ENDPOINT: s3.seudominio.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.typebot_builder.rule=Host(`typebot.seudominio.com`)
+        - traefik.http.routers.typebot_builder.tls.certresolver=le
+        - traefik.http.routers.typebot_builder.entrypoints=websecure
+        - traefik.http.routers.typebot_builder.tls=true
+        - traefik.http.routers.typebot_builder.service=typebot_builder
+        - traefik.http.services.typebot_builder.loadbalancer.server.port=3000
+
+  typebot_viewer:
+    image: elestio/typebot-viewer:v2.27.0
+    networks:
+      - externa
+      - interna
+    environment:
+      #user:pass@hostname:porta/banco
+      DATABASE_URL: postgresql://postgres:senha_do_postgres@postgres:5432/typebot
+      ENCRYPTION_SECRET: 2602ceb3ef3ced2646534d7ae073e87c
+      NEXTAUTH_URL: https://typebot.seudominio.com
+      NEXT_PUBLIC_VIEWER_URL: https://doit.seudominio.com
+      NEXTAUTH_URL_INTERNAL: http://localhost:3000
+      ADMIN_EMAIL: seu_email@gmail.com
+      #defina como "true" para desabilitar novos cadastros, faça isso depois de fazer o primeiro login
+      DISABLE_SIGNUP: "false"
+      #SMTP
+      SMTP_HOST: smtp.gmail.com
+      SMTP_USERNAME: seu_email@gmail.com
+      SMTP_PASSWORD: Senha_do_app_sem espaço
+      #coloque dentro do sinal de maior e menor ex: <michel@gmail.com>
+      #Infomome o mesmo valor utilizado da variavel SMTP_USERNAME
+      NEXT_PUBLIC_SMTP_FROM: "Sua Empresa <seu_email@gmail.com>"
+      SMTP_PORT: 587
+      SMTP_SECURE: "true"
+      #Minio
+      S3_ACCESS_KEY: hjl1bR1aV0SdlVawddqnH
+      S3_SECRET_KEY: VK2YhrlK1UY3mtVRddDmgEMJ8FNtvT5czUwxYXc7tI
+      S3_BUCKET: typebot
+      S3_ENDPOINT: s3.seudominio.com
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048M
+      labels:
+        - traefik.enable=true
+        #SSL
+        - traefik.http.routers.typebot_viewer.rule=Host(`doit.seudominio.com`)
+        - traefik.http.routers.typebot_viewer.tls.certresolver=le
+        - traefik.http.routers.typebot_viewer.entrypoints=websecure
+        - traefik.http.routers.typebot_viewer.tls=true
+        - traefik.http.routers.typebot_viewer.service=typebot_viewer
+        - traefik.http.services.typebot_viewer.loadbalancer.server.port=3000
+networks: 
+  externa: 
+    external: true
+  interna: 
+    external: true

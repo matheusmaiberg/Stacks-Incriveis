@@ -1,0 +1,37 @@
+services:
+  stirling-pdf:
+    image: frooodle/s-pdf:latest
+    # ports:
+    #   - '8080:8080'
+    # volumes:
+    #   - ./trainingData:/usr/share/tessdata #Required for extra OCR languages
+    #   - ./extraConfigs:/configs
+#      - ./customFiles:/customFiles/
+#      - ./logs:/logs/
+    environment:
+      - DOCKER_ENABLE_SECURITY=true
+      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false
+      - LANGS=pt_BR
+      - SECURITY_ENABLE_LOGIN=true # Habilita o login via configurações internas
+      - SECURITY_INITIALLOGIN_USERNAME=${SEU_EMAIL}
+      - SECURITY_INITIALLOGIN_PASSWORD=${SUA_SENHA}
+    deploy:
+      labels:
+        traefik.enable: "true" 
+        traefik.http.routers.pdf.service: "pdf" 
+        traefik.http.routers.pdf.rule: "Host(`${SUBDOMAIN:-pdf}.${DOMAIN:-seudominio.com.br}`)"
+        traefik.http.routers.pdf.entrypoints: "websecure"
+        traefik.http.routers.pdf.tls.certresolver: "le"
+        traefik.http.services.pdf.loadbalancer.server.port: 8080
+        traefik.http.services.pdf.loadbalancer.passHostHeader: "true"
+    networks:
+      - interna
+      - externa
+      
+networks:
+  externa:
+    name: externa
+    external: true
+  interna:
+    name: interna
+    external: true

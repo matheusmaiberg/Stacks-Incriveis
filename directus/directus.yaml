@@ -1,0 +1,79 @@
+services:
+  directus:
+    image: directus/directus:11.3.4
+    environment:
+      # Secret Keys & Env
+      - KEY=${SECRET_KEY_ENV}
+      - SECRET=${SECRET_KEY_ENV}
+      - APP_ENV=production
+      - ADMIN_EMAIL=${SEU_EMAIL}
+      - ADMIN_PASSWORD=${SUA_SENHA}
+      - PUBLIC_URL=https://${SUBDOMAIN}.${DOMAIN}
+      # Dados SMTP
+      #- EMAIL_TRANSPORT=smtp
+      #- EMAIL_SMTP_USER=example@smtp.com
+      #- EMAIL_SMTP_PASSWORD=senha_smtp
+      #- EMAIL_SMTP_HOST=smtp-relay.brevo.com # Para outro Host, atualize 
+      #- EMAIL_SMTP_PORT=587
+      #- EMAIL_SMTP_IGNORE_TLS=true
+      #- EMAIL_FROM=from@example.com 
+      #- EMAIL_SMTP_SECURE=false
+      #- EMAIL_VERIFY_SETUP=true
+
+      # Dados MinIO
+      - STORAGE_LOCATIONS=s3
+      - STORAGE_S3_DRIVER=s3 
+      - STORAGE_S3_KEY=${S3_ACCESS_KEY}
+      - STORAGE_S3_SECRET=${S3_ACCESS_SECRET}
+      - STORAGE_S3_BUCKET=directus
+      - STORAGE_S3_REGION=us-east-1
+      - STORAGE_S3_ENDPOINT=${S3_HOST}
+      - STORAGE_S3_FORCE_PATH_STYLE=true
+
+      # Redis
+      - CACHE_ENABLED=false
+      - CACHE_STORE=redis
+      - CACHE_AUTO_PURGE=true
+      - REDIS=redis://redis:6379/8
+
+      # Dados Postgres
+      - DB_CLIENT=pg
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=directus
+      - DB_USER=postgres
+      - DB_PASSWORD=${SENHA_POSTGRES}
+      
+      # Cors
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=true
+      - CORS_METHODS=GET,POST,PATCH,DELETE
+    volumes:
+      - extensions:/directus/extensions
+      - templates:/directus/templates
+ 
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.directus.service: "directus"
+        traefik.http.routers.directus.rule: "Host(`${SUBDOMAIN:-directus}.${DOMAIN:-seudominio.com.br}`)"
+        traefik.http.services.directus.loadbalancer.server.port: "8055"
+        traefik.http.routers.directus.entrypoints: "websecure"
+        traefik.http.routers.directus.tls.certresolver: "le"
+    networks:
+      - externa
+      - interna
+volumes:
+  extensions:
+  templates:
+  
+networks:
+  interna:
+    external: true
+  externa:
+    external: true

@@ -1,0 +1,63 @@
+services: 
+  postgres: 
+    image: postgres:16
+    command: [
+        postgres, 
+        --max_connections=300,
+        --wal_level=minimal,
+        --max_wal_senders=0,
+      ]
+    environment: 
+      - POSTGRES_PASSWORD=${SENHA_POSTGRES}
+      - POSTGRES_INITDB_ARGS="--auth-host=scram-sha-256"
+    networks: 
+      - interna
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+    deploy: 
+      mode: replicated
+      replicas: 1
+      resources: 
+        limits: 
+          cpus: "2"
+          memory: 2048M
+    # Comente essa config caso nao deseje que bancos sejam criados automaticamente na primeira vez que iniciar o postgres
+    configs: 
+      - source: entrypoint_postgres
+        target: /docker-entrypoint-initdb.d/init-db.sh
+        mode: 0755
+
+  pgadmin4: 
+    image: 'dpage/pgadmin4'
+    restart: always
+    #ports:
+    #  - '5050:80'
+    deploy: 
+      labels:
+        traefik.enable: "true"
+        traefik.http.routers.pga.entrypoints: "websecure"
+        traefik.http.routers.pga.tls.certresolver: "le"
+        traefik.http.services.pga.loadbalancer.server.port: 80
+        traefik.http.services.pga.loadbalancer.passHostHeader: "true"
+        traefik.http.routers.pga.rule: "Host(`${SUBDOMAIN:-pgadmin}.${DOMAIN:-seudominio.com.br}`)"
+        traefik.http.routers.pga.service: "pga"
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: '${SEU_EMAIL}'
+      PGADMIN_DEFAULT_PASSWORD: '${SUA_SENHA}'
+    networks: 
+      - interna
+      - externa
+
+volumes: 
+  postgres_data: 
+    external: true
+
+configs: 
+  entrypoint_postgres: 
+    external: true
+
+networks: 
+  interna: 
+    external: true
+  externa: 
+    external: true

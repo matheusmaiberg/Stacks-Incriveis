@@ -3,8 +3,6 @@ services:
     image: amir20/dozzle:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-#    ports: 
-#      - 4040:8080
     environment: 
       DOZZLE_MODE: "swarm"
       DOZZLE_AUTH_PROVIDER: "simple"
@@ -20,7 +18,7 @@ services:
         traefik.enable: "true"
         traefik.http.routers.dozzle.service: "dozzle"
         traefik.http.services.dozzle.loadbalancer.server.port: 8080
-        traefik.http.routers.dozzle.rule: "Host(`${SUBDOMAIN}.${DOMAIN}`)" # Atualize
+        traefik.http.routers.dozzle.rule: "Host(`${SUBDOMAIN}.${DOMAIN}`)"
         traefik.http.routers.dozzle.tls: "true"
         traefik.http.routers.dozzle.tls.certresolver: "le"
         traefik.http.routers.dozzle.entrypoints: "websecure"

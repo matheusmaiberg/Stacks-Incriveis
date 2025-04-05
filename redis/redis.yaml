@@ -1,0 +1,29 @@
+services: 
+  redis: 
+    image: redis:7.2.4
+    command: ["redis-server", "--appendonly", "yes", "--port", "6379"]
+    #command: ["redis-server", "--appendonly", "yes", "--port", "6379", "--requirepass", "SENHA_AQUI"]
+    # ports:
+    #   - 6379:6379
+    networks: 
+      - interna
+    volumes: 
+      - redis_data:/data
+    deploy: 
+      mode: replicated
+      replicas: 1
+      resources: 
+        limits: 
+          cpus: "1"
+          memory: 1024M
+      placement: 
+        constraints: 
+          - node.role == manager
+
+volumes: 
+  redis_data: 
+    external: true
+
+networks: 
+  interna: 
+    external: true
