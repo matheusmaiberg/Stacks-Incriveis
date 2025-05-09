@@ -16,7 +16,7 @@ services:
     ports:
     - 9999:9999
     networks:
-      - publica
+      - externa
       - interna
     deploy:
       # mode: replicated # Mode: replicated
@@ -42,11 +42,8 @@ volumes:
   volume_name:
 
 networks:
-  publica:
-    name: traefik_public
+  externa:
     external: true
   interna:
-    name: app_network
     external: true
-    driver: overlay
     
